@@ -20,8 +20,6 @@ export default function CreateAccountPage() {
                 id="name"
                 name="name"
                 type="text"
-                autoComplete="name"
-                required
                 className="appearance-none block w-full px-3 py-2 border border-light-gray rounded-md shadow-sm placeholder-light-gray focus:outline-none focus:ring-primary-accent focus:border-primary-accent sm:text-sm text-dark-foreground"
               />
             </div>
@@ -31,14 +29,7 @@ export default function CreateAccountPage() {
               Phone Number
             </label>
             <div className="mt-1">
-              <input
-                id="phone"
-                name="phone"
-                type="tel"
-                autoComplete="tel"
-                required
-                className="appearance-none block w-full px-3 py-2 border border-light-gray rounded-md shadow-sm placeholder-light-gray focus:outline-none focus:ring-primary-accent focus:border-primary-accent sm:text-sm text-dark-foreground"
-              />
+className="appearance-none block w-full px-3 py-2 border border-light-gray rounded-md shadow-sm placeholder-light-gray focus:outline-none focus:ring-primary-accent focus:border-primary-accent sm:text-sm text-dark-foreground"
             </div>
           </div>
           <div>
@@ -77,7 +68,7 @@ export default function CreateAccountPage() {
           <div>
             <button
               type="submit"
-              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#476c2e] hover:bg-secondary-accent focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#476c2e]"
+              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#476c2e] hover:bg-[var(--secondary-accent)] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#476c2e]"
             >
               Create Account
             </button>

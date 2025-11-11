@@ -78,10 +78,7 @@ export default function YourBusinessesPageContent() {
       <p className="mt-4 text-dark-foreground">Manage all your registered businesses.</p>
 
       <div className="mt-6">
-        <button
-          onClick={() => setShowCreateForm(!showCreateForm)}
-          className="inline-flex justify-center rounded-md border border-transparent bg-primary-accent py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-secondary-accent focus:outline-none focus:ring-2 focus:ring-primary-accent focus:ring-offset-2"
-        >
+className="inline-flex justify-center rounded-md border border-transparent bg-primary-accent py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-[var(--secondary-accent)] focus:outline-none focus:ring-2 focus:ring-primary-accent focus:ring-offset-2"        >
           {showCreateForm ? "Cancel" : "Create New Business"}
         </button>
       </div>
@@ -96,11 +93,7 @@ export default function YourBusinessesPageContent() {
                 Owner&apos;s Name
               </label>
               <input
-                id="ownerName"
-                name="ownerName"
-                type="text"
-                required
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-accent focus:ring-primary-accent text-dark-foreground"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-accent focus:ring-[var(--primary-accent)] text-dark-foreground"
               />
             </div>
 
@@ -114,7 +107,7 @@ export default function YourBusinessesPageContent() {
                 name="percentOwnership"
                 type="text"
                 required
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-accent focus:ring-primary-accent text-dark-foreground"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-accent focus:ring-[var(--primary-accent)] text-dark-foreground"
               />
             </div>
 
@@ -128,7 +121,7 @@ export default function YourBusinessesPageContent() {
                 name="businessName"
                 type="text"
                 required
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-primary-accent text-dark-foreground"
+className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-[var(--primary-accent)] text-dark-foreground"
               />
             </div>
 
@@ -290,7 +283,7 @@ export default function YourBusinessesPageContent() {
                 file:rounded-md file:border-0
                 file:text-sm file:font-semibold
                 file:bg-primary-accent file:text-white
-                hover:file:bg-secondary-accent"
+                hover:file:bg-[var(--secondary-accent)]"
             />
           </div>
 
@@ -304,7 +297,7 @@ export default function YourBusinessesPageContent() {
           <div>
             <button
               type="submit"
-              className="inline-flex justify-center rounded-md border border-transparent bg-primary-accent py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-secondary-accent focus:outline-none focus:ring-2 focus:ring-primary-accent focus:ring-offset-2"
+              className="inline-flex justify-center rounded-md border border-transparent bg-primary-accent py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-[var(--secondary-accent)] focus:outline-none focus:ring-2 focus:ring-primary-accent focus:ring-offset-2"
             >
               Create Business Profile
             </button>
