@@ -132,6 +132,7 @@ export default function MessagesPage({
     };
   
     return (
+      <>
       <div className="p-4 md:p-8">
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-3xl font-bold text-dark-foreground">Messages</h1>
@@ -635,5 +636,6 @@ export default function MessagesPage({
           </form>
         )}
       </div>
+      </>
     );
   }
