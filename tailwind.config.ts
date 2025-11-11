@@ -12,6 +12,9 @@ const config: Config = {
       'light-background': '#ffffff',
       'dark-foreground': '#363636',
     },
+    backgroundColor: {
+      'red': '#ff0000', // Add a red background color for testing
+    }
   },
   plugins: [],
 };
