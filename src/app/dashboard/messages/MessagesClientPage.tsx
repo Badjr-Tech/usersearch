@@ -359,7 +359,7 @@ export default function MessagesPage({
                       </div>
                     </form>
                   )}
-                </div>      </>
+      </>
     );
   }
             </div>
