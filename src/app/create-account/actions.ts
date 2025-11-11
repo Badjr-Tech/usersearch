@@ -4,22 +4,31 @@ import { db } from "@/db";
 import { users } from "@/db/schema";
 import bcrypt from "bcrypt";
 
-export async function createAccount(formData: FormData) {
+type FormState = {
+  message: string;
+  error: string;
+} | undefined;
+
+export async function createAccount(prevState: FormState, formData: FormData): Promise<FormState> {
   const name = formData.get("name") as string;
   const phone = formData.get("phone") as string;
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
 
-  const hashedPassword = await bcrypt.hash(password, 10);
+  try {
+    const hashedPassword = await bcrypt.hash(password, 10);
 
-  await db.insert(users).values({
-    name,
-    phone,
-    email,
-    password: hashedPassword,
-  });
+    await db.insert(users).values({
+      name,
+      phone,
+      email,
+      password: hashedPassword,
+    });
 
-  // In a real app, you'd want to redirect the user to the login page
-  // or directly log them in.
-  console.log("Account created successfully!");
+    console.log("Account created successfully!");
+    return { message: "Account created successfully!", error: "" };
+  } catch (error) {
+    console.error("Error creating account:", error);
+    return { message: "", error: "Failed to create account." };
+  }
 }
