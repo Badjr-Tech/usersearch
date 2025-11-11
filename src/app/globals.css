@@ -1,6 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 :root {
   --background: #ffffff;
@@ -10,6 +8,14 @@
   --light-gray: #e9e9e9;
   --font-bebas-neue: 'Bebas Neue', sans-serif;
   --font-dm-sans: 'DM Sans', sans-serif;
+}
+
+@theme {
+  --colors-primary-accent: var(--primary-accent);
+  --colors-secondary-accent: var(--secondary-accent);
+  --colors-light-gray: var(--light-gray);
+  --colors-light-background: var(--background);
+  --colors-dark-foreground: var(--foreground);
 }
 
 body {
