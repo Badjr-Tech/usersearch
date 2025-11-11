@@ -5,7 +5,7 @@ export default function Home() {
     <div className="min-h-screen bg-light-background flex flex-col justify-center items-center">
       <div className="max-w-md w-full text-center">
         <h1 className="text-4xl font-bold text-dark-foreground mb-4">
-          Welcome to HeightenTheHustle Portal
+          USER PORTAL
         </h1>
         <p className="text-lg text-dark-foreground mb-8">
           Your one-stop destination for amazing things.
