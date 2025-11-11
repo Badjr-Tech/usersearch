@@ -27,10 +27,10 @@ export async function createAccount(prevState: FormState, formData: FormData): P
 
     console.log("Account created successfully!");
     return { message: "Account created successfully!", error: "" };
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Error creating account:", error);
     let errorMessage = "Failed to create account.";
-    if (error.message) {
+    if (error instanceof Error) {
       errorMessage = `Failed to create account: ${error.message}`;
     }
     return { message: "", error: errorMessage };
