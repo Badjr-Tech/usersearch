@@ -90,13 +90,17 @@ export async function login(prevState: FormState, formData: FormData) {
     } else {
       redirect("/dashboard"); // Redirect to dashboard if businesses exist
     }
-  } catch (error) {
+  } catch (error: any) {
     // Re-throw NEXT_REDIRECT errors to allow Next.js to handle the redirect
     if (error && typeof error === 'object' && 'digest' in error && typeof error.digest === 'string' && error.digest.startsWith('NEXT_REDIRECT')) {
       throw error;
     }
     console.error("Login error:", error); // Log other errors for server-side debugging
-    return { error: "An unexpected error occurred during login." };
+    let errorMessage = "An unexpected error occurred during login.";
+    if (error.message) {
+      errorMessage = `Login failed: ${error.message}`;
+    }
+    return { error: errorMessage };
   }
 }
 
