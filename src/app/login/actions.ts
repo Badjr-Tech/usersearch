@@ -56,38 +56,51 @@ export type FormState = {
 } | undefined;
 
 export async function login(prevState: FormState, formData: FormData) {
+  console.log("Login function started.");
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
 
+  console.log("Attempting to find user in DB with email:", email);
   const user = await db.query.users.findFirst({
     where: eq(users.email, email),
   });
+  console.log("User found:", !!user);
 
   if (!user) {
+    console.log("User not found or invalid credentials.");
     return { error: "Invalid email or password" };
   }
 
+  console.log("Comparing password for user:", user.id);
   const isPasswordValid = await bcrypt.compare(password, user.password);
+  console.log("Password valid:", isPasswordValid);
 
   if (!isPasswordValid) {
+    console.log("Invalid password.");
     return { error: "Invalid email or password" };
   }
 
   try {
-    // Create session
+    console.log("Creating session for user:", user.id);
     const expires = new Date(Date.now() + 60 * 60 * 1000); // 1 hour
 
     const cookieStore = await cookies();
-    cookieStore.set("session", await encrypt({ user, expires }), { expires, httpOnly: true });
+    console.log("Encrypting session payload.");
+    const encryptedSession = await encrypt({ user, expires });
+    cookieStore.set("session", encryptedSession, { expires, httpOnly: true });
+    console.log("Session cookie set.");
 
-    // Check if user has any active businesses
+    console.log("Checking for user businesses.");
     const userBusinesses = await db.query.businesses.findFirst({
       where: eq(businesses.userId, user.id),
     });
+    console.log("User businesses found:", !!userBusinesses);
 
     if (!userBusinesses) {
+      console.log("Redirecting to dashboard (no businesses).");
       redirect("/dashboard"); // Redirect to dashboard (home page) if no businesses exist
     } else {
+      console.log("Redirecting to dashboard (businesses exist).");
       redirect("/dashboard"); // Redirect to dashboard if businesses exist
     }
   } catch (error: unknown) {
@@ -95,7 +108,7 @@ export async function login(prevState: FormState, formData: FormData) {
     if (error && typeof error === 'object' && 'digest' in error && typeof error.digest === 'string' && error.digest.startsWith('NEXT_REDIRECT')) {
       throw error;
     }
-    console.error("Login error:", error); // Log other errors for server-side debugging
+    console.error("Login error caught in catch block:", error); // Log other errors for server-side debugging
     let errorMessage = "An unexpected error occurred during login.";
     if (error instanceof Error) {
       errorMessage = `Login failed: ${error.message}`;
