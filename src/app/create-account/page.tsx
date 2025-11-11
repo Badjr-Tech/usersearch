@@ -1,3 +1,5 @@
+"use client";
+
 import { useFormState } from "react-dom";
 import { createAccount } from "./actions";
 
