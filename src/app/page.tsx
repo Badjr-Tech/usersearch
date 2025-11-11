@@ -11,10 +11,10 @@ export default function Home() {
           Your one-stop destination for amazing things.
         </p>
         <div className="flex justify-center gap-4">
-          <Link href="/login" className="px-6 py-3 bg-secondary-accent text-white font-semibold rounded-lg shadow-md hover:bg-secondary-accent transition-colors">
+          <Link href="/login" className="px-6 py-3 bg-[#476c2e] text-white font-semibold rounded-lg shadow-md hover:bg-secondary-accent transition-colors">
             Login
           </Link>
-          <Link href="/create-account" className="px-6 py-3 bg-secondary-accent text-white font-semibold rounded-lg shadow-md hover:bg-secondary-accent transition-colors">
+          <Link href="/create-account" className="px-6 py-3 bg-[#476c2e] text-white font-semibold rounded-lg shadow-md hover:bg-secondary-accent transition-colors">
             Create an account
           </Link>
         </div>
