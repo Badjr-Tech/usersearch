@@ -57,7 +57,7 @@ export default async function DashboardLayout({
       <main className="flex-1 flex flex-col text-gray-900 p-6">
         {children}
         <footer className="mt-auto py-4 text-center text-sm text-[var(--foreground)]">
-          by Badjr
+          Tech By Badjr
         </footer>
       </main>
     </div>
