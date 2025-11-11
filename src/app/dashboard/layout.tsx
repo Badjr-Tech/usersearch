@@ -23,7 +23,7 @@ export default async function DashboardLayout({
   return (
     <div className="flex min-h-screen bg-gray-50">
       {/* Sidebar */}
-      <aside className="w-64 bg-secondary-accent text-white p-4 space-y-6">
+      <aside className="w-64 bg-secondary-accent text-[var(--foreground)] p-4 space-y-6">
         <nav className="space-y-2">
           <Link href="/dashboard" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-light-gray">Home</Link>
           <Link href="/dashboard/businesses" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-light-gray">Businesses</Link>
