@@ -11,7 +11,7 @@
 }
 
 @theme {
-  --colors-primary-accent: var(--primary-accent);
+  --colors-primary-accent: #ffbd5a;
   --colors-secondary-accent: var(--secondary-accent);
   --colors-light-gray: var(--light-gray);
   --colors-light-background: var(--background);
