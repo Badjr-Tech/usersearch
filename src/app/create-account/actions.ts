@@ -4,7 +4,7 @@ import { db } from "@/db";
 import { users } from "@/db/schema";
 import bcrypt from "bcrypt";
 
-type FormState = {
+export type FormState = {
   message: string;
   error: string;
 } | undefined;
