@@ -29,7 +29,13 @@ export default function CreateAccountPage() {
               Phone Number
             </label>
             <div className="mt-1">
-className="appearance-none block w-full px-3 py-2 border border-light-gray rounded-md shadow-sm placeholder-light-gray focus:outline-none focus:ring-primary-accent focus:border-primary-accent sm:text-sm text-dark-foreground"
+              <input
+                id="phone"
+                name="phone"
+                type="text"
+                required
+                className="appearance-none block w-full px-3 py-2 border border-light-gray rounded-md shadow-sm placeholder-light-gray focus:outline-none focus:ring-primary-accent focus:border-primary-accent sm:text-sm text-dark-foreground"
+              />
             </div>
           </div>
           <div>

@@ -78,7 +78,10 @@ export default function YourBusinessesPageContent() {
       <p className="mt-4 text-dark-foreground">Manage all your registered businesses.</p>
 
       <div className="mt-6">
-className="inline-flex justify-center rounded-md border border-transparent bg-primary-accent py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-[var(--secondary-accent)] focus:outline-none focus:ring-2 focus:ring-primary-accent focus:ring-offset-2"        >
+        <button
+          onClick={() => setShowCreateForm(!showCreateForm)}
+          className="inline-flex justify-center rounded-md border border-transparent bg-primary-accent py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-[var(--secondary-accent)] focus:outline-none focus:ring-2 focus:ring-primary-accent focus:ring-offset-2"
+        >
           {showCreateForm ? "Cancel" : "Create New Business"}
         </button>
       </div>
