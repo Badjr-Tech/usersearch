@@ -4,6 +4,9 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --primary-accent: #ffbd5a;
+  --secondary-accent: #476c2e;
+  --light-gray: #e9e9e9;
   --font-bebas-neue: 'Bebas Neue', sans-serif;
   --font-dm-sans: 'DM Sans', sans-serif;
 }

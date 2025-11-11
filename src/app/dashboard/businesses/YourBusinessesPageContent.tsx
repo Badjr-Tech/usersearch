@@ -74,13 +74,13 @@ export default function YourBusinessesPageContent() {
 
   return (
     <>
-      <h1 className="text-3xl font-bold text-gray-900">Your Businesses</h1>
-      <p className="mt-4 text-gray-700">Manage all your registered businesses.</p>
+      <h1 className="text-dark-foreground">Your Businesses</h1>
+      <p className="mt-4 text-dark-foreground">Manage all your registered businesses.</p>
 
       <div className="mt-6">
         <button
           onClick={() => setShowCreateForm(!showCreateForm)}
-          className="inline-flex justify-center rounded-md border border-transparent bg-[#910000] py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-[#7a0000] focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+          className="inline-flex justify-center rounded-md border border-transparent bg-primary-accent py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-secondary-accent focus:outline-none focus:ring-2 focus:ring-primary-accent focus:ring-offset-2"
         >
           {showCreateForm ? "Cancel" : "Create New Business"}
         </button>
@@ -88,11 +88,11 @@ export default function YourBusinessesPageContent() {
 
       {showCreateForm && (
         <div className="mt-8 max-w-2xl p-6 bg-white shadow-md rounded-lg">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Create New Business Profile</h2>
+          <h2 className="text-2xl font-bold text-dark-foreground mb-4">Create New Business Profile</h2>
           <form action={createFormAction} className="space-y-6">
             {/* Owner's Name */}
             <div>
-              <label htmlFor="ownerName" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="ownerName" className="block text-sm font-medium text-dark-foreground">
                 Owner&apos;s Name
               </label>
               <input
@@ -100,28 +100,27 @@ export default function YourBusinessesPageContent() {
                 name="ownerName"
                 type="text"
                 required
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-gray-900"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-accent focus:ring-primary-accent text-dark-foreground"
               />
             </div>
 
             {/* Percent Ownership */}
             <div>
-              <label htmlFor="percentOwnership" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="percentOwnership" className="block text-sm font-medium text-dark-foreground">
                 Percent Ownership
               </label>
               <input
                 id="percentOwnership"
                 name="percentOwnership"
-                type="number"
-                step="0.01"
+                type="text"
                 required
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-gray-900"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-accent focus:ring-primary-accent text-dark-foreground"
               />
             </div>
 
             {/* Business Name */}
             <div>
-              <label htmlFor="businessName" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="businessName" className="block text-sm font-medium text-dark-foreground">
                 Business Name
               </label>
               <input
@@ -129,20 +128,20 @@ export default function YourBusinessesPageContent() {
                 name="businessName"
                 type="text"
                 required
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-gray-900"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-primary-accent text-dark-foreground"
               />
             </div>
 
             {/* Business Type */}
           <div>
-            <label htmlFor="businessType" className="block text-sm font-medium text-gray-700">
+            <label htmlFor="businessType" className="block text-sm font-medium text-dark-foreground">
               Business Type
             </label>
             <select
               id="businessType"
               name="businessType"
               required
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-gray-900"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-primary-accent text-dark-foreground"
             >
               <option value="">Select Business Type</option>
               <option value="Sole Proprietorship">Sole Proprietorship</option>
@@ -154,14 +153,14 @@ export default function YourBusinessesPageContent() {
 
           {/* Business Tax Status */}
           <div>
-            <label htmlFor="businessTaxStatus" className="block text-sm font--medium text-gray-700">
+            <label htmlFor="businessTaxStatus" className="block text-sm font--medium text-dark-foreground">
               Business Tax Status
             </label>
             <select
               id="businessTaxStatus"
               name="businessTaxStatus"
               required
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-gray-900"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-primary-accent text-dark-foreground"
             >
               <option value="">Select Tax Status</option>
               <option value="S-Corporation">S-Corporation</option>
@@ -172,20 +171,20 @@ export default function YourBusinessesPageContent() {
 
           {/* Business Description */}
           <div>
-            <label htmlFor="businessDescription" className="block text-sm font-medium text-gray-700">
+            <label htmlFor="businessDescription" className="block text-sm font-medium text-dark-foreground">
               Business Description
             </label>
             <textarea
               id="businessDescription"
               name="businessDescription"
               rows={3}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-gray-900"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-primary-accent text-dark-foreground"
             ></textarea>
           </div>
 
           {/* Business Industry */}
           <div>
-            <label htmlFor="businessIndustry" className="block text-sm font-medium text-gray-700">
+            <label htmlFor="businessIndustry" className="block text-sm font-medium text-dark-foreground">
               Business Industry
             </label>
             <input
@@ -193,39 +192,39 @@ export default function YourBusinessesPageContent() {
               name="businessIndustry"
               type="text"
               required
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-gray-900"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-primary-accent text-dark-foreground"
             />
           </div>
 
           {/* Street Address */}
           <div>
-            <label htmlFor="streetAddress" className="block text-sm font-medium text-gray-700">
+            <label htmlFor="streetAddress" className="block text-sm font-medium text-dark-foreground">
               Street Address
             </label>
             <input
               id="streetAddress"
               name="streetAddress"
               type="text"
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-gray-900"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-primary-accent text-dark-foreground"
             />
           </div>
 
           {/* City */}
           <div>
-            <label htmlFor="city" className="block text-sm font-medium text-gray-700">
+            <label htmlFor="city" className="block text-sm font-medium text-dark-foreground">
               City
             </label>
             <input
               id="city"
               name="city"
               type="text"
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-gray-900"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-primary-accent text-dark-foreground"
             />
           </div>
 
           {/* State */}
           <div>
-            <label htmlFor="state" className="block text-sm font-medium text-gray-700">
+            <label htmlFor="state" className="block text-sm font-medium text-dark-foreground">
               State
             </label>
             <input
@@ -233,13 +232,13 @@ export default function YourBusinessesPageContent() {
               name="state"
               type="text"
               maxLength={2}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-gray-900"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-primary-accent text-dark-foreground"
             />
           </div>
 
           {/* Zip Code */}
           <div>
-            <label htmlFor="zipCode" className="block text-sm font-medium text-gray-700">
+            <label htmlFor="zipCode" className="block text-sm font-medium text-dark-foreground">
               Zip Code
             </label>
             <input
@@ -247,51 +246,51 @@ export default function YourBusinessesPageContent() {
               name="zipCode"
               type="text"
               maxLength={10}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-gray-900"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-primary-accent text-dark-foreground"
             />
           </div>
 
           {/* Phone */}
           <div>
-            <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
+            <label htmlFor="phone" className="block text-sm font-medium text-dark-foreground">
               Phone
             </label>
             <input
               id="phone"
               name="phone"
               type="text"
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-gray-900"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-primary-accent text-dark-foreground"
             />
           </div>
 
           {/* Website */}
           <div>
-            <label htmlFor="website" className="block text-sm font-medium text-gray-700">
+            <label htmlFor="website" className="block text-sm font-medium text-dark-foreground">
               Website
             </label>
             <input
               id="website"
               name="website"
               type="text"
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-gray-900"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-primary-accent text-dark-foreground"
             />
           </div>
 
           {/* Business Materials Upload */}
           <div>
-            <label htmlFor="businessMaterials" className="block text-sm font-medium text-gray-700">
+            <label htmlFor="businessMaterials" className="block text-sm font-medium text-dark-foreground">
               Business Materials
             </label>
             <input
               id="businessMaterials"
               name="businessMaterials"
               type="file"
-              className="mt-1 block w-full text-sm text-gray-900
+              className="mt-1 block w-full text-sm text-dark-foreground
                 file:mr-4 file:py-2 file:px-4
                 file:rounded-md file:border-0
                 file:text-sm file:font-semibold
-                file:bg-[#910000] file:text-white
-                hover:file:bg-[#7a0000]"
+                file:bg-primary-accent file:text-white
+                hover:file:bg-secondary-accent"
             />
           </div>
 
@@ -305,7 +304,7 @@ export default function YourBusinessesPageContent() {
           <div>
             <button
               type="submit"
-              className="inline-flex justify-center rounded-md border border-transparent bg-[#910000] py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-[#7a0000] focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+              className="inline-flex justify-center rounded-md border border-transparent bg-primary-accent py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-secondary-accent focus:outline-none focus:ring-2 focus:ring-primary-accent focus:ring-offset-2"
             >
               Create Business Profile
             </button>
@@ -317,7 +316,7 @@ export default function YourBusinessesPageContent() {
       {/* Display existing businesses */}
       <div className="mt-8 flex flex-col space-y-4">
         {userBusinesses.length === 0 && !showCreateForm ? (
-          <p className="text-gray-700">You don&apos;t have any businesses yet. Click &quot;Create New Business&quot; to get started!</p>
+          <p className="text-dark-foreground">You don&apos;t have any businesses yet. Click &quot;Create New Business&quot; to get started!</p>
         ) : (
           userBusinesses.map((business) => (
             <button
@@ -333,7 +332,7 @@ export default function YourBusinessesPageContent() {
                 </div>
               )}
               <div>
-                <h3 className="text-xl font-bold text-gray-900">{business.businessName}</h3>
+                <h3 className="text-xl font-bold text-dark-foreground">{business.businessName}</h3>
                 <p className="mt-2 text-sm text-gray-600">Owner: {business.ownerName}</p>
                 <p className="text-sm text-gray-600">Type: {business.businessType}</p>
                 {business.isArchived && (

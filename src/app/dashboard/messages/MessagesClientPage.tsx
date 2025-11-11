@@ -85,6 +85,13 @@ export default function MessagesPage({
   const [searchResults, setSearchResults] = useState<Business[]>([]);
   const [excludeOptedOut, setExcludeOptedOut] = useState(true);
 
+  // Use initial props for data
+  const users = initialInternalUsers;
+  const massMessages = initialMassMessages;
+  const locations = initialLocations;
+  const demographics = initialDemographics;
+  const pendingRequests: PendingRequest[] = []; // Assuming pending requests are not yet implemented or fetched here
+
   useEffect(() => {
     if (searchQuery.length > 2) {
       searchBusinesses(searchQuery).then(setSearchResults);
@@ -107,10 +114,243 @@ export default function MessagesPage({
     );
   };
 
+  const handleCreateCollaborationRequest = async (formData: FormData) => {
+    // Implement collaboration request logic here
+    console.log("Collaboration request created:", formData);
+  };
+
+  const handleSendMessage = async (formData: FormData) => {
+    // Implement send message logic here
+    console.log("Message sent:", formData);
+    sendAction(formData); // Use the form action
+  };
+
+  const handleSendMassMessage = async (formData: FormData) => {
+    // Implement send mass message logic here
+    console.log("Mass message sent:", formData);
+    massSendAction(formData); // Use the form action
+  };
+
   return (
     <div className="p-4 md:p-8">
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold text-gray-900">Messages</h1>
+<h1 className="text-3xl font-bold text-dark-foreground">Messages</h1>
+      <div className="mt-6">
+        <div className="sm:hidden">
+          <label htmlFor="tabs" className="sr-only">Select a tab</label>
+          <select
+            id="tabs"
+            name="tabs"
+            className="block w-full focus:ring-primary-accent focus:border-primary-accent border-light-gray rounded-md"
+            defaultValue={activeTab}
+            onChange={(e) => setActiveTab(e.target.value)}
+          >
+            <option value="mass-messages">Mass Messages</option>
+            <option value="correspondence">Correspondence</option>
+            <option value="pending-requests">Pending Requests</option>
+          </select>
+        </div>
+        <div className="hidden sm:block">
+          <nav className="-mb-px flex space-x-8" aria-label="Tabs">
+            <button
+              onClick={() => setActiveTab('mass-messages')}
+              className={`px-4 py-2 rounded-md text-sm font-medium ${activeTab === 'mass-messages' ? 'bg-primary-accent text-white' : 'bg-light-gray text-dark-foreground'}`}
+            >
+              Mass Messages
+            </button>
+            <button
+              onClick={() => setActiveTab('correspondence')}
+              className={`px-4 py-2 rounded-md text-sm font-medium ${activeTab === 'correspondence' ? 'bg-primary-accent text-white' : 'bg-light-gray text-dark-foreground'}`}
+            >
+              Correspondence
+            </button>
+            <button
+              onClick={() => setActiveTab('pending-requests')}
+              className={`px-4 py-2 rounded-md text-sm font-medium ${activeTab === 'pending-requests' ? 'bg-primary-accent text-white' : 'bg-light-gray text-dark-foreground'}`}
+            >
+              Pending Requests
+            </button>
+          </nav>
+        </div>
+      </div>
+
+      <div className="mt-8">
+        {activeTab === 'correspondence' && (
+          <div>
+            <h2 className="text-2xl font-bold text-dark-foreground mb-4">Create Collaboration Request</h2>
+            <form action={handleCreateCollaborationRequest} className="space-y-4">
+              <div>
+                <label htmlFor="recipientId" className="block text-sm font-medium text-dark-foreground">Recipient</label>
+                <select
+                  id="recipientId"
+                  name="recipientId"
+                  required
+                  className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-light-gray focus:outline-none focus:ring-primary-accent focus:border-primary-accent sm:text-sm rounded-md"
+                >
+                  {users.map(user => (
+                    <option key={user.id} value={user.id}>{user.name} ({user.email})</option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <label htmlFor="message" className="block text-sm font-medium text-dark-foreground">Message</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows={3}
+                  required
+                  className="shadow-sm focus:ring-primary-accent focus:border-primary-accent mt-1 block w-full sm:text-sm border border-light-gray rounded-md"
+                ></textarea>
+              </div>
+              <button
+                type="submit"
+                className="ml-4 inline-flex justify-center rounded-md border border-transparent bg-primary-accent py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-secondary-accent focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+              >
+                Send Request
+              </button>
+            </form>
+
+            <h2 className="text-2xl font-bold text-dark-foreground mb-4 mt-8">Pending Requests</h2>
+            {pendingRequests.length === 0 ? (
+              <p className="text-dark-foreground">No pending collaboration requests.</p>
+            ) : (
+              <ul className="space-y-4">
+                {pendingRequests.map(request => (
+                  <li key={request.id} className="bg-light-gray shadow overflow-hidden sm:rounded-lg p-4">
+                    <p className="text-sm font-semibold">{request.senderId === currentUserId ? "You" : "User"} to {request.senderId === currentUserId ? "User" : "You"}:</p>
+                    <p className="text-dark-foreground">{request.content}</p>
+                    <p className="text-xs text-dark-foreground text-right">{request.timestamp.toLocaleString()}</p>
+                  </li>
+                ))}
+              </ul>
+            )}
+
+            <h2 className="text-2xl font-bold text-dark-foreground mb-4 mt-8">New Message</h2>
+            <form action={handleSendMessage} className="space-y-4">
+              <div>
+                <label htmlFor="recipient" className="block text-sm font-medium text-dark-foreground">Recipient</label>
+                <select
+                  id="recipient"
+                  name="recipient"
+                  required
+                  className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-light-gray focus:outline-none focus:ring-primary-accent focus:border-primary-accent sm:text-sm rounded-md"
+                >
+                  {users.map(user => (
+                    <option key={user.id} value={user.id}>{user.name} ({user.email})</option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <label htmlFor="message" className="block text-sm font-medium text-dark-foreground">Message</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows={3}
+                  required
+                  className="shadow-sm focus:ring-primary-accent focus:border-primary-accent mt-1 block w-full sm:text-sm border border-light-gray rounded-md"
+                ></textarea>
+              </div>
+              {sendState.message && <p className="text-sm text-green-600 mt-2">{sendState.message}</p>}
+              {sendState.error && <p className="text-sm text-red-600 mt-2">{sendState.error}</p>}
+              <button
+                type="submit"
+                className="inline-flex justify-center rounded-md border border-transparent bg-primary-accent py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-secondary-accent focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+              >
+                Send Message
+              </button>
+            </form>
+          </div>
+        )}
+
+        {activeTab === 'mass-messages' && (
+          <div>
+            <h2 className="text-2xl font-bold text-dark-foreground mb-4">Mass Messages</h2>
+            {massMessages.length === 0 ? (
+              <p className="text-dark-foreground">No mass messages sent yet.</p>
+            ) : (
+              <ul className="space-y-4">
+                {massMessages.map(msg => (
+                  <li key={msg.id} className="bg-light-gray shadow overflow-hidden sm:rounded-lg p-4">
+                    <p className="text-dark-foreground">{msg.message}</p>
+                    <p className="text-xs text-dark-foreground text-right">{msg.timestamp.toLocaleString()}</p>
+                  </li>
+                ))}
+              </ul>
+            )}
+
+            <h2 className="text-2xl font-bold text-dark-foreground mb-4 mt-8">Send Mass Message</h2>
+            <form action={handleSendMassMessage} className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-dark-foreground">Target Locations</label>
+                <div className="mt-2 grid grid-cols-2 gap-2">
+                  {locations.map(location => (
+                    <div key={location.id} className="flex items-center">
+                      <input
+                        id={`location-${location.id}`}
+                        name="targetLocations"
+                        type="checkbox"
+                        value={location.id}
+                        className="focus:ring-primary-accent h-4 w-4 text-primary-accent border-light-gray rounded"
+                      />
+                      <label htmlFor={`location-${location.id}`} className="ml-2 text-sm text-dark-foreground">
+                        {location.name}
+                      </label>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-dark-foreground">Target Demographics</label>
+                <div className="mt-2 grid grid-cols-2 gap-2">
+                  {demographics.map(demographic => (
+                    <div key={demographic.id} className="flex items-center">
+                      <input
+                        id={`demographic-${demographic.id}`}
+                        name="targetDemographics"
+                        type="checkbox"
+                        value={demographic.id}
+                        className="focus:ring-primary-accent h-4 w-4 text-primary-accent border-light-gray rounded"
+                      />
+                      <label htmlFor={`demographic-${demographic.id}`} className="ml-2 text-sm text-dark-foreground">
+                        {demographic.name}
+                      </label>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div>
+                <label htmlFor="message" className="block text-sm font-medium text-dark-foreground">Message</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows={3}
+                  required
+                  className="shadow-sm focus:ring-primary-accent focus:border-primary-accent mt-1 block w-full sm:text-sm border border-light-gray rounded-md"
+                ></textarea>
+              </div>
+              <div className="flex items-center">
+                <input
+                  id="excludeOptedOut"
+                  name="excludeOptedOut"
+                  type="checkbox"
+                  className="focus:ring-primary-accent h-4 w-4 text-primary-accent border-light-gray rounded"
+                />
+                <label htmlFor="excludeOptedOut" className="ml-2 text-sm text-dark-foreground">
+                  Exclude users who have opted out of mass messages
+                </label>
+              </div>
+              {massSendState.message && <p className="text-sm text-green-600 mt-2">{massSendState.message}</p>}
+              {massSendState.error && <p className="text-sm text-red-600 mt-2">{massSendState.error}</p>}
+              <button
+                type="submit"
+                className="inline-flex justify-center rounded-md border border-transparent bg-primary-accent py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-secondary-accent focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+              >
+                Send Mass Message
+              </button>
+            </form>
+          </div>
+        )}
+      </div>
         <div className="flex space-x-4">
           {isAdmin && (
             <>

@@ -23,6 +23,7 @@ export default function OptOutForm({ userName, isOptedOut: initialIsOptedOut }: 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [state, formAction] = useFormState(optOutUser, initialState);
   const [isOptedOut, setIsOptedOut] = useState(initialIsOptedOut);
+  const [name, setName] = useState("");
 
   useEffect(() => {
     if (state?.message && !state.error) {
@@ -62,20 +63,23 @@ export default function OptOutForm({ userName, isOptedOut: initialIsOptedOut }: 
             
             <form action={formAction}>
               <div className="mb-4">
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-                  Your Name
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  required
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                />
-              </div>
-
-              {state?.error && <p className="text-red-500 text-sm mb-4">{state.error}</p>}
-              {state?.message && !state.error && <p className="text-green-500 text-sm mb-4">{state.message}</p>}
+<label htmlFor="name" className="block text-sm font-medium text-dark-foreground">
+              Your Name
+            </label>
+            <div className="mt-1">
+              <input
+                type="text"
+                id="name"
+                name="name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+                className="mt-1 block w-full px-3 py-2 border border-light-gray rounded-md shadow-sm focus:outline-none focus:ring-primary-accent focus:border-primary-accent sm:text-sm"
+              />
+            </div>
+          </div>
+          {state?.error && <p className="text-red-500 text-sm mb-4">{state.error}</p>}
+          {state?.message && !state.error && <p className="text-green-500 text-sm mb-4">{state.message}</p>}
 
               <div className="flex items-center justify-between mt-6">
                 <button
