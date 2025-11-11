@@ -1,11 +1,18 @@
+import { useFormState } from "react-dom";
 import { createAccount } from "./actions";
 
+type FormState = {
+  error: string;
+} | undefined;
+
 export default function CreateAccountPage() {
+  const [state, formAction] = useFormState<FormState, FormData>(createAccount, undefined);
+
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center items-center">
       <div className="max-w-md w-full bg-white p-8 rounded-lg shadow-md">
         <h1 className="text-4xl font-bold text-dark-foreground text-center mb-8">Create an Account</h1>
-        <form action={createAccount} className="space-y-6">
+        <form action={formAction} className="space-y-6">
           <div>
             <label htmlFor="name" className="block text-sm font-medium text-dark-foreground">
               Name
