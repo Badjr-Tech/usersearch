@@ -30,9 +30,7 @@ export async function createAccount(prevState: FormState, formData: FormData): P
   } catch (error: any) {
     console.error("Error creating account:", error);
     let errorMessage = "Failed to create account.";
-    if (error.message && error.message.includes("duplicate key value violates unique constraint")) {
-      errorMessage = "An account with this email already exists. Please use a different email or log in.";
-    } else if (error.message) {
+    if (error.message) {
       errorMessage = `Failed to create account: ${error.message}`;
     }
     return { message: "", error: errorMessage };
