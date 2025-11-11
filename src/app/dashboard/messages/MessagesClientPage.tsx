@@ -156,19 +156,19 @@ export default function MessagesPage({
             <nav className="-mb-px flex space-x-8" aria-label="Tabs">
               <button
                 onClick={() => setActiveTab('mass-messages')}
-                className={`px-4 py-2 rounded-md text-sm font-medium ${activeTab === 'mass-messages' ? 'bg-primary-accent text-white' : 'bg-light-gray text-dark-foreground'}`}
+                className={`px-4 py-2 rounded-md text-sm font-medium ${activeTab === 'mass-messages' ? 'bg-secondary-accent text-[var(--foreground)]' : 'bg-light-gray text-[var(--foreground)]'}`}
               >
                 Mass Messages
               </button>
               <button
                 onClick={() => setActiveTab('correspondence')}
-                className={`px-4 py-2 rounded-md text-sm font-medium ${activeTab === 'correspondence' ? 'bg-primary-accent text-white' : 'bg-light-gray text-dark-foreground'}`}
+                className={`px-4 py-2 rounded-md text-sm font-medium ${activeTab === 'correspondence' ? 'bg-secondary-accent text-[var(--foreground)]' : 'bg-light-gray text-[var(--foreground)]'}`}
               >
                 Correspondence
               </button>
               <button
                 onClick={() => setActiveTab('pending-requests')}
-                className={`px-4 py-2 rounded-md text-sm font-medium ${activeTab === 'pending-requests' ? 'bg-primary-accent text-white' : 'bg-light-gray text-dark-foreground'}`}
+                className={`px-4 py-2 rounded-md text-sm font-medium ${activeTab === 'pending-requests' ? 'bg-secondary-accent text-[var(--foreground)]' : 'bg-light-gray text-[var(--foreground)]'}`}
               >
                 Pending Requests
               </button>
@@ -364,13 +364,13 @@ export default function MessagesPage({
                       <>
                         <button
                           onClick={() => setActiveTab('mass-messages')}
-                          className={`px-4 py-2 rounded-md text-sm font-medium ${activeTab === 'mass-messages' ? 'bg-[#910000] text-white' : 'bg-gray-200 text-gray-700'}`}
+                          className={`px-4 py-2 rounded-md text-sm font-medium ${activeTab === 'mass-messages' ? 'bg-secondary-accent text-[var(--foreground)]' : 'bg-light-gray text-[var(--foreground)]'}`}
                         >
                           Mass Messages
                         </button>
                         <button
                           onClick={() => setActiveTab('correspondence')}
-                          className={`px-4 py-2 rounded-md text-sm font-medium ${activeTab === 'correspondence' ? 'bg-[#910000] text-white' : 'bg-gray-200 text-gray-700'}`}
+                          className={`px-4 py-2 rounded-md text-sm font-medium ${activeTab === 'correspondence' ? 'bg-secondary-accent text-[var(--foreground)]' : 'bg-light-gray text-[var(--foreground)]'}`}
                         >
                           Correspondence
                         </button>
@@ -380,13 +380,12 @@ export default function MessagesPage({
                       <>
                         <button
                           onClick={() => setActiveTab('correspondence')}
-                          className={`px-4 py-2 rounded-md text-sm font-medium ${activeTab === 'correspondence' ? 'bg-[#910000] text-white' : 'bg-gray-200 text-gray-700'}`}
+                          className={`px-4 py-2 rounded-md text-sm font-medium ${activeTab === 'correspondence' ? 'bg-secondary-accent text-[var(--foreground)]' : 'bg-light-gray text-[var(--foreground)]'}`}
                         >
-                          Your Correspondence
                         </button>
                         <button
                           onClick={() => setActiveTab('pending-requests')}
-                          className={`px-4 py-2 rounded-md text-sm font-medium ${activeTab === 'pending-requests' ? 'bg-[#910000] text-white' : 'bg-gray-200 text-gray-700'}`}
+                          className={`px-4 py-2 rounded-md text-sm font-medium ${activeTab === 'pending-requests' ? 'bg-secondary-accent text-[var(--foreground)]' : 'bg-light-gray text-[var(--foreground)]'}`}
                         >
                           Pending Requests
                         </button>
