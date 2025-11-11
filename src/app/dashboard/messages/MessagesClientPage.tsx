@@ -350,169 +350,62 @@ export default function MessagesPage({
                             )}
                             {massSendState?.error && (
                               <p className="text-sm text-red-600 mt-2">{massSendState.error}</p>
-                            )}                        <button
-                          type="submit"
-                          className="inline-flex justify-center rounded-md border border-transparent bg-[#476c2e] py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-secondary-accent focus:outline-none focus:ring-2 focus:ring-[#476c2e]"
-                        >
-                          Send Mass Message
-                        </button>
-                      </div>
-                    </form>
-                  )}
-      </>
-    );
-  }
+                            )}                <button
+                  type="submit"
+                  className="inline-flex justify-center rounded-md border border-transparent bg-[#476c2e] py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-secondary-accent focus:outline-none focus:ring-2 focus:ring-[#476c2e]"
+                >
+                  Send Mass Message
+                </button>
+              </form>
             </div>
           )}
-                  <div className="flex space-x-4">
-                    {isAdmin && (
-                      <>
-                        <button
-                          onClick={() => setActiveTab('mass-messages')}
-                          className={`px-4 py-2 rounded-md text-sm font-medium ${activeTab === 'mass-messages' ? 'bg-secondary-accent text-[var(--foreground)]' : 'bg-light-gray text-[var(--foreground)]'}`}
-                        >
-                          Mass Messages
-                        </button>
-                        <button
-                          onClick={() => setActiveTab('correspondence')}
-                          className={`px-4 py-2 rounded-md text-sm font-medium ${activeTab === 'correspondence' ? 'bg-secondary-accent text-[var(--foreground)]' : 'bg-light-gray text-[var(--foreground)]'}`}
-                        >
-                          Correspondence
-                        </button>
-                      </>
-                    )}
-                    {!isAdmin && (
-                      <>
-                        <button
-                          onClick={() => setActiveTab('correspondence')}
-                          className={`px-4 py-2 rounded-md text-sm font-medium ${activeTab === 'correspondence' ? 'bg-secondary-accent text-[var(--foreground)]' : 'bg-light-gray text-[var(--foreground)]'}`}
-                        >
-                        </button>
-                        <button
-                          onClick={() => setActiveTab('pending-requests')}
-                          className={`px-4 py-2 rounded-md text-sm font-medium ${activeTab === 'pending-requests' ? 'bg-secondary-accent text-[var(--foreground)]' : 'bg-light-gray text-[var(--foreground)]'}`}
-                        >
-                          Pending Requests
-                        </button>
-                      </>
-                    )}
+  
+          {activeTab === 'pending-requests' && (
+            <div className="mt-8">
+              <div className="mb-8 p-6 bg-white shadow-md rounded-lg">
+                <h2 className="text-2xl font-bold text-gray-900 mb-4">Create Collaboration Request</h2>
+                <form action={async (formData) => {
+                  const selectedBusinessId = formData.get("business-id");
+                  console.log("Collaboration request created for business:", selectedBusinessId);
+                }}>
+                  <div className="flex items-center">
+                    <input
+                      type="search"
+                      name="business-search"
+                      placeholder="Search for a business..."
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      className="flex-grow rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-gray-900"
+                    />
+                    <button
+                      type="submit"
+                      className="ml-4 inline-flex justify-center rounded-md border border-transparent bg-[#476c2e] py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-secondary-accent focus:outline-none focus:ring-2 focus:ring-[#476c2e]"
+                    >
+                      Send Request
+                    </button>
                   </div>
-                </div>
-          
-                {activeTab === 'pending-requests' && !isAdmin && (
-                  <div className="mt-8">
-                    <div className="mb-8 p-6 bg-white shadow-md rounded-lg">
-                      <h2 className="text-2xl font-bold text-gray-900 mb-4">Create Collaboration Request</h2>
-                      <form action={async (formData) => {
-                        const selectedBusinessId = formData.get("business-id");
-                        console.log("Collaboration request created for business:", selectedBusinessId);
-                      }}>
-                        <div className="flex items-center">
-                          <input
-                            type="search"
-                            name="business-search"
-                            placeholder="Search for a business..."
-                            value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
-                            className="flex-grow rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-gray-900"
-                          />
-                          <button
-                            type="submit"
-                            className="ml-4 inline-flex justify-center rounded-md border border-transparent bg-[#476c2e] py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-secondary-accent focus:outline-none focus:ring-2 focus:ring-[#476c2e]"
-                          >
-                            Send Request
-                          </button>
-                        </div>
-                        {searchResults.length > 0 && (
-                          <ul className="mt-4 border border-gray-200 rounded-md">
-                            {searchResults.map((business) => (
-                              <li key={business.id} className="p-2 border-b border-gray-200">
-                                <label className="flex items-center">
-                                  <input type="radio" name="business-id" value={business.id} className="mr-2" />
-                                  {business.businessName}
-                                </label>
-                              </li>
-                            ))}
-                          </ul>
-                        )}
-                      </form>
-                    </div>
-                    <h2 className="text-2xl font-bold text-gray-900 mb-4">Pending Requests</h2>
-                    <div className="p-6 bg-white shadow-md rounded-lg h-96 overflow-y-auto">
-                      <p className="text-gray-500">This feature is coming soon.</p>
-                    </div>
-                  </div>
-                )}
-          
-                {activeTab === 'correspondence' && !isAdmin && (
-                  <div className="mt-8 flex flex-col h-[calc(100vh-200px)]">
-                    <div className="flex-grow overflow-y-auto p-6 bg-white shadow-md rounded-lg">
-                      {individualMessages.length === 0 ? (
-                        <p className="text-gray-500">No messages yet.</p>
-                      ) : (
-                        individualMessages.map((msg) => (
-                          <div key={msg.id} className={`mb-4 p-3 rounded-lg max-w-xs ${msg.senderId === currentUserId ? 'bg-gray-100 self-start' : 'bg-blue-100 self-end'}`}>
-                            <p className="text-sm font-semibold">{msg.senderId === currentUserId ? "You" : "User"} to {msg.senderId === currentUserId ? "User" : "You"}:</p>
-                            <p className="text-gray-800">{msg.content}</p>
-                            <p className="text-xs text-gray-500 text-right">{msg.timestamp.toLocaleString()}</p>
-                          </div>
-                        ))
-                      )}
-                    </div>
-                    <form action={sendAction} className="mt-4 p-6 bg-white shadow-md rounded-lg">
-                      <h2 className="text-2xl font-bold text-gray-900 mb-4">New Message</h2>
-            
-                      {/* Recipient Selection */}
-                      <div>
-                        <label htmlFor="recipient" className="block text-sm font-medium text-gray-700">
-                          Recipient
-                        </label>
-                        <select
-                          id="recipient"
-                          name="recipient"
-                          value={selectedRecipientId ? selectedRecipientId.toString() : recipient}
-                          onChange={(e) => {
-                            setRecipient(e.target.value);
-                            setSelectedRecipientId(parseInt(e.target.value));
-                          }}
-                          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-gray-900"
-                        >
-                          <option value="admin">Admin</option>
-                          {isAdmin && (
-                            <>
-                              <option value="internal">Internal Users</option>
-                              {initialInternalUsers.map(user => (
-                                <option key={user.id} value={user.id.toString()}>{user.name} ({user.email})</option>
-                              ))}
-                            </>
-                          )}
-                        </select>
-                      </div>
-            
-                      {/* Message Content */}
-                      <div className="mt-4">
-                        <label htmlFor="messageContent" className="sr-only">Message</label>
-                        <textarea
-                          id="messageContent"
-                          name="messageContent"
-                          rows={2}
-                          value={messageContent}
-                          onChange={(e) => setMessageContent(e.target.value)}
-                          placeholder="Type your message here..."
-                          required
-                          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-gray-900"
-                        ></textarea>
-                      </div>
-            
-                      {sendState?.message && (
-                        <p className="text-sm text-green-600 mt-2">{sendState.message}</p>
-                      )}
-                      {sendState?.error && (
-                        <p className="text-sm text-red-600 mt-2">{sendState.error}</p>
-                      )}
-            
-                      <div className="mt-6">
-                        <button
-                          type="submit"
-                          className="inline-flex justify-center rounded-md border border-transparent bg-[#476c2e] py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-secondary-accent focus:outline-none focus:ring-2 focus:ring-[#476c2e]"
-                        >
+                  {searchResults.length > 0 && (
+                    <ul className="mt-4 border border-gray-200 rounded-md">
+                      {searchResults.map((business) => (
+                        <li key={business.id} className="p-2 border-b border-gray-200">
+                          <label className="flex items-center">
+                            <input type="radio" name="business-id" value={business.id} className="mr-2" />
+                            {business.businessName}
+                          </label>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </form>
+              </div>
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">Pending Requests</h2>
+              <div className="p-6 bg-white shadow-md rounded-lg h-96 overflow-y-auto">
+                <p className="text-gray-500">This feature is coming soon.</p>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </>
+  );
+}
