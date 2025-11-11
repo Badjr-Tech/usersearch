@@ -15,6 +15,7 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  transpilePackages: ['@tailwindcss/postcss'],
 };
 
 export default nextConfig;

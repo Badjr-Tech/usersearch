@@ -5,16 +5,15 @@ const config: Config = {
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    colors: {
-      'primary-accent': '#ffbd5a',
-      'secondary-accent': '#476c2e',
-      'light-gray': '#ffbd5a',
-      'light-background': '#ffffff',
-      'dark-foreground': '#363636',
+    extend: {
+      colors: {
+        'primary-accent': 'var(--primary-accent)',
+        'secondary-accent': 'var(--secondary-accent)',
+        'light-gray': 'var(--light-gray)',
+        'light-background': 'var(--background)',
+        'dark-foreground': 'var(--foreground)',
+      },
     },
-    backgroundColor: {
-      'red': '#ff0000', // Add a red background color for testing
-    }
   },
   plugins: [],
 };
