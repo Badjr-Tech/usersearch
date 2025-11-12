@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-background flex flex-col justify-center items-center">
       <Image
-        src="/heightenthehustlelogo small copy.png"
+        src="/yellow.png"
         alt="Heighten The Hustle Logo"
         width={200}
         height={200}
