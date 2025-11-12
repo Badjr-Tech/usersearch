@@ -1,7 +1,6 @@
 import { redirect } from "next/navigation";
 import { getSession } from "@/app/login/actions";
 import LogoutButton from "@/app/components/LogoutButton";
-import Image from "next/image";
 import Link from "next/link";
 import { getAllUserBusinesses } from "./businesses/actions";
 // import AdminViewToggle from "./components/AdminViewToggle"; // New import
@@ -23,28 +22,94 @@ export default async function DashboardLayout({
   return (
     <div className="flex min-h-screen bg-background">
       {/* Sidebar */}
-      <aside className="w-64 bg-secondary text-foreground p-4 space-y-6">
-        <nav className="space-y-2">
-          <Link href="/dashboard" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-light-gray">Home</Link>
-          <Link href="/dashboard/businesses" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-light-gray">Businesses</Link>
+      <aside className="relative w-64 bg-secondary text-white px-4 pt-8 space-y-6">
+        <nav className="space-y-2 font-semibold text-white">
+          <Link
+            href="/dashboard"
+            className="block py-2.5 px-4 rounded transition duration-200 hover:bg-primary"
+          >
+            Home
+          </Link>
+          <Link
+            href="/dashboard/businesses"
+            className="block py-2.5 px-4 rounded transition duration-200 hover:bg-primary"
+          >
+            Businesses
+          </Link>
           {businesses.map((business) => (
-            <Link key={business.id} href={`/dashboard/businesses/${business.id}`} className="block py-2 px-6 text-sm rounded transition duration-200 hover:bg-light-gray">
+            <Link
+              key={business.id}
+              href={`/dashboard/businesses/${business.id}`}
+              className="block py-2 px-6 text-sm rounded transition duration-200 hover:bg-primary"
+            >
               - {business.businessName}
             </Link>
           ))}
-          <Link href="/dashboard/heighten-ai" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-light-gray">Heighten.Ai</Link>
-          <Link href="/dashboard/messages" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-light-gray">Messages</Link>
-          <Link href="/dashboard/resources" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-light-gray">Resources</Link>
-          <Link href="/dashboard/hth-class" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-light-gray">HTH Class</Link>
-          <Link href="/dashboard/settings" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-light-gray">Settings</Link>
-          <Link href="/dashboard/profile" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-light-gray">Profile</Link>
+          <Link
+            href="/dashboard/heighten-ai"
+            className="block py-2.5 px-4 rounded transition duration-200 hover:bg-primary"
+          >
+            Heighten.Ai
+          </Link>
+          <Link
+            href="/dashboard/messages"
+            className="block py-2.5 px-4 rounded transition duration-200 hover:bg-primary"
+          >
+            Messages
+          </Link>
+          <Link
+            href="/dashboard/resources"
+            className="block py-2.5 px-4 rounded transition duration-200 hover:bg-primary"
+          >
+            Resources
+          </Link>
+          <Link
+            href="/dashboard/hth-class"
+            className="block py-2.5 px-4 rounded transition duration-200 hover:bg-primary"
+          >
+            HTH Class
+          </Link>
+          <Link
+            href="/dashboard/settings"
+            className="block py-2.5 px-4 rounded transition duration-200 hover:bg-primary"
+          >
+            Settings
+          </Link>
+          <Link
+            href="/dashboard/profile"
+            className="block py-2.5 px-4 rounded transition duration-200 hover:bg-primary"
+          >
+            Profile
+          </Link>
           {isAdmin && (
             <>
-              <h2 className="text-lg font-semibold text-light-gray uppercase mt-6 mb-2">Admin Tools</h2>
-              <Link href="/dashboard/admin/users" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-light-gray">Admin Users</Link>
-              <Link href="/dashboard/admin/businesses/manage" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-light-gray">Admin Businesses</Link>
-              <Link href="/dashboard/admin/pitch-competition" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-light-gray">Admin Pitch Competition</Link>
-              <Link href="/dashboard/admin/hth-class" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-light-gray">Admin HTH Class</Link>
+              <h2 className="text-lg font-semibold text-light-gray uppercase mt-6 mb-2">
+                Admin Tools
+              </h2>
+              <Link
+                href="/dashboard/admin/users"
+                className="block py-2.5 px-4 rounded transition duration-200 hover:bg-primary"
+              >
+                Admin Users
+              </Link>
+              <Link
+                href="/dashboard/admin/businesses/manage"
+                className="block py-2.5 px-4 rounded transition duration-200 hover:bg-primary"
+              >
+                Admin Businesses
+              </Link>
+              <Link
+                href="/dashboard/admin/pitch-competition"
+                className="block py-2.5 px-4 rounded transition duration-200 hover:bg-primary"
+              >
+                Admin Pitch Competition
+              </Link>
+              <Link
+                href="/dashboard/admin/hth-class"
+                className="block py-2.5 px-4 rounded transition duration-200 hover:bg-primary"
+              >
+                Admin HTH Class
+              </Link>
             </>
           )}
         </nav>
