@@ -1,8 +1,16 @@
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function DashboardPage() {
   return (
     <div className="min-h-screen bg-background flex flex-col items-center py-10">
+      <Image
+        src="/heightenthehustlelogo small copy.png"
+        alt="Heighten The Hustle Logo"
+        width={200}
+        height={200}
+        className="mb-8"
+      />
       <div className="max-w-3xl w-full text-center">
         <h1 className="text-4xl font-extrabold text-foreground mb-4">
           Welcome to Your Dashboard
