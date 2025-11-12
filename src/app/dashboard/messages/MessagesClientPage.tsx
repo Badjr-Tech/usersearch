@@ -135,7 +135,7 @@ export default function MessagesPage({
       <>
       <div className="p-4 md:p-8">
         <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold text-dark-foreground">Messages</h1>
+          <h1 className="text-3xl font-bold text-foreground">Messages</h1>
         </div>
         <div className="mt-6">
           <div className="sm:hidden">
@@ -143,7 +143,7 @@ export default function MessagesPage({
             <select
               id="tabs"
               name="tabs"
-              className="block w-full focus:ring-primary-accent focus:border-primary-accent border-light-gray rounded-md"
+              className="block w-full focus:ring-primary focus:border-primary border-light-gray rounded-md"
               defaultValue={activeTab}
               onChange={(e) => setActiveTab(e.target.value)}
             >
@@ -156,19 +156,19 @@ export default function MessagesPage({
             <nav className="-mb-px flex space-x-8" aria-label="Tabs">
               <button
                 onClick={() => setActiveTab('mass-messages')}
-                className={`px-4 py-2 rounded-md text-sm font-medium ${activeTab === 'mass-messages' ? 'bg-secondary-accent text-[var(--foreground)]' : 'bg-light-gray text-[var(--foreground)]'}`}
+                className={`px-4 py-2 rounded-md text-sm font-medium ${activeTab === 'mass-messages' ? 'bg-secondary text-foreground' : 'bg-light-gray text-foreground'}`}
               >
                 Mass Messages
               </button>
               <button
                 onClick={() => setActiveTab('correspondence')}
-                className={`px-4 py-2 rounded-md text-sm font-medium ${activeTab === 'correspondence' ? 'bg-secondary-accent text-[var(--foreground)]' : 'bg-light-gray text-[var(--foreground)]'}`}
+                className={`px-4 py-2 rounded-md text-sm font-medium ${activeTab === 'correspondence' ? 'bg-secondary text-foreground' : 'bg-light-gray text-foreground'}`}
               >
                 Correspondence
               </button>
               <button
                 onClick={() => setActiveTab('pending-requests')}
-                className={`px-4 py-2 rounded-md text-sm font-medium ${activeTab === 'pending-requests' ? 'bg-secondary-accent text-[var(--foreground)]' : 'bg-light-gray text-[var(--foreground)]'}`}
+                className={`px-4 py-2 rounded-md text-sm font-medium ${activeTab === 'pending-requests' ? 'bg-secondary text-foreground' : 'bg-light-gray text-foreground'}`}
               >
                 Pending Requests
               </button>
@@ -179,15 +179,15 @@ export default function MessagesPage({
         <div className="mt-8">
           {activeTab === 'correspondence' && (
             <div>
-              <h2 className="text-2xl font-bold text-dark-foreground mb-4">Create Collaboration Request</h2>
+              <h2 className="text-2xl font-bold text-foreground mb-4">Create Collaboration Request</h2>
               <form action={handleCreateCollaborationRequest} className="space-y-4">
                 <div>
-                  <label htmlFor="recipientId" className="block text-sm font-medium text-dark-foreground">Recipient</label>
+                  <label htmlFor="recipientId" className="block text-sm font-medium text-foreground">Recipient</label>
                   <select
                     id="recipientId"
                     name="recipientId"
                     required
-                    className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-light-gray focus:outline-none focus:ring-primary-accent focus:border-primary-accent sm:text-sm rounded-md"
+                    className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-light-gray focus:outline-none focus:ring-primary focus:border-primary sm:text-sm rounded-md"
                   >
                     {users.map(user => (
                       <option key={user.id} value={user.id}>{user.name} ({user.email})</option>
@@ -195,47 +195,47 @@ export default function MessagesPage({
                   </select>
                 </div>
                 <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-dark-foreground">Message</label>
+                  <label htmlFor="message" className="block text-sm font-medium text-foreground">Message</label>
                   <textarea
                     id="message"
                     name="message"
                     rows={3}
                     required
-                    className="shadow-sm focus:ring-primary-accent focus:border-primary-accent mt-1 block w-full sm:text-sm border border-light-gray rounded-md"
+                    className="shadow-sm focus:ring-primary focus:border-primary mt-1 block w-full sm:text-sm border border-light-gray rounded-md"
                   ></textarea>
                 </div>
                 <button
                   type="submit"
-                  className="ml-4 inline-flex justify-center rounded-md border border-transparent bg-primary-accent py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-secondary-accent focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-ring-offset-2"
+                  className="ml-4 inline-flex justify-center rounded-md border border-transparent bg-primary py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-primary focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-ring-offset-2"
                 >
                   Send Request
                 </button>
               </form>
   
-              <h2 className="text-2xl font-bold text-dark-foreground mb-4 mt-8">Pending Requests</h2>
+              <h2 className="text-2xl font-bold text-foreground mb-4 mt-8">Pending Requests</h2>
               {pendingRequests.length === 0 ? (
-                <p className="text-dark-foreground">No pending collaboration requests.</p>
+                <p className="text-foreground">No pending collaboration requests.</p>
               ) : (
                 <ul className="space-y-4">
                   {pendingRequests.map(request => (
                     <li key={request.id} className="bg-light-gray shadow overflow-hidden sm:rounded-lg p-4">
                       <p className="text-sm font-semibold">{request.senderId === currentUserId ? "You" : "User"} to {request.senderId === currentUserId ? "User" : "You"}:</p>
-                      <p className="text-dark-foreground">{request.content}</p>
-                      <p className="text-xs text-dark-foreground text-right">{request.timestamp.toLocaleString()}</p>
+                      <p className="text-foreground">{request.content}</p>
+                      <p className="text-xs text-foreground text-right">{request.timestamp.toLocaleString()}</p>
                     </li>
                   ))}
                 </ul>
               )}
   
-              <h2 className="text-2xl font-bold text-dark-foreground mb-4 mt-8">New Message</h2>
+              <h2 className="text-2xl font-bold text-foreground mb-4 mt-8">New Message</h2>
               <form action={handleSendMessage} className="space-y-4">
                 <div>
-                  <label htmlFor="recipient" className="block text-sm font-medium text-dark-foreground">Recipient</label>
+                  <label htmlFor="recipient" className="block text-sm font-medium text-foreground">Recipient</label>
                   <select
                     id="recipient"
                     name="recipient"
                     required
-                    className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-light-gray focus:outline-none focus:ring-primary-accent focus:border-primary-accent sm:text-sm rounded-md"
+                    className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-light-gray focus:outline-none focus:ring-primary focus:border-primary sm:text-sm rounded-md"
                   >
                     {users.map(user => (
                       <option key={user.id} value={user.id}>{user.name} ({user.email})</option>
@@ -243,13 +243,13 @@ export default function MessagesPage({
                   </select>
                 </div>
                 <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-dark-foreground">Message</label>
+                  <label htmlFor="message" className="block text-sm font-medium text-foreground">Message</label>
                   <textarea
                     id="message"
                     name="message"
                     rows={3}
                     required
-                    className="shadow-sm focus:ring-primary-accent focus:border-primary-accent mt-1 block w-full sm:text-sm border border-light-gray rounded-md"
+                    className="shadow-sm focus:ring-primary focus:border-primary mt-1 block w-full sm:text-sm border border-light-gray rounded-md"
                   ></textarea>
                 </div>
                 {sendState?.message && (
@@ -260,7 +260,7 @@ export default function MessagesPage({
                 )}
                 <button
                   type="submit"
-                  className="inline-flex justify-center rounded-md border border-transparent bg-primary-accent py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-secondary-accent focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                  className="inline-flex justify-center rounded-md border border-transparent bg-primary py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-primary focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 >
                   Send Message
                 </button>
@@ -270,24 +270,24 @@ export default function MessagesPage({
   
           {activeTab === 'mass-messages' && (
             <div>
-              <h2 className="text-2xl font-bold text-dark-foreground mb-4">Mass Messages</h2>
+              <h2 className="text-2xl font-bold text-foreground mb-4">Mass Messages</h2>
               {massMessages.length === 0 ? (
-                <p className="text-dark-foreground">No mass messages sent yet.</p>
+                <p className="text-foreground">No mass messages sent yet.</p>
               ) : (
                 <ul className="space-y-4">
                   {massMessages.map(msg => (
                     <li key={msg.id} className="bg-light-gray shadow overflow-hidden sm:rounded-lg p-4">
-                      <p className="text-dark-foreground">{msg.content}</p>
-                      <p className="text-xs text-dark-foreground text-right">{msg.timestamp.toLocaleString()}</p>
+                      <p className="text-foreground">{msg.content}</p>
+                      <p className="text-xs text-foreground text-right">{msg.timestamp.toLocaleString()}</p>
                     </li>
                   ))}
                 </ul>
               )}
   
-              <h2 className="text-2xl font-bold text-dark-foreground mb-4 mt-8">Send Mass Message</h2>
+              <h2 className="text-2xl font-bold text-foreground mb-4 mt-8">Send Mass Message</h2>
               <form action={handleSendMassMessage} className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-dark-foreground">Target Locations</label>
+                  <label className="block text-sm font-medium text-foreground">Target Locations</label>
                   <div className="mt-2 grid grid-cols-2 gap-2">
                     {locations.map(location => (
                       <div key={location.id} className="flex items-center">
@@ -296,9 +296,9 @@ export default function MessagesPage({
                           name="targetLocations"
                           type="checkbox"
                           value={location.id}
-                          className="focus:ring-primary-accent h-4 w-4 text-primary-accent border-light-gray rounded"
+                          className="focus:ring-primary h-4 w-4 text-primary border-light-gray rounded"
                         />
-                        <label htmlFor={`location-${location.id}`} className="ml-2 text-sm text-dark-foreground">
+                        <label htmlFor={`location-${location.id}`} className="ml-2 text-sm text-foreground">
                           {location.name}
                         </label>
                       </div>
@@ -306,7 +306,7 @@ export default function MessagesPage({
                   </div>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-dark-foreground">Target Demographics</label>
+                  <label className="block text-sm font-medium text-foreground">Target Demographics</label>
                   <div className="mt-2 grid grid-cols-2 gap-2">
                     {demographics.map(demographic => (
                       <div key={demographic.id} className="flex items-center">
@@ -315,9 +315,9 @@ export default function MessagesPage({
                           name="targetDemographics"
                           type="checkbox"
                           value={demographic.id}
-                          className="focus:ring-primary-accent h-4 w-4 text-primary-accent border-light-gray rounded"
+                          className="focus:ring-primary h-4 w-4 text-primary border-light-gray rounded"
                         />
-                        <label htmlFor={`demographic-${demographic.id}`} className="ml-2 text-sm text-dark-foreground">
+                        <label htmlFor={`demographic-${demographic.id}`} className="ml-2 text-sm text-foreground">
                           {demographic.name}
                         </label>
                       </div>
@@ -325,13 +325,13 @@ export default function MessagesPage({
                   </div>
                 </div>
                 <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-dark-foreground">Message</label>
+                  <label htmlFor="message" className="block text-sm font-medium text-foreground">Message</label>
                   <textarea
                     id="message"
                     name="message"
                     rows={3}
                     required
-                    className="shadow-sm focus:ring-primary-accent focus:border-primary-accent mt-1 block w-full sm:text-sm border border-light-gray rounded-md"
+                    className="shadow-sm focus:ring-primary focus:border-primary mt-1 block w-full sm:text-sm border border-light-gray rounded-md"
                   ></textarea>
                 </div>
                 <div className="flex items-center">
@@ -339,9 +339,9 @@ export default function MessagesPage({
                     id="excludeOptedOut"
                     name="excludeOptedOut"
                     type="checkbox"
-                    className="focus:ring-primary-accent h-4 w-4 text-primary-accent border-light-gray rounded"
+                    className="focus:ring-primary h-4 w-4 text-primary border-light-gray rounded"
                   />
-                  <label htmlFor="excludeOptedOut" className="ml-2 text-sm text-dark-foreground">
+                  <label htmlFor="excludeOptedOut" className="ml-2 text-sm text-foreground">
                     Exclude users who have opted out of mass messages
                   </label>
                 </div>
@@ -352,7 +352,7 @@ export default function MessagesPage({
                               <p className="text-sm text-red-600 mt-2">{massSendState.error}</p>
                             )}                <button
                   type="submit"
-                  className="inline-flex justify-center rounded-md border border-transparent bg-[#476c2e] py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-secondary-accent focus:outline-none focus:ring-2 focus:ring-[#476c2e]"
+                  className="inline-flex justify-center rounded-md border border-transparent bg-secondary py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-primary focus:outline-none focus:ring-2 focus:ring-secondary"
                 >
                   Send Mass Message
                 </button>
@@ -362,8 +362,8 @@ export default function MessagesPage({
   
           {activeTab === 'pending-requests' && (
             <div className="mt-8">
-              <div className="mb-8 p-6 bg-white shadow-md rounded-lg">
-                <h2 className="text-2xl font-bold text-gray-900 mb-4">Create Collaboration Request</h2>
+              <div className="mb-8 p-6 bg-background shadow-md rounded-lg">
+                <h2 className="text-2xl font-bold text-foreground mb-4">Create Collaboration Request</h2>
                 <form action={async (formData) => {
                   const selectedBusinessId = formData.get("business-id");
                   console.log("Collaboration request created for business:", selectedBusinessId);
@@ -375,11 +375,11 @@ export default function MessagesPage({
                       placeholder="Search for a business..."
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
-                      className="flex-grow rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-gray-900"
+                      className="flex-grow rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-foreground"
                     />
                     <button
                       type="submit"
-                      className="ml-4 inline-flex justify-center rounded-md border border-transparent bg-[#476c2e] py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-secondary-accent focus:outline-none focus:ring-2 focus:ring-[#476c2e]"
+                      className="ml-4 inline-flex justify-center rounded-md border border-transparent bg-secondary py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-primary focus:outline-none focus:ring-2 focus:ring-secondary"
                     >
                       Send Request
                     </button>
@@ -398,8 +398,8 @@ export default function MessagesPage({
                   )}
                 </form>
               </div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Pending Requests</h2>
-              <div className="p-6 bg-white shadow-md rounded-lg h-96 overflow-y-auto">
+              <h2 className="text-2xl font-bold text-foreground mb-4">Pending Requests</h2>
+              <div className="p-6 bg-background shadow-md rounded-lg h-96 overflow-y-auto">
                 <p className="text-gray-500">This feature is coming soon.</p>
               </div>
             </div>

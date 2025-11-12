@@ -1,4 +1,18 @@
+@config "../../tailwind.config.ts";
 @import "tailwindcss";
+
+@theme {
+  --color-primary-accent: #ffbd5a;
+  --color-secondary-accent: #476c2e;
+  --color-light-gray: #ffbd5a;
+  --color-light-background: #ffffff;
+  --color-dark-foreground: #363636;
+  --color-primary: #ffbd5a;
+  --color-secondary: #476c2e;
+  --color-background: #ffffff;
+  --color-foreground: #363636;
+  --color-primary-foreground: #363636;
+}
 
 :root {
   --background: #ffffff;
@@ -6,6 +20,9 @@
   --primary-accent: #ffbd5a;
   --secondary-accent: #476c2e;
   --light-gray: #ffbd5a;
+  --primary: #ffbd5a;
+  --secondary: #476c2e;
+  --primary-foreground: #363636;
   --font-bebas-neue: 'Bebas Neue', sans-serif;
   --font-dm-sans: 'DM Sans', sans-serif;
 }

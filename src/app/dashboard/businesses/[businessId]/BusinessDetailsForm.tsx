@@ -52,7 +52,7 @@ export default function BusinessDetailsForm({ initialBusiness, availableDemograp
           multiple
           value={selectedDemographicIds.filter(id => genderDemographics.some(d => d.id === id)).map(String)}
           onChange={handleDemographicChange}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-gray-900"
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-foreground"
         >
           <option value="">Select Gender</option>
           {genderDemographics.map(demographic => (
@@ -73,7 +73,7 @@ export default function BusinessDetailsForm({ initialBusiness, availableDemograp
           multiple
           value={selectedDemographicIds.filter(id => raceDemographics.some(d => d.id === id)).map(String)}
           onChange={handleDemographicChange}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-gray-900"
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-foreground"
         >
           <option value="">Select Race</option>
           {raceDemographics.map(demographic => (
@@ -94,7 +94,7 @@ export default function BusinessDetailsForm({ initialBusiness, availableDemograp
           multiple
           value={selectedDemographicIds.filter(id => religionDemographics.some(d => d.id === id)).map(String)}
           onChange={handleDemographicChange}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-gray-900"
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-foreground"
         >
           <option value="">Select Religion</option>
           {religionDemographics.map(demographic => (
@@ -116,7 +116,7 @@ export default function BusinessDetailsForm({ initialBusiness, availableDemograp
           name="locationId"
           value={selectedLocationId}
           onChange={(e) => setSelectedLocationId(parseInt(e.target.value))}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-gray-900"
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-foreground"
         >
           <option value="">Select City</option>
           {cityLocations.map(location => (
@@ -136,7 +136,7 @@ export default function BusinessDetailsForm({ initialBusiness, availableDemograp
           name="regionId"
           value={selectedLocationId}
           onChange={(e) => setSelectedLocationId(parseInt(e.target.value))}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-gray-900"
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-foreground"
         >
           <option value="">Select Region</option>
           {regionLocations.map(location => (

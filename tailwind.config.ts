@@ -7,11 +7,16 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        'primary-accent': '#ffbd5a',
-        'secondary-accent': '#476c2e',
-        'light-gray': '#ffbd5a',
-        'light-background': '#ffffff',
-        'dark-foreground': '#363636',
+        "primary-accent": "#ffbd5a",
+        "secondary-accent": "#476c2e",
+        "light-gray": "#ffbd5a",
+        "light-background": "#ffffff",
+        "dark-foreground": "#363636",
+        primary: "#ffbd5a",
+        secondary: "#476c2e",
+        background: "#ffffff",
+        foreground: "#363636",
+        "primary-foreground": "#363636",
       },
     },
   },

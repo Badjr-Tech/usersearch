@@ -54,17 +54,17 @@ export default function PitchCompetitionClientPage({ initialEvents }: PitchCompe
         {isLoadingSubmissions ? <p>Loading submissions...</p> : (
           <div className="mt-8">
             <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
+              <thead className="bg-background">
                 <tr>
                   <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Project Name</th>
                   <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Submitter</th>
                   <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
                 </tr>
               </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
+              <tbody className="bg-background divide-y divide-gray-200">
                 {submissions.map((submission) => (
                   <tr key={submission.id}>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-foreground">
                       <Link href={`/dashboard/admin/pitch-competition/projects/${submission.id}`} className="text-indigo-600 hover:underline">
                         {submission.projectName}
                       </Link>
@@ -100,11 +100,11 @@ export default function PitchCompetitionClientPage({ initialEvents }: PitchCompe
         )}
       </div>
       <div className="mt-8">
-        <div className="bg-white shadow overflow-hidden sm:rounded-md">
+        <div className="bg-background shadow overflow-hidden sm:rounded-md">
           <ul role="list" className="divide-y divide-gray-200">
             {events.map((event) => (
               <li key={event.id}>
-                <a href="#" onClick={(e) => { e.preventDefault(); handleSelectEvent(event); }} className="block hover:bg-gray-50">
+                <a href="#" onClick={(e) => { e.preventDefault(); handleSelectEvent(event); }} className="block hover:bg-background">
                   <div className="px-4 py-4 sm:px-6">
                     <div className="flex items-center justify-between">
                       <p className="text-sm font-medium text-indigo-600 truncate">{event.name}</p>

@@ -60,7 +60,7 @@ export default function EditBusinessProfileForm({ initialBusiness, availableDemo
           type="text"
           defaultValue={business.businessName}
           required
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-gray-900"
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-foreground"
         />
       </div>
 
@@ -75,7 +75,7 @@ export default function EditBusinessProfileForm({ initialBusiness, availableDemo
           type="text"
           defaultValue={business.ownerName}
           required
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-gray-900"
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-foreground"
         />
       </div>
 
@@ -91,7 +91,7 @@ export default function EditBusinessProfileForm({ initialBusiness, availableDemo
           step="0.01"
           defaultValue={business.percentOwnership}
           required
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-gray-900"
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-foreground"
         />
       </div>
 
@@ -105,7 +105,7 @@ export default function EditBusinessProfileForm({ initialBusiness, availableDemo
           name="businessType"
           defaultValue={business.businessType}
           required
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-gray-900"
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-foreground"
         >
           <option value="">Select Business Type</option>
           <option value="Sole Proprietorship">Sole Proprietorship</option>
@@ -125,7 +125,7 @@ export default function EditBusinessProfileForm({ initialBusiness, availableDemo
           name="businessTaxStatus"
           defaultValue={business.businessTaxStatus}
           required
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-gray-900"
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-foreground"
         >
           <option value="">Select Tax Status</option>
           <option value="S-Corporation">S-Corporation</option>
@@ -144,7 +144,7 @@ export default function EditBusinessProfileForm({ initialBusiness, availableDemo
           name="businessDescription"
           rows={3}
           defaultValue={business.businessDescription || ''}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-gray-900"
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-foreground"
         ></textarea>
       </div>
 
@@ -159,7 +159,7 @@ export default function EditBusinessProfileForm({ initialBusiness, availableDemo
           type="text"
           defaultValue={business.businessIndustry}
           required
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-gray-900"
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-foreground"
         />
       </div>
 
@@ -173,7 +173,7 @@ export default function EditBusinessProfileForm({ initialBusiness, availableDemo
           name="streetAddress"
           type="text"
           defaultValue={business.streetAddress || ''}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-gray-900"
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-foreground"
         />
       </div>
 
@@ -187,7 +187,7 @@ export default function EditBusinessProfileForm({ initialBusiness, availableDemo
           name="city"
           type="text"
           defaultValue={business.city || ''}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-gray-900"
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-foreground"
         />
       </div>
 
@@ -202,7 +202,7 @@ export default function EditBusinessProfileForm({ initialBusiness, availableDemo
           type="text"
           maxLength={2}
           defaultValue={business.state || ''}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-gray-900"
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-foreground"
         />
       </div>
 
@@ -217,7 +217,7 @@ export default function EditBusinessProfileForm({ initialBusiness, availableDemo
           type="text"
           maxLength={10}
           defaultValue={business.zipCode || ''}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-gray-900"
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-foreground"
         />
       </div>
 
@@ -230,7 +230,7 @@ export default function EditBusinessProfileForm({ initialBusiness, availableDemo
           id="locationId"
           name="locationId"
           defaultValue={business.locationId || ''}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-gray-900"
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-foreground"
         >
           <option value="">Select Location</option>
           {availableLocations.map(location => (
@@ -251,7 +251,7 @@ export default function EditBusinessProfileForm({ initialBusiness, availableDemo
           name="phone"
           type="text"
           defaultValue={business.phone || ''}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-gray-900"
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-foreground"
         />
       </div>
 
@@ -265,7 +265,7 @@ export default function EditBusinessProfileForm({ initialBusiness, availableDemo
           name="website"
           type="text"
           defaultValue={business.website || ''}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-gray-900"
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-foreground"
         />
       </div>
 
@@ -280,7 +280,7 @@ export default function EditBusinessProfileForm({ initialBusiness, availableDemo
             name="logo"
             type="file"
             onChange={handleLogoChange}
-            className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
+            className="block w-full text-sm text-foreground border border-gray-300 rounded-lg cursor-pointer bg-background focus:outline-none"
           />
         </div>
         {logoPreview && (
@@ -300,7 +300,7 @@ export default function EditBusinessProfileForm({ initialBusiness, availableDemo
             id="businessProfilePhoto"
             name="businessProfilePhoto"
             type="file"
-            className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
+            className="block w-full text-sm text-foreground border border-gray-300 rounded-lg cursor-pointer bg-background focus:outline-none"
           />
         </div>
       </div>

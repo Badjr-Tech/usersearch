@@ -26,10 +26,10 @@ export default async function AdminHTHClassPage() {
       ) : (
         <ul className="space-y-4">
           {preCourseClasses.map((classItem) => (
-            <li key={classItem.id} className="bg-white shadow overflow-hidden rounded-md px-6 py-4">
+            <li key={classItem.id} className="bg-background shadow overflow-hidden rounded-md px-6 py-4">
               <div className="flex justify-between items-center">
                 <div>
-                  <h3 className="text-lg font-medium text-gray-900">{classItem.title}</h3>
+                  <h3 className="text-lg font-medium text-foreground">{classItem.title}</h3>
                   <p className="text-sm text-gray-500">{classItem.description}</p>
                 </div>
                 <div className="flex space-x-2">
@@ -53,10 +53,10 @@ export default async function AdminHTHClassPage() {
       ) : (
         <ul className="space-y-4">
           {hthCourseClasses.map((classItem) => (
-            <li key={classItem.id} className="bg-white shadow overflow-hidden rounded-md px-6 py-4">
+            <li key={classItem.id} className="bg-background shadow overflow-hidden rounded-md px-6 py-4">
               <div className="flex justify-between items-center">
                 <div>
-                  <h3 className="text-lg font-medium text-gray-900">{classItem.title}</h3>
+                  <h3 className="text-lg font-medium text-foreground">{classItem.title}</h3>
                   <p className="text-sm text-gray-500">{classItem.description}</p>
                 </div>
                 <div className="flex space-x-2">

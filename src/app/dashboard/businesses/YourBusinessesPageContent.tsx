@@ -74,35 +74,35 @@ export default function YourBusinessesPageContent() {
 
   return (
     <>
-      <h1 className="text-dark-foreground">Your Businesses</h1>
-      <p className="mt-4 text-dark-foreground">Manage all your registered businesses.</p>
+      <h1 className="text-foreground">Your Businesses</h1>
+      <p className="mt-4 text-foreground">Manage all your registered businesses.</p>
 
       <div className="mt-6">
         <button
           onClick={() => setShowCreateForm(!showCreateForm)}
-          className="inline-flex justify-center rounded-md border border-transparent bg-primary-accent py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-[var(--secondary-accent)] focus:outline-none focus:ring-2 focus:ring-primary-accent focus:ring-offset-2"
+          className="inline-flex justify-center rounded-md border border-transparent bg-primary py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-primary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
         >
           {showCreateForm ? "Cancel" : "Create New Business"}
         </button>
       </div>
 
       {showCreateForm && (
-        <div className="mt-8 max-w-2xl p-6 bg-white shadow-md rounded-lg">
-          <h2 className="text-2xl font-bold text-dark-foreground mb-4">Create New Business Profile</h2>
+        <div className="mt-8 max-w-2xl p-6 bg-background shadow-md rounded-lg">
+          <h2 className="text-2xl font-bold text-foreground mb-4">Create New Business Profile</h2>
           <form action={createFormAction} className="space-y-6">
             {/* Owner's Name */}
             <div>
-              <label htmlFor="ownerName" className="block text-sm font-medium text-dark-foreground">
+              <label htmlFor="ownerName" className="block text-sm font-medium text-foreground">
                 Owner&apos;s Name
               </label>
               <input
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-accent focus:ring-[var(--primary-accent)] text-dark-foreground"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary text-foreground"
               />
             </div>
 
             {/* Percent Ownership */}
             <div>
-              <label htmlFor="percentOwnership" className="block text-sm font-medium text-dark-foreground">
+              <label htmlFor="percentOwnership" className="block text-sm font-medium text-foreground">
                 Percent Ownership
               </label>
               <input
@@ -110,13 +110,13 @@ export default function YourBusinessesPageContent() {
                 name="percentOwnership"
                 type="text"
                 required
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-accent focus:ring-[var(--primary-accent)] text-dark-foreground"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary text-foreground"
               />
             </div>
 
             {/* Business Name */}
             <div>
-              <label htmlFor="businessName" className="block text-sm font-medium text-dark-foreground">
+              <label htmlFor="businessName" className="block text-sm font-medium text-foreground">
                 Business Name
               </label>
               <input
@@ -124,20 +124,20 @@ export default function YourBusinessesPageContent() {
                 name="businessName"
                 type="text"
                 required
-className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-[var(--primary-accent)] text-dark-foreground"
+className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary text-foreground"
               />
             </div>
 
             {/* Business Type */}
           <div>
-            <label htmlFor="businessType" className="block text-sm font-medium text-dark-foreground">
+            <label htmlFor="businessType" className="block text-sm font-medium text-foreground">
               Business Type
             </label>
             <select
               id="businessType"
               name="businessType"
               required
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-primary-accent text-dark-foreground"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary text-foreground"
             >
               <option value="">Select Business Type</option>
               <option value="Sole Proprietorship">Sole Proprietorship</option>
@@ -149,14 +149,14 @@ className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-i
 
           {/* Business Tax Status */}
           <div>
-            <label htmlFor="businessTaxStatus" className="block text-sm font--medium text-dark-foreground">
+            <label htmlFor="businessTaxStatus" className="block text-sm font--medium text-foreground">
               Business Tax Status
             </label>
             <select
               id="businessTaxStatus"
               name="businessTaxStatus"
               required
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-primary-accent text-dark-foreground"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary text-foreground"
             >
               <option value="">Select Tax Status</option>
               <option value="S-Corporation">S-Corporation</option>
@@ -167,20 +167,20 @@ className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-i
 
           {/* Business Description */}
           <div>
-            <label htmlFor="businessDescription" className="block text-sm font-medium text-dark-foreground">
+            <label htmlFor="businessDescription" className="block text-sm font-medium text-foreground">
               Business Description
             </label>
             <textarea
               id="businessDescription"
               name="businessDescription"
               rows={3}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-primary-accent text-dark-foreground"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-primary text-foreground"
             ></textarea>
           </div>
 
           {/* Business Industry */}
           <div>
-            <label htmlFor="businessIndustry" className="block text-sm font-medium text-dark-foreground">
+            <label htmlFor="businessIndustry" className="block text-sm font-medium text-foreground">
               Business Industry
             </label>
             <input
@@ -188,39 +188,39 @@ className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-i
               name="businessIndustry"
               type="text"
               required
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-primary-accent text-dark-foreground"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-primary text-foreground"
             />
           </div>
 
           {/* Street Address */}
           <div>
-            <label htmlFor="streetAddress" className="block text-sm font-medium text-dark-foreground">
+            <label htmlFor="streetAddress" className="block text-sm font-medium text-foreground">
               Street Address
             </label>
             <input
               id="streetAddress"
               name="streetAddress"
               type="text"
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-primary-accent text-dark-foreground"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-primary text-foreground"
             />
           </div>
 
           {/* City */}
           <div>
-            <label htmlFor="city" className="block text-sm font-medium text-dark-foreground">
+            <label htmlFor="city" className="block text-sm font-medium text-foreground">
               City
             </label>
             <input
               id="city"
               name="city"
               type="text"
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-primary-accent text-dark-foreground"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-primary text-foreground"
             />
           </div>
 
           {/* State */}
           <div>
-            <label htmlFor="state" className="block text-sm font-medium text-dark-foreground">
+            <label htmlFor="state" className="block text-sm font-medium text-foreground">
               State
             </label>
             <input
@@ -228,13 +228,13 @@ className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-i
               name="state"
               type="text"
               maxLength={2}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-primary-accent text-dark-foreground"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-primary text-foreground"
             />
           </div>
 
           {/* Zip Code */}
           <div>
-            <label htmlFor="zipCode" className="block text-sm font-medium text-dark-foreground">
+            <label htmlFor="zipCode" className="block text-sm font-medium text-foreground">
               Zip Code
             </label>
             <input
@@ -242,51 +242,51 @@ className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-i
               name="zipCode"
               type="text"
               maxLength={10}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-primary-accent text-dark-foreground"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-primary text-foreground"
             />
           </div>
 
           {/* Phone */}
           <div>
-            <label htmlFor="phone" className="block text-sm font-medium text-dark-foreground">
+            <label htmlFor="phone" className="block text-sm font-medium text-foreground">
               Phone
             </label>
             <input
               id="phone"
               name="phone"
               type="text"
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-primary-accent text-dark-foreground"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-primary text-foreground"
             />
           </div>
 
           {/* Website */}
           <div>
-            <label htmlFor="website" className="block text-sm font-medium text-dark-foreground">
+            <label htmlFor="website" className="block text-sm font-medium text-foreground">
               Website
             </label>
             <input
               id="website"
               name="website"
               type="text"
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-primary-accent text-dark-foreground"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-primary text-foreground"
             />
           </div>
 
           {/* Business Materials Upload */}
           <div>
-            <label htmlFor="businessMaterials" className="block text-sm font-medium text-dark-foreground">
+            <label htmlFor="businessMaterials" className="block text-sm font-medium text-foreground">
               Business Materials
             </label>
             <input
               id="businessMaterials"
               name="businessMaterials"
               type="file"
-              className="mt-1 block w-full text-sm text-dark-foreground
+              className="mt-1 block w-full text-sm text-foreground
                 file:mr-4 file:py-2 file:px-4
                 file:rounded-md file:border-0
                 file:text-sm file:font-semibold
-                file:bg-primary-accent file:text-white
-                hover:file:bg-[var(--secondary-accent)]"
+                file:bg-primary file:text-white
+                hover:file:bg-secondary"
             />
           </div>
 
@@ -300,7 +300,7 @@ className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-i
           <div>
             <button
               type="submit"
-              className="inline-flex justify-center rounded-md border border-transparent bg-primary-accent py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-[var(--secondary-accent)] focus:outline-none focus:ring-2 focus:ring-primary-accent focus:ring-offset-2"
+              className="inline-flex justify-center rounded-md border border-transparent bg-primary py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-primary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
             >
               Create Business Profile
             </button>
@@ -312,13 +312,13 @@ className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-i
       {/* Display existing businesses */}
       <div className="mt-8 flex flex-col space-y-4">
         {userBusinesses.length === 0 && !showCreateForm ? (
-          <p className="text-dark-foreground">You don&apos;t have any businesses yet. Click &quot;Create New Business&quot; to get started!</p>
+          <p className="text-foreground">You don&apos;t have any businesses yet. Click &quot;Create New Business&quot; to get started!</p>
         ) : (
           userBusinesses.map((business) => (
             <button
               key={business.id}
               onClick={() => handleBusinessClick(business.id)}
-              className={`w-full text-left py-4 px-6 rounded-lg shadow-md transition-all duration-200 flex items-center space-x-4 ${business.isArchived ? 'bg-gray-200 text-gray-500 opacity-60' : 'bg-white hover:shadow-lg'}`}
+              className={`w-full text-left py-4 px-6 rounded-lg shadow-md transition-all duration-200 flex items-center space-x-4 ${business.isArchived ? 'bg-gray-200 text-gray-500 opacity-60' : 'bg-background hover:shadow-lg'}`}
             >
               {business.logoUrl ? (
                 <Image src={business.logoUrl} alt={`${business.businessName} Logo`} width={40} height={40} className="rounded-full object-cover" />
@@ -328,7 +328,7 @@ className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-i
                 </div>
               )}
               <div>
-                <h3 className="text-xl font-bold text-dark-foreground">{business.businessName}</h3>
+                <h3 className="text-xl font-bold text-foreground">{business.businessName}</h3>
                 <p className="mt-2 text-sm text-gray-600">Owner: {business.ownerName}</p>
                 <p className="text-sm text-gray-600">Type: {business.businessType}</p>
                 {business.isArchived && (

@@ -60,7 +60,7 @@ export default function ProfilePage() {
         )}
       </div>
 
-      <h1 className="text-3xl font-bold text-gray-900">Your Personal Profile</h1> {/* Renamed heading */}
+      <h1 className="text-3xl font-bold text-foreground">Your Personal Profile</h1> {/* Renamed heading */}
       <p className="mt-4 text-gray-700">Manage your personal information.</p>
 
       <div className="mt-8 max_w_md">
@@ -80,7 +80,7 @@ export default function ProfilePage() {
               id="profilePhoto"
               name="profilePhoto"
               type="file"
-              className="mt-1 block w-full text-sm text-gray-900
+              className="mt-1 block w-full text-sm text-foreground
                 file:mr-4 file:py-2 file:px-4
                 file:rounded-md file:border-0
                 file:text-sm file:font-semibold
@@ -115,7 +115,7 @@ export default function ProfilePage() {
               type="text"
               defaultValue={user.name}
               required
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-gray-900"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-foreground"
             />
           </div>
 
@@ -130,7 +130,7 @@ export default function ProfilePage() {
               type="text"
               defaultValue={user.phone}
               required
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-gray-900"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-foreground"
             />
           </div>
 
@@ -144,7 +144,7 @@ export default function ProfilePage() {
               name="personalAddress"
               type="text"
               defaultValue={user.personalAddress || ''}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-gray-900"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-foreground"
             />
           </div>
 
@@ -158,7 +158,7 @@ export default function ProfilePage() {
               name="personalCity"
               type="text"
               defaultValue={user.personalCity || ''}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-gray-900"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-foreground"
             />
           </div>
 
@@ -173,7 +173,7 @@ export default function ProfilePage() {
               type="text"
               maxLength={2}
               defaultValue={user.personalState || ''}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-gray-900"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-foreground"
             />
           </div>
 
@@ -188,7 +188,7 @@ export default function ProfilePage() {
               type="text"
               maxLength={10}
               defaultValue={user.personalZipCode || ''}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-gray-900"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-foreground"
             />
           </div>
 

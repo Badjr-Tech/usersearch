@@ -39,7 +39,7 @@ export default async function UserManagementPage({ searchParams }: { searchParam
     <div className="flex-1 p-6">
       <div className="flex justify-between items-start">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Admin User Management</h1>
+          <h1 className="text-3xl font-bold text-foreground">Admin User Management</h1>
           <p className="mt-4 text-gray-700">Manage users and their permissions.</p>
         </div>
         <div className="flex space-x-2">

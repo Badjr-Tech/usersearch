@@ -21,9 +21,9 @@ export default async function DashboardLayout({
   const isAdmin = session.user.role === 'admin';
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
+    <div className="flex min-h-screen bg-background">
       {/* Sidebar */}
-      <aside className="w-64 bg-[#476c2e] text-[var(--foreground)] p-4 space-y-6">
+      <aside className="w-64 bg-secondary text-foreground p-4 space-y-6">
         <nav className="space-y-2">
           <Link href="/dashboard" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-light-gray">Home</Link>
           <Link href="/dashboard/businesses" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-light-gray">Businesses</Link>
@@ -54,9 +54,9 @@ export default async function DashboardLayout({
       </aside>
 
       {/* Main content */}
-      <main className="flex-1 flex flex-col text-gray-900 p-6">
+      <main className="flex-1 flex flex-col text-foreground p-6">
         {children}
-        <footer className="mt-auto py-4 text-center text-sm text-[var(--foreground)]">
+        <footer className="mt-auto py-4 text-center text-sm text-foreground">
           Tech By Badjr
         </footer>
       </main>

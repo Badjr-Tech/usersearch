@@ -40,11 +40,11 @@ export default function PermissionsManagementClientPage({ initialUsers }: Permis
   return (
     <div className="flex flex-col md:flex-row gap-6">
       {/* User Selection */}
-      <div className="md:w-1/3 p-4 bg-white shadow-md rounded-lg">
-        <h2 className="text-xl font-bold text-gray-900 mb-4">Select User</h2>
+      <div className="md:w-1/3 p-4 bg-background shadow-md rounded-lg">
+        <h2 className="text-xl font-bold text-foreground mb-4">Select User</h2>
         <select
           onChange={(e) => handleUserSelect(parseInt(e.target.value))}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-gray-900"
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-foreground"
           defaultValue=""
         >
           <option value="" disabled>Select a user</option>
@@ -55,8 +55,8 @@ export default function PermissionsManagementClientPage({ initialUsers }: Permis
       </div>
 
       {/* Permissions Form */}
-      <div className="md:w-2/3 p-4 bg-white shadow-md rounded-lg">
-        <h2 className="text-xl font-bold text-gray-900 mb-4">Manage Permissions</h2>
+      <div className="md:w-2/3 p-4 bg-background shadow-md rounded-lg">
+        <h2 className="text-xl font-bold text-foreground mb-4">Manage Permissions</h2>
         {selectedUser ? (
           <form action={permissionsFormAction} className="space-y-4">
             <input type="hidden" name="userId" value={selectedUser.id} />

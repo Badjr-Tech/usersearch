@@ -7,12 +7,12 @@ export default function CreateAccountPage() {
   const [state, formAction] = useFormState<FormState, FormData>(createAccount, undefined);
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col justify-center items-center">
-      <div className="max-w-md w-full bg-white p-8 rounded-lg shadow-md">
-        <h1 className="text-4xl font-bold text-dark-foreground text-center mb-8">Create an Account</h1>
+    <div className="min-h-screen bg-background flex flex-col justify-center items-center">
+      <div className="max-w-md w-full bg-background p-8 rounded-lg shadow-md">
+        <h1 className="text-4xl font-bold text-foreground text-center mb-8">Create an Account</h1>
         <form action={formAction} className="space-y-6">
           <div>
-            <label htmlFor="name" className="block text-sm font-medium text-dark-foreground">
+            <label htmlFor="name" className="block text-sm font-medium text-foreground">
               Name
             </label>
             <div className="mt-1">
@@ -20,12 +20,12 @@ export default function CreateAccountPage() {
                 id="name"
                 name="name"
                 type="text"
-                className="appearance-none block w-full px-3 py-2 border border-light-gray rounded-md shadow-sm placeholder-light-gray focus:outline-none focus:ring-primary-accent focus:border-primary-accent sm:text-sm text-dark-foreground"
+                className="appearance-none block w-full px-3 py-2 border border-light-gray rounded-md shadow-sm placeholder-light-gray focus:outline-none focus:ring-primary focus:border-primary sm:text-sm text-foreground"
               />
             </div>
           </div>
           <div>
-            <label htmlFor="phone" className="block text-sm font-medium text-dark-foreground">
+            <label htmlFor="phone" className="block text-sm font-medium text-foreground">
               Phone Number
             </label>
             <div className="mt-1">
@@ -34,12 +34,12 @@ export default function CreateAccountPage() {
                 name="phone"
                 type="text"
                 required
-                className="appearance-none block w-full px-3 py-2 border border-light-gray rounded-md shadow-sm placeholder-light-gray focus:outline-none focus:ring-primary-accent focus:border-primary-accent sm:text-sm text-dark-foreground"
+                className="appearance-none block w-full px-3 py-2 border border-light-gray rounded-md shadow-sm placeholder-light-gray focus:outline-none focus:ring-primary focus:border-primary sm:text-sm text-foreground"
               />
             </div>
           </div>
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-dark-foreground">
+            <label htmlFor="email" className="block text-sm font-medium text-foreground">
               Email address
             </label>
             <div className="mt-1">
@@ -49,13 +49,13 @@ export default function CreateAccountPage() {
                 type="email"
                 autoComplete="email"
                 required
-                className="appearance-none block w-full px-3 py-2 border border-light-gray rounded-md shadow-sm placeholder-light-gray focus:outline-none focus:ring-primary-accent focus:border-primary-accent sm:text-sm text-dark-foreground"
+                className="appearance-none block w-full px-3 py-2 border border-light-gray rounded-md shadow-sm placeholder-light-gray focus:outline-none focus:ring-primary focus:border-primary sm:text-sm text-foreground"
               />
             </div>
           </div>
 
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-dark-foreground">
+            <label htmlFor="password" className="block text-sm font-medium text-foreground">
               Password
             </label>
             <div className="mt-1">
@@ -65,7 +65,7 @@ export default function CreateAccountPage() {
                 type="password"
                 autoComplete="new-password"
                 required
-                className="appearance-none block w-full px-3 py-2 border border-light-gray rounded-md shadow-sm placeholder-light-gray focus:outline-none focus:ring-primary-accent focus:border-primary-accent sm:text-sm text-dark-foreground"
+                className="appearance-none block w-full px-3 py-2 border border-light-gray rounded-md shadow-sm placeholder-light-gray focus:outline-none focus:ring-primary focus:border-primary sm:text-sm text-foreground"
               />
             </div>
           </div>
@@ -74,7 +74,7 @@ export default function CreateAccountPage() {
           <div>
             <button
               type="submit"
-              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#476c2e] hover:bg-[var(--secondary-accent)] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#476c2e]"
+              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-secondary hover:bg-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary"
             >
               Create Account
             </button>

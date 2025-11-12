@@ -53,7 +53,7 @@ export default function BusinessDetailClientPage({ initialBusiness, availableDem
 
       {activeTab === 'business-profile' && (
         <div className="mt-8">
-          <h1 className="text-3xl font-bold text-gray-900">{business.businessName}</h1>
+          <h1 className="text-3xl font-bold text-foreground">{business.businessName}</h1>
           <div className="mb-6 flex justify-center">
             {business.logoUrl ? (
               <Image src={business.logoUrl} alt="Business Logo" width={96} height={96} className="rounded-md object-cover border-2 border-gray-300" />

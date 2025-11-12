@@ -78,7 +78,7 @@ export default function UserManagementClientPage({ initialUsers, isInternalUserV
 
   return (
     <div className="flex-1 p-6">
-      <h1 className="text-3xl font-bold text-gray-900">User Management</h1>
+      <h1 className="text-3xl font-bold text-foreground">User Management</h1>
       <p className="mt-4 text-gray-700">Manage all users in the system.</p>
 
       <div className="mt-6">
@@ -91,8 +91,8 @@ export default function UserManagementClientPage({ initialUsers, isInternalUserV
       </div>
 
       {showCreateForm && (
-        <div className="mt-8 max-w-2xl p-6 bg-white shadow-md rounded-lg">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Create New User</h2>
+        <div className="mt-8 max-w-2xl p-6 bg-background shadow-md rounded-lg">
+          <h2 className="text-2xl font-bold text-foreground mb-4">Create New User</h2>
           <form action={createFormAction} className="space-y-6">
             {/* Name */}
             <div>
@@ -188,7 +188,7 @@ export default function UserManagementClientPage({ initialUsers, isInternalUserV
 
       <div className="mt-8">
         <table className="min-w-full divide-y divide-gray-200">
-          <thead className="bg-gray-50">
+          <thead className="bg-background">
             <tr>
               <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 ID
@@ -210,10 +210,10 @@ export default function UserManagementClientPage({ initialUsers, isInternalUserV
               </th>
             </tr>
           </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
+          <tbody className="bg-background divide-y divide-gray-200">
             {allUsers.map((user) => (
               <tr key={user.id}>
-                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-foreground">
                   {user.id}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
@@ -251,8 +251,8 @@ export default function UserManagementClientPage({ initialUsers, isInternalUserV
       {/* Edit User Modal */}
       {showEditModal && editingUser && (
         <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full" id="my-modal">
-          <div className="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
-            <h3 className="text-lg font-medium leading-6 text-gray-900">Edit User</h3>
+          <div className="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-background">
+            <h3 className="text-lg font-medium leading-6 text-foreground">Edit User</h3>
             <div className="mt-2">
               <form action={editFormAction} className="space-y-6">
                 <input type="hidden" name="userId" value={editingUser.id} />
@@ -318,7 +318,7 @@ export default function UserManagementClientPage({ initialUsers, isInternalUserV
                       setShowEditModal(false);
                       setEditingUser(null);
                     }}
-                    className="inline-flex justify-center rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                    className="inline-flex justify-center rounded-md border border-gray-300 bg-background py-2 px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-background focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                   >
                     Cancel
                   </button>

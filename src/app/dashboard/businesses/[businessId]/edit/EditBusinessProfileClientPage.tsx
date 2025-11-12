@@ -13,7 +13,7 @@ export default function EditBusinessProfileClientPage({ initialBusiness }: EditB
 
   return (
     <div className="flex-1 p-6">
-      <h1 className="text-3xl font-bold text-gray-900">Edit Business: {initialBusiness.businessName}</h1>
+      <h1 className="text-3xl font-bold text-foreground">Edit Business: {initialBusiness.businessName}</h1>
 
       {/* Tabs */}
       <div className="mt-6 border-b border-gray-200">
@@ -29,28 +29,28 @@ export default function EditBusinessProfileClientPage({ initialBusiness }: EditB
       <div className="mt-8">
         {activeTab === "info" && (
           <div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Business Information</h2>
+            <h2 className="text-2xl font-bold text-foreground mb-4">Business Information</h2>
             {/* Placeholder for editable business info form */}
             <p>Editable business information form will go here.</p>
           </div>
         )}
         {activeTab === "materials" && (
           <div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Business Materials</h2>
+            <h2 className="text-2xl font-bold text-foreground mb-4">Business Materials</h2>
             {/* Placeholder for business materials management */}
             <p>Business materials management will go here.</p>
           </div>
         )}
         {activeTab === "branding" && (
           <div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Branding</h2>
+            <h2 className="text-2xl font-bold text-foreground mb-4">Branding</h2>
             {/* Placeholder for branding elements */}
             <p>Branding elements (logo, colors, etc.) will go here.</p>
           </div>
         )}
         {activeTab === "edit" && (
           <div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">General Edit Settings</h2>
+            <h2 className="text-2xl font-bold text-foreground mb-4">General Edit Settings</h2>
             {/* Placeholder for general edit settings or summary */}
             <p>General edit settings or summary will go here.</p>
           </div>
@@ -61,7 +61,7 @@ export default function EditBusinessProfileClientPage({ initialBusiness }: EditB
         <Link href={`/dashboard/businesses/${initialBusiness.id}`}>
           <button
             type="button"
-            className="inline-flex justify-center rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+            className="inline-flex justify-center rounded-md border border-gray-300 bg-background py-2 px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-background focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
           >
             Back to Business Details
           </button>

@@ -32,7 +32,7 @@ export default function BusinessDocuments({ business }: BusinessDocumentsProps) 
               type="text"
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
               defaultValue={(business as any)[`material${i}Title`] || ''}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-gray-900"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-foreground"
             />
             <label htmlFor={`material${i}`} className="block text-sm font-medium text-gray-700 mt-2">
               Document {i} File
@@ -41,7 +41,7 @@ export default function BusinessDocuments({ business }: BusinessDocumentsProps) 
               id={`material${i}`}
               name={`material${i}`}
               type="file"
-              className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
+              className="block w-full text-sm text-foreground border border-gray-300 rounded-lg cursor-pointer bg-background focus:outline-none"
             />
             {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
             {(business as any)[`material${i}Url`] && (
