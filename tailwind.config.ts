@@ -5,12 +5,14 @@ const config: Config = {
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    colors: {
-      'primary-accent': '#ffbd5a',
-      'secondary-accent': '#476c2e',
-      'light-gray': '#ffbd5a',
-      'light-background': '#ffffff',
-      'dark-foreground': '#363636',
+    extend: {
+      colors: {
+        'primary-accent': '#ffbd5a',
+        'secondary-accent': '#476c2e',
+        'light-gray': '#ffbd5a',
+        'light-background': '#ffffff',
+        'dark-foreground': '#363636',
+      },
     },
   },
   plugins: [],
