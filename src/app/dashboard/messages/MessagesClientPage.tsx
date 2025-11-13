@@ -177,7 +177,7 @@ export default function MessagesPage({
                 Correspondence
               </button>
               <button
-                onClick={() => setActiveTab('collaboration')} {/* New tab */}
+                onClick={() => setActiveTab('collaboration')}
                 className={`px-4 py-2 rounded-md text-sm font-medium ${activeTab === 'collaboration' ? 'bg-secondary text-foreground' : 'bg-light-gray text-foreground'}`}
               >
                 Collaboration
