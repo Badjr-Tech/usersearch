@@ -15,7 +15,7 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen bg-background flex flex-col justify-center items-center relative"> {/* Added relative positioning */}
-      <Link href="#" onClick={() => router.back()} className="absolute top-4 left-4 text-sm text-foreground hover:underline">
+      <Link href="/" onClick={() => router.push('/')} className="absolute top-4 left-4 text-sm text-foreground hover:underline">
         &larr; Back
       </Link>
       <div className="max-w-md w-full bg-background p-8 rounded-lg shadow-md">
