@@ -3,10 +3,10 @@ import Image from 'next/image';
 
 export default function DashboardPage() {
   return (
-    <div className="min-h-screen bg-background flex flex-col items-center py-10">
+    <div className="min-h-screen bg-background flex flex-col items-center pt-10">
       <Image
         src="/green.png"
-        alt="Heighten The Hustle Logo"
+        alt="Badjr Logo"
         width={200}
         height={200}
         className="mb-8"
