@@ -98,11 +98,15 @@ export default function MessagesPage({
     const sentRequests = initialSentCollaborationRequests; // Use prop
     const receivedRequests = initialReceivedCollaborationRequests; // Use prop
   
-    useEffect(() => {
+    // Removed useEffect for search on searchQuery change
+  
+    const handleSearch = () => {
       if (searchQuery.length > 2) {
         searchBusinesses(searchQuery).then(setSearchResults);
+      } else {
+        setSearchResults([]); // Clear results if query is too short
       }
-    }, [searchQuery]);
+    };
   
     const handleLocationChange = (locationId: number) => {
       setSelectedLocations(prev =>
@@ -154,6 +158,7 @@ export default function MessagesPage({
             >
               <option value="mass-messages">Mass Messages</option>
               <option value="correspondence">Correspondence</option>
+              <option value="collaboration">Collaboration</option> {/* New tab */}
               <option value="pending-requests">Pending Requests</option>
             </select>
           </div>
@@ -172,6 +177,12 @@ export default function MessagesPage({
                 Correspondence
               </button>
               <button
+                onClick={() => setActiveTab('collaboration')} {/* New tab */}
+                className={`px-4 py-2 rounded-md text-sm font-medium ${activeTab === 'collaboration' ? 'bg-secondary text-foreground' : 'bg-light-gray text-foreground'}`}
+              >
+                Collaboration
+              </button>
+              <button
                 onClick={() => setActiveTab('pending-requests')}
                 className={`px-4 py-2 rounded-md text-sm font-medium ${activeTab === 'pending-requests' ? 'bg-secondary text-foreground' : 'bg-light-gray text-foreground'}`}
               >
@@ -184,13 +195,13 @@ export default function MessagesPage({
         <div className="mt-8">
           {activeTab === 'correspondence' && (
             <div>
-              <h2 className="text-2xl font-bold text-foreground mb-4">Create Collaboration Request</h2>
-              <form action={handleCreateCollaborationRequest} className="space-y-4">
+              <h2 className="text-2xl font-bold text-foreground mb-4">New Message</h2>
+              <form action={handleSendMessage} className="space-y-4">
                 <div>
-                  <label htmlFor="recipientId" className="block text-sm font-medium text-foreground">Recipient</label>
+                  <label htmlFor="recipient" className="block text-sm font-medium text-foreground">Recipient</label>
                   <select
-                    id="recipientId"
-                    name="recipientId"
+                    id="recipient"
+                    name="recipient"
                     required
                     className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-light-gray focus:outline-none focus:ring-primary focus:border-primary sm:text-sm rounded-md"
                   >
@@ -209,13 +220,80 @@ export default function MessagesPage({
                     className="shadow-sm focus:ring-primary focus:border-primary mt-1 block w-full sm:text-sm border border-light-gray rounded-md"
                   ></textarea>
                 </div>
+                {sendState?.message && (
+                  <p className="text-sm text-green-600 mt-2">{sendState.message}</p>
+                )}
+                {sendState?.error && (
+                  <p className="text-sm text-red-600 mt-2">{sendState.error}</p>
+                )}
                 <button
                   type="submit"
-                  className="ml-4 inline-flex justify-center rounded-md border border-transparent bg-primary py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-primary focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-ring-offset-2"
+                  className="inline-flex justify-center rounded-md border border-transparent bg-primary py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-primary focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                >
+                  Send Message
+                </button>
+              </form>
+            </div>
+          )}
+
+          {activeTab === 'collaboration' && (
+            <div>
+              <h2 className="text-2xl font-bold text-foreground mb-4">Create Collaboration Request</h2>
+              <form action={handleCreateCollaborationRequest} className="space-y-4">
+                <div className="flex items-center">
+                  <input
+                    type="search"
+                    name="business-search"
+                    placeholder="Search for a business..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="flex-grow rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-foreground"
+                  />
+                  <button
+                    type="button" // Changed to button type
+                    onClick={handleSearch} // Added onClick handler
+                    className="ml-4 inline-flex justify-center rounded-md border border-transparent bg-secondary py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-primary focus:outline-none focus:ring-2 focus:ring-secondary"
+                  >
+                    Search
+                  </button>
+                </div>
+                {searchResults.length > 0 && (
+                  <ul className="mt-4 border border-gray-200 rounded-md">
+                    {searchResults.map((business) => (
+                      <li key={business.id} className="p-2 border-b border-gray-200">
+                        <label className="flex items-center">
+                          <input type="radio" name="business-id" value={business.id} className="mr-2" />
+                          {business.businessName}
+                        </label>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+                <div>
+                  <label htmlFor="message" className="block text-sm font-medium text-foreground">Message</label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    rows={3}
+                    required
+                    className="shadow-sm focus:ring-primary focus:border-primary mt-1 block w-full sm:text-sm border border-light-gray rounded-md"
+                  ></textarea>
+                </div>
+                {collaborationState?.message && (
+                  <p className="text-sm text-green-600 mt-2">{collaborationState.message}</p>
+                )}
+                {collaborationState?.error && (
+                  <p className="text-sm text-red-600 mt-2">{collaborationState.error}</p>
+                )}
+                <button
+                  type="submit" // This is the Send Request button, moved below message
+                  className="mt-4 inline-flex justify-center rounded-md border border-transparent bg-primary py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-primary focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 >
                   Send Request
                 </button>
               </form>
+            </div>
+          )}
   
               <h2 className="text-2xl font-bold text-foreground mb-4 mt-8">Your Sent Requests</h2>
               {sentRequests.length === 0 ? (
