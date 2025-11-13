@@ -9,10 +9,10 @@ export default function DashboardPage() {
         alt="Badjr Logo"
         width={300}
         height={300}
-        className="mb-2"
+        className=""
       />
       <div className="max-w-3xl w-full text-center">
-        <h1 className="text-4xl font-extrabold text-foreground mb-4">
+        <h1 className="text-4xl font-extrabold text-foreground">
           Welcome to Your Dashboard
         </h1>
         <p className="text-xl text-foreground mb-8">
