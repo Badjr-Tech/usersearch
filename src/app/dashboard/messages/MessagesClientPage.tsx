@@ -364,10 +364,7 @@ export default function MessagesPage({
             <div className="mt-8">
               <div className="mb-8 p-6 bg-background shadow-md rounded-lg">
                 <h2 className="text-2xl font-bold text-foreground mb-4">Create Collaboration Request</h2>
-                <form action={async (formData) => {
-                  const selectedBusinessId = formData.get("business-id");
-                  console.log("Collaboration request created for business:", selectedBusinessId);
-                }}>
+                <form action={collaborationAction} className="space-y-4">
                   <div className="flex items-center">
                     <input
                       type="search"
@@ -395,6 +392,22 @@ export default function MessagesPage({
                         </li>
                       ))}
                     </ul>
+                  )}
+                  <div>
+                    <label htmlFor="message" className="block text-sm font-medium text-foreground">Message</label>
+                    <textarea
+                      id="message"
+                      name="message"
+                      rows={3}
+                      required
+                      className="shadow-sm focus:ring-primary focus:border-primary mt-1 block w-full sm:text-sm border border-light-gray rounded-md"
+                    ></textarea>
+                  </div>
+                  {collaborationState?.message && (
+                    <p className="text-sm text-green-600 mt-2">{collaborationState.message}</p>
+                  )}
+                  {collaborationState?.error && (
+                    <p className="text-sm text-red-600 mt-2">{collaborationState.error}</p>
                   )}
                 </form>
               </div>
