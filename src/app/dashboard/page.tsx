@@ -30,7 +30,7 @@ export default function DashboardPage() {
         <div className="mb-10">
           <h2 className="text-3xl font-bold text-foreground mb-4">Quick Actions</h2>
           <div className="flex justify-center space-x-4">
-            <Link href="/dashboard/businesses/create" className="inline-flex justify-center rounded-md border border-transparent bg-primary py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-primary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
+            <Link href="/dashboard/businesses" className="inline-flex justify-center rounded-md border border-transparent bg-primary py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-primary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
               Create New Business
             </Link>
             <Link href="/dashboard/messages" className="inline-flex justify-center rounded-md border border-transparent bg-primary py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-primary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
