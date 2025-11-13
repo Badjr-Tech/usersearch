@@ -36,3 +36,15 @@ body {
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-dm-sans); /* Apply DM Sans to headings */
 }
+
+button {
+  background-color: var(--color-secondary);
+  color: #fff;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+button:hover,
+button:focus-visible {
+  background-color: var(--color-primary);
+  color: var(--color-primary-foreground);
+}

@@ -22,7 +22,7 @@ export default function DashboardPage() {
         <div className="mb-10">
           <h2 className="text-3xl font-bold text-foreground mb-4">Welcome</h2>
           <p className="text-lg text-foreground">
-            This is your personalized portal to manage all aspects of your HeightenTheHustle journey.
+            This is your personalized portal to manage all aspects of your Badjr journey.
             From here, you can access your business profiles, manage HTH classes, communicate with other users, and more.
           </p>
         </div>
@@ -42,7 +42,7 @@ export default function DashboardPage() {
         <div className="mb-10">
           <h2 className="text-3xl font-bold text-foreground mb-4">How We Help</h2>
           <p className="text-lg text-foreground">
-            HeightenTheHustle provides resources and tools to help entrepreneurs succeed.
+            Badjr provides resources and tools to help entrepreneurs succeed.
             Our platform connects you with mentors, educational content, and a community of like-minded individuals.
           </p>
         </div>
