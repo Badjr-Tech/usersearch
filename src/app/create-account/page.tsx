@@ -1,3 +1,5 @@
+"use client";
+
 import { useFormState } from "react-dom";
 import { createAccount, FormState } from "./actions";
 import { useRouter } from "next/navigation";
