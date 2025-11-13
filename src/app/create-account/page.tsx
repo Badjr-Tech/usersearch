@@ -70,6 +70,7 @@ export default function CreateAccountPage() {
             </div>
           </div>
           {state?.error && <p className="text-red-600 text-sm">{state.error}</p>}
+          {state?.message && <p className="text-green-600 text-sm">{state.message}</p>}
 
           <div>
             <button
