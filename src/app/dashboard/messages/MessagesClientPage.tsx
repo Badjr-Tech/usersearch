@@ -257,7 +257,7 @@ export default function MessagesPage({
                     Search
                   </button>
                 </div>
-                {searchResults.length > 0 && (
+                {searchResults.length > 0 ? (
                   <ul className="mt-4 border border-gray-200 rounded-md">
                     {searchResults.map((business) => (
                       <li key={business.id} className="p-2 border-b border-gray-200">
@@ -268,6 +268,8 @@ export default function MessagesPage({
                       </li>
                     ))}
                   </ul>
+                ) : (
+                  searchQuery.length > 0 && <p className="mt-4 text-foreground">No businesses found.</p>
                 )}
                 <div>
                   <label htmlFor="message" className="block text-sm font-medium text-foreground">Message</label>
