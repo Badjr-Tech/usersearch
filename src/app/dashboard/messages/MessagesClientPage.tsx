@@ -158,7 +158,7 @@ export default function MessagesPage({
             >
               <option value="mass-messages">Mass Messages</option>
               <option value="correspondence">Correspondence</option>
-              <option value="collaboration">Collaboration</option> {/* New tab */}
+              <option value="collaboration">Collaboration</option>
               <option value="pending-requests">Pending Requests</option>
             </select>
           </div>
@@ -295,77 +295,6 @@ export default function MessagesPage({
             </div>
           )}
   
-              <h2 className="text-2xl font-bold text-foreground mb-4 mt-8">Your Sent Requests</h2>
-              {sentRequests.length === 0 ? (
-                <p className="text-foreground">No collaboration requests sent yet.</p>
-              ) : (
-                <ul className="space-y-4">
-                  {sentRequests.map(request => (
-                    <li key={request.id} className="bg-light-gray shadow overflow-hidden sm:rounded-lg p-4">
-                      <p className="text-sm font-semibold">To: {request.recipient.name}</p>
-                      <p className="text-foreground">{request.content}</p>
-                      <p className="text-xs text-foreground text-right">{request.timestamp.toLocaleString()}</p>
-                    </li>
-                  ))}
-                </ul>
-              )}
-
-              <h2 className="text-2xl font-bold text-foreground mb-4 mt-8">Received Collaboration Requests</h2>
-              {receivedRequests.length === 0 ? (
-                <p className="text-foreground">No pending collaboration requests.</p>
-              ) : (
-                <ul className="space-y-4">
-                  {receivedRequests.map(request => (
-                    <li key={request.id} className="bg-light-gray shadow overflow-hidden sm:rounded-lg p-4">
-                      <p className="text-sm font-semibold">From: {request.sender.name}</p>
-                      <p className="text-foreground">{request.content}</p>
-                      <p className="text-xs text-foreground text-right">{request.timestamp.toLocaleString()}</p>
-                    </li>
-                  ))}
-                </ul>
-              )}
-  
-              <h2 className="text-2xl font-bold text-foreground mb-4 mt-8">New Message</h2>
-              <form action={handleSendMessage} className="space-y-4">
-                <div>
-                  <label htmlFor="recipient" className="block text-sm font-medium text-foreground">Recipient</label>
-                  <select
-                    id="recipient"
-                    name="recipient"
-                    required
-                    className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-light-gray focus:outline-none focus:ring-primary focus:border-primary sm:text-sm rounded-md"
-                  >
-                    {users.map(user => (
-                      <option key={user.id} value={user.id}>{user.name}</option>
-                    ))}
-                  </select>
-                </div>
-                <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-foreground">Message</label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    rows={3}
-                    required
-                    className="shadow-sm focus:ring-primary focus:border-primary mt-1 block w-full sm:text-sm border border-light-gray rounded-md"
-                  ></textarea>
-                </div>
-                {sendState?.message && (
-                  <p className="text-sm text-green-600 mt-2">{sendState.message}</p>
-                )}
-                {sendState?.error && (
-                  <p className="text-sm text-red-600 mt-2">{sendState.error}</p>
-                )}
-                <button
-                  type="submit"
-                  className="inline-flex justify-center rounded-md border border-transparent bg-primary py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-primary focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                >
-                  Send Message
-                </button>
-              </form>
-            </div>
-          )}
-  
           {activeTab === 'mass-messages' && (
             <div>
               <h2 className="text-2xl font-bold text-foreground mb-4">Mass Messages</h2>
@@ -460,59 +389,35 @@ export default function MessagesPage({
   
           {activeTab === 'pending-requests' && (
             <div className="mt-8">
-              <div className="mb-8 p-6 bg-background shadow-md rounded-lg">
-                <h2 className="text-2xl font-bold text-foreground mb-4">Create Collaboration Request</h2>
-                <form action={collaborationAction} className="space-y-4">
-                  <div className="flex items-center">
-                    <input
-                      type="search"
-                      name="business-search"
-                      placeholder="Search for a business..."
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                      className="flex-grow rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-foreground"
-                    />
-                    <button
-                      type="submit"
-                      className="ml-4 inline-flex justify-center rounded-md border border-transparent bg-secondary py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-primary focus:outline-none focus:ring-2 focus:ring-secondary"
-                    >
-                      Send Request
-                    </button>
-                  </div>
-                  {searchResults.length > 0 && (
-                    <ul className="mt-4 border border-gray-200 rounded-md">
-                      {searchResults.map((business) => (
-                        <li key={business.id} className="p-2 border-b border-gray-200">
-                          <label className="flex items-center">
-                            <input type="radio" name="business-id" value={business.id} className="mr-2" />
-                            {business.businessName}
-                          </label>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                  <div>
-                    <label htmlFor="message" className="block text-sm font-medium text-foreground">Message</label>
-                    <textarea
-                      id="message"
-                      name="message"
-                      rows={3}
-                      required
-                      className="shadow-sm focus:ring-primary focus:border-primary mt-1 block w-full sm:text-sm border border-light-gray rounded-md"
-                    ></textarea>
-                  </div>
-                  {collaborationState?.message && (
-                    <p className="text-sm text-green-600 mt-2">{collaborationState.message}</p>
-                  )}
-                  {collaborationState?.error && (
-                    <p className="text-sm text-red-600 mt-2">{collaborationState.error}</p>
-                  )}
-                </form>
-              </div>
-              <h2 className="text-2xl font-bold text-foreground mb-4">Pending Requests</h2>
-              <div className="p-6 bg-background shadow-md rounded-lg h-96 overflow-y-auto">
-                <p className="text-gray-500">This feature is coming soon.</p>
-              </div>
+              <h2 className="text-2xl font-bold text-foreground mb-4">Your Sent Requests</h2>
+              {sentRequests.length === 0 ? (
+                <p className="text-foreground">No collaboration requests sent yet.</p>
+              ) : (
+                <ul className="space-y-4">
+                  {sentRequests.map(request => (
+                    <li key={request.id} className="bg-light-gray shadow overflow-hidden sm:rounded-lg p-4">
+                      <p className="text-sm font-semibold">To: {request.recipient.name}</p>
+                      <p className="text-foreground">{request.content}</p>
+                      <p className="text-xs text-foreground text-right">{request.timestamp.toLocaleString()}</p>
+                    </li>
+                  ))}
+                </ul>
+              )}
+
+              <h2 className="text-2xl font-bold text-foreground mb-4 mt-8">Received Collaboration Requests</h2>
+              {receivedRequests.length === 0 ? (
+                <p className="text-foreground">No pending collaboration requests.</p>
+              ) : (
+                <ul className="space-y-4">
+                  {receivedRequests.map(request => (
+                    <li key={request.id} className="bg-light-gray shadow overflow-hidden sm:rounded-lg p-4">
+                      <p className="text-sm font-semibold">From: {request.sender.name}</p>
+                      <p className="text-foreground">{request.content}</p>
+                      <p className="text-xs text-foreground text-right">{request.timestamp.toLocaleString()}</p>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
           )}
         </div>
