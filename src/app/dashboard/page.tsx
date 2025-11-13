@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 export default function DashboardPage() {
   return (
-    <div className="min-h-screen bg-background flex flex-col items-center pt-10">
+    <div className="min-h-screen bg-background flex flex-col items-center pt-4">
       <Image
         src="/green.png"
         alt="Badjr Logo"
