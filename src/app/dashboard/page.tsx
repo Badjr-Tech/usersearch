@@ -29,12 +29,18 @@ export default function DashboardPage() {
 
         <div className="mb-10">
           <h2 className="text-3xl font-bold text-foreground mb-4">Quick Actions</h2>
-          <div className="flex justify-center space-x-4">
-            <Link href="/dashboard/businesses" className="inline-flex justify-center rounded-md border border-transparent bg-primary py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-primary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
-              Create New Business
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <Link href="/dashboard/businesses" className="flex flex-col items-center justify-center p-4 bg-primary text-white rounded-lg shadow-md hover:bg-primary-dark transition-colors aspect-square">
+              <span className="text-lg font-medium text-center">Create New Business</span>
             </Link>
-            <Link href="/dashboard/messages" className="inline-flex justify-center rounded-md border border-transparent bg-primary py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-primary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
-              View Messages
+            <Link href="/dashboard/messages" className="flex flex-col items-center justify-center p-4 bg-primary text-white rounded-lg shadow-md hover:bg-primary-dark transition-colors aspect-square">
+              <span className="text-lg font-medium text-center">View Messages</span>
+            </Link>
+            <Link href="/dashboard/hth-class" className="flex flex-col items-center justify-center p-4 bg-primary text-white rounded-lg shadow-md hover:bg-primary-dark transition-colors aspect-square">
+              <span className="text-lg font-medium text-center">Manage Classes</span>
+            </Link>
+            <Link href="/dashboard/profile" className="flex flex-col items-center justify-center p-4 bg-primary text-white rounded-lg shadow-md hover:bg-primary-dark transition-colors aspect-square">
+              <span className="text-lg font-medium text-center">Manage Profile</span>
             </Link>
           </div>
         </div>
