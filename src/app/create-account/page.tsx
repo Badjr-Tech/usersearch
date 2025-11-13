@@ -2,9 +2,11 @@
 
 import { useFormState } from "react-dom";
 import { createAccount, FormState } from "./actions";
+import { useRouter } from "next/navigation"; // Added import
 
 export default function CreateAccountPage() {
   const [state, formAction] = useFormState<FormState, FormData>(createAccount, undefined);
+  const router = useRouter(); // Initialize useRouter
 
   return (
     <div className="min-h-screen bg-background flex flex-col justify-center items-center">
@@ -78,6 +80,15 @@ export default function CreateAccountPage() {
               className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-secondary hover:bg-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary"
             >
               Create Account
+            </button>
+          </div>
+          <div className="mt-4">
+            <button
+              type="button"
+              onClick={() => router.back()}
+              className="w-full flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-foreground bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            >
+              Back
             </button>
           </div>
         </form>
