@@ -190,7 +190,7 @@ export default function MessagesPage({
                     className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-light-gray focus:outline-none focus:ring-primary focus:border-primary sm:text-sm rounded-md"
                   >
                     {users.map(user => (
-                      <option key={user.id} value={user.id}>{user.name} ({user.email})</option>
+                      <option key={user.id} value={user.id}>{user.name}</option>
                     ))}
                   </select>
                 </div>
@@ -238,7 +238,7 @@ export default function MessagesPage({
                     className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-light-gray focus:outline-none focus:ring-primary focus:border-primary sm:text-sm rounded-md"
                   >
                     {users.map(user => (
-                      <option key={user.id} value={user.id}>{user.name} ({user.email})</option>
+                      <option key={user.id} value={user.id}>{user.name}</option>
                     ))}
                   </select>
                 </div>
