@@ -64,22 +64,16 @@ export default async function DashboardLayout({
             Resources
           </Link>
           <Link
+            href="/dashboard/admin/businesses/manage"
+            className="block py-2.5 px-4 rounded transition duration-200 hover:bg-primary"
+          >
+            Business search
+          </Link>
+          <Link
             href="/dashboard/hth-class"
             className="block py-2.5 px-4 rounded transition duration-200 hover:bg-primary"
           >
             HTH Class
-          </Link>
-          <Link
-            href="/dashboard/settings"
-            className="block py-2.5 px-4 rounded transition duration-200 hover:bg-primary"
-          >
-            Settings
-          </Link>
-          <Link
-            href="/dashboard/profile"
-            className="block py-2.5 px-4 rounded transition duration-200 hover:bg-primary"
-          >
-            Profile
           </Link>
           {isAdmin && (
             <>
@@ -91,12 +85,6 @@ export default async function DashboardLayout({
                 className="block py-2.5 px-4 rounded transition duration-200 hover:bg-primary"
               >
                 Admin Users
-              </Link>
-              <Link
-                href="/dashboard/admin/businesses/manage"
-                className="block py-2.5 px-4 rounded transition duration-200 hover:bg-primary"
-              >
-                Admin Businesses
               </Link>
               <Link
                 href="/dashboard/admin/pitch-competition"
