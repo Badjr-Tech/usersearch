@@ -4,7 +4,7 @@ import Image from 'next/image';
 export default function Home() {
   // Trivial change to force new Vercel deployment
   return (
-    <div className="min-h-screen bg-background flex flex-col justify-center items-center">
+    <div className="min-h-screen bg-background flex flex-col items-center pt-20">
       <Image
         src="/green.png"
         alt="Badjr Logo"
