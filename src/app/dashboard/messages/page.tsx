@@ -61,11 +61,12 @@ export default async function MessagesPage() {
   let initialIndividualMessages: IndividualMessage[] = [];
 
   if (isAdmin) {
-    initialInternalUsers = await getAllInternalUsers();
     initialMassMessages = await getMassMessages();
     initialLocations = await getAvailableLocations();
     initialDemographics = await getAvailableDemographics();
   }
+
+  initialInternalUsers = await getAllInternalUsers(); // Moved outside isAdmin check
 
   if (currentUserId) {
     initialIndividualMessages = await getIndividualMessages(currentUserId);
