@@ -3,6 +3,7 @@
 import { useFormState } from "react-dom";
 import { login } from "./actions";
 import { useRouter } from "next/navigation"; // Added import
+import Link from "next/link"; // Added import
 
 type FormState = {
   error: string;
@@ -13,7 +14,10 @@ export default function LoginPage() {
   const router = useRouter(); // Initialize useRouter
 
   return (
-    <div className="min-h-screen bg-background flex flex-col justify-center items-center">
+    <div className="min-h-screen bg-background flex flex-col justify-center items-center relative"> {/* Added relative positioning */}
+      <Link href="#" onClick={() => router.back()} className="absolute top-4 left-4 text-sm text-foreground hover:underline">
+        &larr; Back
+      </Link>
       <div className="max-w-md w-full bg-background p-8 rounded-lg shadow-md">
         <h1 className="text-4xl font-bold text-foreground text-center mb-8">Login</h1>
         <p className="text-center text-foreground mb-6">
@@ -59,15 +63,6 @@ export default function LoginPage() {
               className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-secondary hover:bg-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary"
             >
               Sign in
-            </button>
-          </div>
-          <div className="mt-4">
-            <button
-              type="button"
-              onClick={() => router.back()}
-              className="w-full flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-foreground bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-            >
-              Back
             </button>
           </div>
         </form>
