@@ -49,7 +49,7 @@ export default async function DashboardLayout({
             href="/dashboard/heighten-ai"
             className="block py-2.5 px-4 rounded transition duration-200 hover:bg-primary"
           >
-            Heighten.Ai
+            Page 1
           </Link>
           <Link
             href="/dashboard/messages"
@@ -73,7 +73,7 @@ export default async function DashboardLayout({
             href="/dashboard/hth-class"
             className="block py-2.5 px-4 rounded transition duration-200 hover:bg-primary"
           >
-            HTH Class
+            Page 2
           </Link>
           {isAdmin && (
             <>
