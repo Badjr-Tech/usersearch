@@ -7,7 +7,7 @@ export default function Home() {
     <div className="min-h-screen bg-background flex flex-col justify-center items-center">
       <Image
         src="/green.png"
-        alt="Heighten The Hustle Logo"
+        alt="Badjr Logo"
         width={200}
         height={200}
         className="mb-4" // Reduce margin below the logo
@@ -16,7 +16,7 @@ export default function Home() {
         <h1 className="text-4xl font-bold text-foreground mb-4">
           USER PORTAL
         </h1>
-        <p className="text-lg text-foreground mb-8">
+        <p className="text-lg text-foreground mb-4">
           Your one-stop destination for amazing things.
         </p>
         <div className="flex justify-center gap-4">
