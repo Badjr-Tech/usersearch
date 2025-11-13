@@ -186,7 +186,7 @@ export default function UserManagementClientPage({ initialUsers, isInternalUserV
         </div>
       )}
 
-      <div className="mt-8">
+      <div className="mt-8 overflow-x-auto">
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-background">
             <tr>

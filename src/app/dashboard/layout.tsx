@@ -75,6 +75,12 @@ export default async function DashboardLayout({
           >
             Page 2
           </Link>
+          <Link
+            href="/dashboard/profile"
+            className="block py-2.5 px-4 rounded transition duration-200 hover:bg-primary"
+          >
+            Profile
+          </Link>
           {isAdmin && (
             <>
               <h2 className="text-lg font-semibold text-light-gray uppercase mt-6 mb-2">
