@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { sendMessage, sendMassMessage, getIndividualMessages } from "./actions";
+import { sendMessage, sendMassMessage, getIndividualMessages, createCollaborationRequest } from "./actions";
 import { searchBusinesses } from "../businesses/actions";
 import { Business } from "@/db/schema";
 import { useFormState } from "react-dom";
@@ -60,6 +60,8 @@ interface MessagesPageProps {
   initialLocations: Location[];
   initialDemographics: Demographic[];
   initialIndividualMessages: Message[];
+  initialSentCollaborationRequests: Message[]; // New prop
+  initialReceivedCollaborationRequests: Message[]; // New prop
   currentUserId: number | null;
 }
 
@@ -70,10 +72,13 @@ export default function MessagesPage({
   initialLocations,
   initialDemographics,
   initialIndividualMessages,
+  initialSentCollaborationRequests, // Accept new prop
+  initialReceivedCollaborationRequests, // Accept new prop
   currentUserId,
 }: MessagesPageProps) {
     const [massSendState, massSendAction] = useFormState(sendMassMessage, undefined);
     const [sendState, sendAction] = useFormState(sendMessage, undefined);
+    const [collaborationState, collaborationAction] = useFormState(createCollaborationRequest, undefined); // Added for collaboration requests
     const [selectedRecipientId, setSelectedRecipientId] = useState<number | null>(null);
     const [recipient, setRecipient] = useState("admin");
     const [messageContent, setMessageContent] = useState("");
@@ -90,7 +95,8 @@ export default function MessagesPage({
     const massMessages = initialMassMessages;
     const locations = initialLocations;
     const demographics = initialDemographics;
-    const pendingRequests: PendingRequest[] = []; // Assuming pending requests are not yet implemented or fetched here
+    const sentRequests = initialSentCollaborationRequests; // Use prop
+    const receivedRequests = initialReceivedCollaborationRequests; // Use prop
   
     useEffect(() => {
       if (searchQuery.length > 2) {
@@ -115,8 +121,7 @@ export default function MessagesPage({
     };
   
     const handleCreateCollaborationRequest = async (formData: FormData) => {
-      // Implement collaboration request logic here
-      console.log("Collaboration request created:", formData);
+      collaborationAction(formData); // Use the form action
     };
   
     const handleSendMessage = async (formData: FormData) => {
@@ -212,14 +217,29 @@ export default function MessagesPage({
                 </button>
               </form>
   
-              <h2 className="text-2xl font-bold text-foreground mb-4 mt-8">Pending Requests</h2>
-              {pendingRequests.length === 0 ? (
+              <h2 className="text-2xl font-bold text-foreground mb-4 mt-8">Your Sent Requests</h2>
+              {sentRequests.length === 0 ? (
+                <p className="text-foreground">No collaboration requests sent yet.</p>
+              ) : (
+                <ul className="space-y-4">
+                  {sentRequests.map(request => (
+                    <li key={request.id} className="bg-light-gray shadow overflow-hidden sm:rounded-lg p-4">
+                      <p className="text-sm font-semibold">To: {request.recipient.name}</p>
+                      <p className="text-foreground">{request.content}</p>
+                      <p className="text-xs text-foreground text-right">{request.timestamp.toLocaleString()}</p>
+                    </li>
+                  ))}
+                </ul>
+              )}
+
+              <h2 className="text-2xl font-bold text-foreground mb-4 mt-8">Received Collaboration Requests</h2>
+              {receivedRequests.length === 0 ? (
                 <p className="text-foreground">No pending collaboration requests.</p>
               ) : (
                 <ul className="space-y-4">
-                  {pendingRequests.map(request => (
+                  {receivedRequests.map(request => (
                     <li key={request.id} className="bg-light-gray shadow overflow-hidden sm:rounded-lg p-4">
-                      <p className="text-sm font-semibold">{request.senderId === currentUserId ? "You" : "User"} to {request.senderId === currentUserId ? "User" : "You"}:</p>
+                      <p className="text-sm font-semibold">From: {request.sender.name}</p>
                       <p className="text-foreground">{request.content}</p>
                       <p className="text-xs text-foreground text-right">{request.timestamp.toLocaleString()}</p>
                     </li>

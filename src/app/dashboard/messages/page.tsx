@@ -1,5 +1,5 @@
 import { getSession } from "@/app/login/actions";
-import { getAllInternalUsers, getMassMessages, getAvailableLocations, getAvailableDemographics, getIndividualMessages } from "./actions";
+import { getAllInternalUsers, getMassMessages, getAvailableLocations, getAvailableDemographics, getIndividualMessages, getSentCollaborationRequests, getReceivedCollaborationRequests } from "./actions";
 import MessagesClientPage from "./MessagesClientPage";
 
 interface MassMessage {
@@ -46,6 +46,8 @@ interface MessagesPageProps {
   initialLocations: Location[];
   initialDemographics: Demographic[];
   initialIndividualMessages: IndividualMessage[];
+  initialSentCollaborationRequests: IndividualMessage[]; // New prop
+  initialReceivedCollaborationRequests: IndividualMessage[]; // New prop
   currentUserId: number | null;
 }
 
@@ -59,6 +61,8 @@ export default async function MessagesPage() {
   let initialLocations: Location[] = [];
   let initialDemographics: Demographic[] = [];
   let initialIndividualMessages: IndividualMessage[] = [];
+  let initialSentCollaborationRequests: IndividualMessage[] = []; // Initialize
+  let initialReceivedCollaborationRequests: IndividualMessage[] = []; // Initialize
 
   if (isAdmin) {
     initialMassMessages = await getMassMessages();
@@ -70,6 +74,8 @@ export default async function MessagesPage() {
 
   if (currentUserId) {
     initialIndividualMessages = await getIndividualMessages(currentUserId);
+    initialSentCollaborationRequests = await getSentCollaborationRequests(currentUserId); // Fetch sent requests
+    initialReceivedCollaborationRequests = await getReceivedCollaborationRequests(currentUserId); // Fetch received requests
   }
 
   return (
@@ -80,6 +86,8 @@ export default async function MessagesPage() {
       initialLocations={initialLocations}
       initialDemographics={initialDemographics}
       initialIndividualMessages={initialIndividualMessages}
+      initialSentCollaborationRequests={initialSentCollaborationRequests} // Pass new prop
+      initialReceivedCollaborationRequests={initialReceivedCollaborationRequests} // Pass new prop
       currentUserId={currentUserId}
     />
   );

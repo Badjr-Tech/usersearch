@@ -68,6 +68,51 @@ export async function sendMessage(prevState: FormState, formData: FormData): Pro
   }
 }
 
+export async function createCollaborationRequest(prevState: FormState, formData: FormData): Promise<FormState> {
+  const session = await getSession();
+  if (!session || !session.user) {
+    return { message: "", error: "User not authenticated." };
+  }
+
+  const selectedBusinessId = formData.get("business-id") as string;
+  const messageContent = formData.get("message") as string;
+
+  if (!selectedBusinessId || !messageContent) {
+    return { message: "", error: "Please select a business and provide a message." };
+  }
+
+  try {
+    const businessId = parseInt(selectedBusinessId);
+    if (isNaN(businessId)) {
+      return { message: "", error: "Invalid business selected." };
+    }
+
+    // Find the owner of the selected business
+    const business = await db.query.businesses.findFirst({
+      where: eq(businesses.id, businessId),
+      columns: { userId: true },
+    });
+
+    if (!business || !business.userId) {
+      return { message: "", error: "Business owner not found." };
+    }
+
+    // Insert a new individual message (collaboration request)
+    await db.insert(individualMessages).values({
+      senderId: session.user.id,
+      recipientId: business.userId,
+      content: `Collaboration Request for Business: ${businessId}\n\n${messageContent}`,
+      timestamp: new Date(),
+    });
+
+    revalidateMessagesPath();
+    return { message: "Collaboration request sent successfully!", error: "" };
+  } catch (error) {
+    console.error("Error sending collaboration request:", error);
+    return { message: "", error: "Failed to send collaboration request." };
+  }
+}
+
 export async function getMassMessages() {
   try {
     const allMassMessages = await db.select().from(massMessages);
@@ -196,6 +241,46 @@ export async function getIndividualMessages(currentUserId: number) {
     return messages;
   } catch (error) {
     console.error("Error fetching individual messages:", error);
+    return [];
+  }
+}
+
+export async function getSentCollaborationRequests(userId: number) {
+  try {
+    const requests = await db.query.individualMessages.findMany({
+      where: and(
+        eq(individualMessages.senderId, userId),
+        like(individualMessages.content, '%Collaboration Request%')
+      ),
+      orderBy: asc(individualMessages.timestamp),
+      with: {
+        sender: { columns: { id: true, name: true, email: true } },
+        recipient: { columns: { id: true, name: true, email: true } },
+      },
+    });
+    return requests;
+  } catch (error) {
+    console.error("Error fetching sent collaboration requests:", error);
+    return [];
+  }
+}
+
+export async function getReceivedCollaborationRequests(userId: number) {
+  try {
+    const requests = await db.query.individualMessages.findMany({
+      where: and(
+        eq(individualMessages.recipientId, userId),
+        like(individualMessages.content, '%Collaboration Request%')
+      ),
+      orderBy: asc(individualMessages.timestamp),
+      with: {
+        sender: { columns: { id: true, name: true, email: true } },
+        recipient: { columns: { id: true, name: true, email: true } },
+      },
+    });
+    return requests;
+  } catch (error) {
+    console.error("Error fetching received collaboration requests:", error);
     return [];
   }
 }
