@@ -2,10 +2,11 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 export default function Home() {
+  // Trivial change to force new Vercel deployment
   return (
     <div className="min-h-screen bg-background flex flex-col justify-center items-center">
       <Image
-        src="/yellow.png"
+        src="/green.png"
         alt="Heighten The Hustle Logo"
         width={200}
         height={200}

@@ -5,7 +5,7 @@ export default function DashboardPage() {
   return (
     <div className="min-h-screen bg-background flex flex-col items-center py-10">
       <Image
-        src="/yellow.png"
+        src="/green.png"
         alt="Heighten The Hustle Logo"
         width={200}
         height={200}
