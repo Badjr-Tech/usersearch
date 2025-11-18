@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getSubmissionById } from "../server-actions";
+import { getSubmissionById } from '../../server-actions';
 import SubmissionDetailClientPage from "./SubmissionDetailClientPage";
 
 interface SubmissionDetailPageProps {
