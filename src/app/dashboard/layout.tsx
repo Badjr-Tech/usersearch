@@ -25,6 +25,13 @@ export default async function DashboardLayout({
       <aside className="relative w-64 bg-secondary text-white px-4 pt-12 space-y-6">
         <nav className="space-y-2 font-semibold text-white">
           <Link
+            href="/dashboard/profile"
+            className="block py-2.5 px-4 rounded transition duration-200 hover:bg-primary"
+          >
+            Profile
+          </Link>
+          <LogoutButton />
+          <Link
             href="/dashboard"
             className="block py-2.5 px-4 rounded transition duration-200 hover:bg-primary"
           >
@@ -100,16 +107,14 @@ export default async function DashboardLayout({
               </Link>
             </>
           )}
-        </nav>
-        <div className="absolute bottom-4 left-4 flex items-center space-x-2">
           <Link
-            href="/dashboard/profile"
-            className="py-2.5 px-4 rounded transition duration-200 hover:bg-primary text-sm font-semibold"
+            href="/dashboard/whitelabel"
+            className="block py-2.5 px-4 rounded transition duration-200 hover:bg-primary"
           >
-            Profile
+            Whitelabel
           </Link>
-          <LogoutButton />
-        </div>
+        </nav>
+
       </aside>
 
       {/* Main content */}
