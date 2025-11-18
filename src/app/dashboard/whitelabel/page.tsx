@@ -7,6 +7,7 @@ export default function WhitelabelPage() {
   const [ownerName, setOwnerName] = useState('');
   const [primaryColor, setPrimaryColor] = useState('#000000');
   const [secondaryColor, setSecondaryColor] = useState('#ffffff');
+  const [tertiaryColor, setTertiaryColor] = useState('#cccccc'); // New state for tertiary color
   const [logoFile, setLogoFile] = useState<File | null>(null);
 
   const handleLogoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -18,7 +19,7 @@ export default function WhitelabelPage() {
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     // Handle form submission, e.g., send data to an API
-    console.log({ businessName, ownerName, primaryColor, secondaryColor, logoFile });
+    console.log({ businessName, ownerName, primaryColor, secondaryColor, tertiaryColor, logoFile }); // Include tertiaryColor
     alert('Whitelabel settings saved (not really, just logged to console)!');
   };
 
@@ -80,6 +81,20 @@ export default function WhitelabelPage() {
             className="shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline h-10 w-24"
             value={secondaryColor}
             onChange={(e) => setSecondaryColor(e.target.value)}
+          />
+        </div>
+
+        {/* New Tertiary Color Input */}
+        <div className="mb-5">
+          <label htmlFor="tertiaryColor" className="block text-gray-700 text-sm font-bold mb-2">
+            Tertiary Color:
+          </label>
+          <input
+            type="color"
+            id="tertiaryColor"
+            className="shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline h-10 w-24"
+            value={tertiaryColor}
+            onChange={(e) => setTertiaryColor(e.target.value)}
           />
         </div>
 

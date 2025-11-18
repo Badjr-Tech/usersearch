@@ -3,26 +3,15 @@ import { getSession } from "@/app/login/actions";
 import LogoutButton from "@/app/components/LogoutButton";
 import Link from "next/link";
 import { getAllUserBusinesses } from "./businesses/actions";
-// import AdminViewToggle from "./components/AdminViewToggle"; // New import
-// import { headers, cookies } from "next/headers"; // New import for searchParams and cookies
+import { WhitelabelProvider, useWhitelabel } from "@/app/context/WhitelabelContext"; // Import useWhitelabel
 
-export default async function DashboardLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  const session = await getSession();
-  if (!session || !session.user) {
-    redirect("/login");
-  }
-
-  const businesses = await getAllUserBusinesses(session.user.id); // Fetch businesses
-  const isAdmin = session.user.role === 'admin';
+function DashboardContent({ children, businesses, isAdmin }: { children: React.ReactNode; businesses: any[]; isAdmin: boolean }) {
+  const { settings } = useWhitelabel(); // Use the hook to get settings
 
   return (
     <div className="flex min-h-screen bg-background">
       {/* Sidebar */}
-      <aside className="relative w-64 bg-secondary text-white px-4 pt-4 space-y-6">
+      <aside className="relative w-64 text-white px-4 pt-4 space-y-6" style={{ backgroundColor: settings.primaryColor }}>
         <nav className="space-y-2 font-semibold text-white">
           <div className="flex items-center space-x-2 mb-8">
             <Link
@@ -33,6 +22,11 @@ export default async function DashboardLayout({
             </Link>
             <LogoutButton className="py-1.5 px-2 text-sm" />
           </div>
+          {settings.logoUrl && ( // Display logo if available
+            <div className="mb-4">
+              <img src={settings.logoUrl} alt="Business Logo" className="h-12 object-contain mx-auto" />
+            </div>
+          )}
           <Link
             href="/dashboard"
             className="block py-2.5 px-4 rounded transition duration-200 hover:bg-primary"
@@ -129,5 +123,25 @@ export default async function DashboardLayout({
         </footer>
       </main>
     </div>
+  );
+}
+
+export default async function DashboardLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const session = await getSession();
+  if (!session || !session.user) {
+    redirect("/login");
+  }
+
+  const businesses = await getAllUserBusinesses(session.user.id); // Fetch businesses
+  const isAdmin = session.user.role === 'admin';
+
+  return (
+    <WhitelabelProvider> {/* Wrap with WhitelabelProvider */}
+      <DashboardContent children={children} businesses={businesses} isAdmin={isAdmin} />
+    </WhitelabelProvider>
   );
 }
