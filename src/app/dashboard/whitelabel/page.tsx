@@ -1,26 +1,68 @@
 "use client";
 
 import { useState } from 'react';
+import { useWhitelabel, defaultSettings } from '@/app/context/WhitelabelContext'; // Import useWhitelabel hook and defaultSettings
 
 export default function WhitelabelPage() {
+  const { updateSettings, resetSettings } = useWhitelabel(); // Use the hook
   const [businessName, setBusinessName] = useState('');
   const [ownerName, setOwnerName] = useState('');
   const [primaryColor, setPrimaryColor] = useState('#000000');
   const [secondaryColor, setSecondaryColor] = useState('#ffffff');
   const [tertiaryColor, setTertiaryColor] = useState('#cccccc'); // New state for tertiary color
   const [logoFile, setLogoFile] = useState<File | null>(null);
+  const [logoPreviewUrl, setLogoPreviewUrl] = useState<string | null>(null); // State for logo preview URL
 
   const handleLogoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
-      setLogoFile(event.target.files[0]);
+      const file = event.target.files[0];
+      setLogoFile(file);
+      setLogoPreviewUrl(URL.createObjectURL(file)); // Set preview URL
     }
   };
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    // Handle form submission, e.g., send data to an API
-    console.log({ businessName, ownerName, primaryColor, secondaryColor, tertiaryColor, logoFile }); // Include tertiaryColor
-    alert('Whitelabel settings saved (not really, just logged to console)!');
+
+    let logoDataUrl: string | null = null;
+    if (logoFile) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        logoDataUrl = reader.result as string;
+        updateSettings({
+          businessName,
+          ownerName,
+          primaryColor,
+          secondaryColor,
+          tertiaryColor,
+          logoUrl: logoDataUrl,
+        });
+        alert('Whitelabel settings saved!');
+      };
+      reader.readAsDataURL(logoFile);
+    } else {
+      updateSettings({
+        businessName,
+        ownerName,
+        primaryColor,
+        secondaryColor,
+        tertiaryColor,
+        logoUrl: null, // Clear logo if no file is selected
+      });
+      alert('Whitelabel settings saved!');
+    }
+  };
+
+  const handleReset = () => {
+    resetSettings(); // Call context reset
+    setBusinessName(defaultSettings.businessName);
+    setOwnerName(defaultSettings.ownerName);
+    setPrimaryColor(defaultSettings.primaryColor);
+    setSecondaryColor(defaultSettings.secondaryColor);
+    setTertiaryColor(defaultSettings.tertiaryColor);
+    setLogoFile(null);
+    setLogoPreviewUrl(null);
+    alert('Whitelabel settings reset!');
   };
 
   return (
@@ -115,9 +157,9 @@ export default function WhitelabelPage() {
                 file:bg-blue-50 file:text-blue-700
                 hover:file:bg-blue-100"
             />
-            {logoFile && (
+            {logoPreviewUrl && ( // Use logoPreviewUrl for display
               <img
-                src={URL.createObjectURL(logoFile)}
+                src={logoPreviewUrl}
                 alt="Logo Preview"
                 className="h-20 w-20 object-contain border rounded-md"
               />
@@ -134,6 +176,13 @@ export default function WhitelabelPage() {
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           >
             Save Settings
+          </button>
+          <button
+            type="button" // Important: type="button" to prevent form submission
+            onClick={handleReset}
+            className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          >
+            Reset
           </button>
         </div>
       </form>

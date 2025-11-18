@@ -14,6 +14,7 @@ interface WhitelabelSettings {
 interface WhitelabelContextType {
   settings: WhitelabelSettings;
   updateSettings: (newSettings: Partial<WhitelabelSettings>) => void;
+  resetSettings: () => void; // Add resetSettings to the interface
 }
 
 const defaultSettings: WhitelabelSettings = {
@@ -34,8 +35,12 @@ export const WhitelabelProvider = ({ children }: { children: ReactNode }) => {
     setSettings((prevSettings) => ({ ...prevSettings, ...newSettings }));
   };
 
+  const resetSettings = () => { // Implement resetSettings
+    setSettings(defaultSettings);
+  };
+
   return (
-    <WhitelabelContext.Provider value={{ settings, updateSettings }}>
+    <WhitelabelContext.Provider value={{ settings, updateSettings, resetSettings }}>
       {children}
     </WhitelabelContext.Provider>
   );
