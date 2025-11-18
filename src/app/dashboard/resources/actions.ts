@@ -1,4 +1,4 @@
-'use server';
+"use server";
 
 import { db } from '@/db';
 import { files } from '@/db/schema';
@@ -7,17 +7,22 @@ import { revalidatePath } from 'next/cache';
 import { eq } from 'drizzle-orm';
 import { put } from '@vercel/blob'; // Assuming Vercel Blob for storage
 
-export async function uploadFile(formData: FormData) {
+export type FormState = {
+  message: string | undefined;
+  error: string | undefined;
+} | undefined;
+
+export async function uploadFile(prevState: FormState, formData: FormData) {
   const session = await getSession();
   if (!session || !session.user) {
-    return { error: 'Unauthorized' };
+    return { message: undefined, error: 'Unauthorized' };
   }
 
   const file = formData.get('file') as File;
   const category = formData.get('category') as string;
 
   if (!file) {
-    return { error: 'No file provided.' };
+    return { message: undefined, error: 'No file provided.' };
   }
 
   try {
@@ -33,10 +38,12 @@ export async function uploadFile(formData: FormData) {
     });
 
     revalidatePath('/dashboard/resources');
-    return { message: 'File uploaded successfully!' };
-  } catch (error) {
+    return { message: 'File uploaded successfully!', error: undefined };
+  }
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  catch (error: any) {
     console.error('Error uploading file:', error);
-    return { error: 'Failed to upload file.' };
+    return { message: undefined, error: 'Failed to upload file.' };
   }
 }
 
