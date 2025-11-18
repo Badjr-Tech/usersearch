@@ -1,10 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { useFormState } from "react-dom";
+import { useState, useEffect, useActionState } from "react";
 import { updateProfile } from "./actions";
 import { getSession } from "@/app/login/actions";
 import Image from "next/image";
+import { useWhitelabel } from "@/app/context/WhitelabelContext";
 
 // Define a type for the user object in state, matching the updated schema
 interface UserProfile {
@@ -29,7 +29,8 @@ const isPlaceholder = (url: string | null | undefined): boolean => {
 };
 
 export default function ProfilePage() {
-  const [state, formAction] = useFormState<FormState, FormData>(updateProfile, undefined);
+  const { settings } = useWhitelabel();
+  const [state, formAction] = useActionState<FormState, FormData>(updateProfile, undefined);
   const [user, setUser] = useState<UserProfile | null>(null); // Use UserProfile type
 
   useEffect(() => {
@@ -84,8 +85,8 @@ export default function ProfilePage() {
                 file:mr-4 file:py-2 file:px-4
                 file:rounded-md file:border-0
                 file:text-sm file:font-semibold
-                file:bg-[#910000] file:text-white
-                hover:file:bg-[#7a0000]"
+                file:text-white"
+              style={{ backgroundColor: settings.primaryColor }}
             />
           </div>
 
@@ -202,7 +203,8 @@ export default function ProfilePage() {
           <div>
             <button
               type="submit"
-              className="inline-flex justify-center rounded-md border border-transparent bg-[#910000] py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-[#7a0000] focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+              className="inline-flex justify-center rounded-md border border-transparent py-2 px-4 text-sm font-medium text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2"
+              style={{ backgroundColor: settings.primaryColor }}
             >
               Update Profile
             </button>

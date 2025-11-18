@@ -249,12 +249,12 @@ export default function UserManagementClientPage({ initialUsers, isInternalUserV
                       setEditingUser(user);
                       setShowEditModal(true);
                     }}
-                    className="text-indigo-600 hover:text-indigo-900"
+                    className="px-3 py-1 rounded-md bg-gray-200 text-gray-700 hover:bg-gray-300"
                   >
                     Edit
                   </button>
                   {!isInternalUserView && (
-                    <button onClick={() => handleDelete(user.id)} className="ml-4 text-red-600 hover:text-red-900">Delete</button>
+                    <button onClick={() => handleDelete(user.id)} className="ml-4 px-3 py-1 rounded-md bg-red-500 text-white hover:bg-red-600">Delete</button>
                   )}
                 </td>
               </tr>

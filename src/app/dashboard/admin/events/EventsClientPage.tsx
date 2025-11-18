@@ -6,6 +6,7 @@ import { InferSelectModel } from "drizzle-orm";
 import { events, eventSubmissions, users } from "@/db/schema";
 import Link from "next/link";
 import CreateEventModal from "./CreateEventModal"; // This will be created next
+import { useWhitelabel } from "@/app/context/WhitelabelContext";
 
 type Event = InferSelectModel<typeof events>;
 type Submission = InferSelectModel<typeof eventSubmissions> & { user: InferSelectModel<typeof users> };
@@ -15,6 +16,7 @@ interface EventsClientPageProps {
 }
 
 export default function EventsClientPage({ initialEvents }: EventsClientPageProps) {
+  const { settings } = useWhitelabel();
   const [events, setEvents] = useState<Event[]>(JSON.parse(initialEvents));
   const [submissions, setSubmissions] = useState<Submission[]>([]);
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
@@ -88,7 +90,8 @@ export default function EventsClientPage({ initialEvents }: EventsClientPageProp
         <h1 className="text-2xl font-bold">Events</h1>
         <button
           onClick={() => setIsModalOpen(true)}
-          className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700"
+          className="text-white px-4 py-2 rounded-md"
+          style={{ backgroundColor: settings.primaryColor }}
         >
           Create Event
         </button>

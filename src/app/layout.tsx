@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { DM_Sans, Bebas_Neue } from "next/font/google"; // Modified import
 import "./globals.css";
+import { WhitelabelProvider } from "./context/WhitelabelContext";
 
 const dmSans = DM_Sans({
   variable: "--font-dm-sans",
@@ -31,7 +32,9 @@ export default function RootLayout({
       <body
         className={`${dmSans.variable} ${bebasNeue.variable} antialiased`}
       >
-        {children}
+        <WhitelabelProvider>
+          {children}
+        </WhitelabelProvider>
       </body>
     </html>
   );

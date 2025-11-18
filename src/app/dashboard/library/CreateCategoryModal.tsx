@@ -2,6 +2,7 @@
 
 import { useActionState } from 'react';
 import { createCategory } from './actions';
+import { useWhitelabel } from '@/app/context/WhitelabelContext';
 
 const initialState = {
   message: '',
@@ -13,7 +14,8 @@ interface CreateCategoryModalProps {
 }
 
 export default function CreateCategoryModal({ onClose }: CreateCategoryModalProps) {
-  const [state, formAction] = useFormState(createCategory, initialState);
+  const { settings } = useWhitelabel();
+  const [state, formAction] = useActionState(createCategory, initialState);
 
   return (
     <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
@@ -36,7 +38,8 @@ export default function CreateCategoryModal({ onClose }: CreateCategoryModalProp
             <div className="items-center px-4 py-3">
               <button
                 type="submit"
-                className="px-4 py-2 bg-indigo-600 text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="px-4 py-2 text-white text-base font-medium rounded-md w-full shadow-sm focus:outline-none focus:ring-2"
+                style={{ backgroundColor: settings.primaryColor }}
               >
                 Add Category
               </button>

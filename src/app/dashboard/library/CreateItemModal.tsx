@@ -3,6 +3,7 @@
 import { useActionState } from 'react';
 import { createLibraryItem, getCategories } from './actions';
 import { useEffect, useState } from 'react';
+import { useWhitelabel } from '@/app/context/WhitelabelContext';
 
 const initialState = {
   message: '',
@@ -19,7 +20,8 @@ type Category = {
 };
 
 export default function CreateItemModal({ onClose }: CreateItemModalProps) {
-  const [state, formAction] = useFormState(createLibraryItem, initialState);
+  const { settings } = useWhitelabel();
+  const [state, formAction] = useActionState(createLibraryItem, initialState);
   const [itemType, setItemType] = useState<'document' | 'video'>('document');
   const [categories, setCategories] = useState<Category[]>([]);
 
@@ -116,14 +118,16 @@ export default function CreateItemModal({ onClose }: CreateItemModalProps) {
                   id="file"
                   name="file"
                   required
-                  className="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-600 hover:file:bg-indigo-100"
+                  className="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:text-white"
+                  style={{ backgroundColor: settings.primaryColor }}
                 />
               </div>
             )}
             <div className="items-center px-4 py-3">
               <button
                 type="submit"
-                className="px-4 py-2 bg-indigo-600 text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="px-4 py-2 text-white text-base font-medium rounded-md w-full shadow-sm focus:outline-none focus:ring-2"
+                style={{ backgroundColor: settings.primaryColor }}
               >
                 Add Item
               </button>

@@ -61,24 +61,24 @@ export async function login(prevState: FormState, formData: FormData) {
   const password = formData.get("password") as string;
 
   console.log("Attempting to find user in DB with email:", email);
-  const user = await db.query.users.findFirst({
-    where: eq(users.email, email),
-  });
-  console.log("User found:", !!user);
+    const user = await db.query.users.findFirst({
+      where: eq(users.email, email),
+    });
 
-  if (!user) {
-    console.log("User not found or invalid credentials.");
-    return { error: "Invalid email or password" };
-  }
+    if (!user) {
+      return { error: "Invalid credentials." };
+    }
 
-  console.log("Comparing password for user:", user.id);
-  const isPasswordValid = await bcrypt.compare(password, user.password);
-  console.log("Password valid:", isPasswordValid);
+    if (user.status === 'pending') {
+      return { error: "Your account request is pending admin approval." };
+    }
 
-  if (!isPasswordValid) {
-    console.log("Invalid password.");
-    return { error: "Invalid email or password" };
-  }
+    if (user.status === 'rejected') {
+      return { error: "Your account request has been rejected." };
+    }
+
+    const passwordsMatch = await bcrypt.compare(password, user.password);
+
 
   try {
     console.log("Creating session for user:", user.id);

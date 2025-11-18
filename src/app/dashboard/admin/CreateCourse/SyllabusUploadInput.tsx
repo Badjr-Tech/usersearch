@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useWhitelabel } from '@/app/context/WhitelabelContext';
 
 interface SyllabusUploadInputProps {
   onUploadSuccess: (url: string) => void;
@@ -8,6 +9,7 @@ interface SyllabusUploadInputProps {
 }
 
 export default function SyllabusUploadInput({ onUploadSuccess, initialUrl }: SyllabusUploadInputProps) {
+  const { settings } = useWhitelabel();
   const [file, setFile] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -66,7 +68,8 @@ export default function SyllabusUploadInput({ onUploadSuccess, initialUrl }: Syl
         type="button"
         onClick={handleUpload}
         disabled={!file || uploading}
-        className="ml-2 inline-flex justify-center py-1 px-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+        className="ml-2 inline-flex justify-center py-1 px-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white focus:outline-none focus:ring-2 focus:ring-offset-2"
+        style={{ backgroundColor: settings.primaryColor }}
       >
         {uploading ? 'Uploading...' : 'Upload Syllabus'}
       </button>

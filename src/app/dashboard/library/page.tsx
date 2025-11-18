@@ -4,6 +4,7 @@ import { getLibraryItems, deleteLibraryItem } from './actions';
 import { useEffect, useState } from 'react';
 import CreateItemModal from './CreateItemModal';
 import CreateCategoryModal from './CreateCategoryModal';
+import { useWhitelabel } from '@/app/context/WhitelabelContext';
 
 type Category = {
   id: number;
@@ -66,6 +67,7 @@ function LibraryItemCard({ item, handleDelete }: { item: LibraryItem, handleDele
 }
 
 export default function LibraryPage() {
+  const { settings } = useWhitelabel();
   const [libraryItems, setLibraryItems] = useState<LibraryItem[]>([]);
   const [isItemModalOpen, setIsItemModalOpen] = useState(false);
   const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
@@ -102,13 +104,15 @@ export default function LibraryPage() {
         <div className="flex space-x-4">
           <button
             onClick={() => setIsCategoryModalOpen(true)}
-            className="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600"
+            className="text-white px-4 py-2 rounded-md"
+            style={{ backgroundColor: settings.secondaryColor }}
           >
             Add New Category
           </button>
           <button
             onClick={() => setIsItemModalOpen(true)}
-            className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700"
+            className="text-white px-4 py-2 rounded-md"
+            style={{ backgroundColor: settings.primaryColor }}
           >
             Add New Item
           </button>

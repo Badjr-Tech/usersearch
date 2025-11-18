@@ -3,6 +3,7 @@ import { relations, InferSelectModel } from 'drizzle-orm';
 
 // --- Enums ---
 export const userRole = pgEnum('user_role', ['admin', 'internal', 'external']);
+export const userStatus = pgEnum('user_status', ['pending', 'approved', 'rejected']);
 export const businessTypeEnum = pgEnum('business_type', ['Sole Proprietorship', 'Partnership', 'Limited Liability Company (LLC)', 'Corporation']);
 export const businessTaxStatusEnum = pgEnum('business_tax_status', ['S-Corporation', 'C-Corporation', 'Not Applicable']);
 export const demographicCategoryEnum = pgEnum('demographic_category', ['Race', 'Gender', 'Religion']);
@@ -10,6 +11,7 @@ export const locationCategoryEnum = pgEnum('location_category', ['City', 'Region
 export const classTypeEnum = pgEnum('class_type', ['pre-course', 'hth-course']);
 export const enrollmentStatusEnum = pgEnum('enrollment_status', ['enrolled', 'completed', 'dropped', 'pending', 'rejected']);
 export const itemTypeEnum = pgEnum('item_type', ['document', 'video']);
+export const invoiceStatusEnum = pgEnum('invoice_status', ['paid', 'unpaid', 'overdue']);
 
 
 // --- Tables ---
@@ -19,7 +21,7 @@ export const users = pgTable('users', {
   phone: varchar('phone', { length: 20 }).notNull(),
   email: text('email').notNull().unique(),
   password: varchar('password', { length: 256 }).notNull(),
-  role: userRole('role').notNull().default('internal'),
+  role: userRole('role').notNull().default('external'),
   hasBusinessProfile: boolean('has_business_profile').notNull().default(false),
   personalAddress: text('personal_address'),
   personalCity: text('personal_city'),
@@ -27,6 +29,7 @@ export const users = pgTable('users', {
   personalZipCode: varchar('personal_zip_code', { length: 10 }),
   profilePhotoUrl: text('profile_photo_url'),
   isOptedOut: boolean('is_opted_out').notNull().default(false),
+  status: userStatus('status').notNull().default('pending'),
 });
 
 export const demographics = pgTable('demographics', {
@@ -171,6 +174,33 @@ export const userPagePermissions = pgTable('user_page_permissions', {
   id: serial('id').primaryKey(),
   userId: integer('user_id').notNull().references(() => users.id),
   pageId: integer('page_id').notNull().references(() => pages.id),
+});
+
+export const files = pgTable('files', {
+  id: serial('id').primaryKey(),
+  name: text('name').notNull(),
+  url: text('url').notNull(),
+  category: text('category'), // Optional category for grouping files
+  uploadedAt: timestamp('uploaded_at', { withTimezone: true }).notNull().defaultNow(),
+  uploaderId: integer('uploader_id').notNull().references(() => users.id),
+});
+
+export const pageContent = pgTable('page_content', {
+  id: serial('id').primaryKey(),
+  pagePath: text('page_path').notNull().unique(), // e.g., '/dashboard/onboarding'
+  content: text('content').notNull(), // Storing content as JSON string for now
+  updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
+});
+
+export const invoices = pgTable('invoices', {
+  id: serial('id').primaryKey(),
+  userId: integer('user_id').notNull().references(() => users.id),
+  invoiceNumber: text('invoice_number').notNull().unique(),
+  amount: numeric('amount').notNull(),
+  dueDate: timestamp('due_date', { withTimezone: true }).notNull(),
+  status: invoiceStatusEnum('status').notNull().default('unpaid'),
+  pdfUrl: text('pdf_url'), // URL to the generated PDF invoice
+  createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
 });
 
 

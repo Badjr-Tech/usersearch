@@ -4,12 +4,14 @@ import { useFormState } from "react-dom";
 import { login } from "./actions";
 import { useRouter } from "next/navigation"; // Added import
 import Link from "next/link"; // Added import
+import { useWhitelabel } from "@/app/context/WhitelabelContext";
 
 type FormState = {
   error: string;
 } | undefined;
 
 export default function LoginPage() {
+  const { settings } = useWhitelabel();
   const [state, formAction] = useFormState<FormState, FormData>(login, undefined);
   const router = useRouter(); // Initialize useRouter
 
@@ -60,7 +62,8 @@ export default function LoginPage() {
           <div>
             <button
               type="submit"
-              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-secondary hover:bg-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary"
+              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2"
+              style={{ backgroundColor: settings.primaryColor }}
             >
               Sign in
             </button>
