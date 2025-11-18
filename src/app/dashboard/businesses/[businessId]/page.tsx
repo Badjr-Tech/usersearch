@@ -1,7 +1,6 @@
 import { notFound } from "next/navigation";
-import { getBusinessProfile } from "../actions"; // Import getBusinessProfile
-import { BusinessWithDemographic, BusinessWithLocation, BusinessWithDemographicAndLocation } from "@/db/schema"; // Import BusinessWithDemographic from schema
-import { getAvailableDemographics, getAvailableLocations } from "../../messages/actions"; // Import getAvailableDemographics
+import { getBusinessProfile, getAvailableDemographics, getAvailableLocations } from "@/app/dashboard/businesses/actions";
+import { BusinessWithLocation } from "@/db/schema"; // Import BusinessWithLocation
 import BusinessDetailClientPage from "./BusinessDetailClientPage"; // New import
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
