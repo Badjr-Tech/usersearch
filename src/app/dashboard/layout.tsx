@@ -24,13 +24,15 @@ export default async function DashboardLayout({
       {/* Sidebar */}
       <aside className="relative w-64 bg-secondary text-white px-4 pt-12 space-y-6">
         <nav className="space-y-2 font-semibold text-white">
-          <Link
-            href="/dashboard/profile"
-            className="block py-2.5 px-4 rounded transition duration-200 hover:bg-primary"
-          >
-            Profile
-          </Link>
-          <LogoutButton />
+          <div className="flex items-center space-x-2 mb-4">
+            <Link
+              href="/dashboard/profile"
+              className="py-1.5 px-2 rounded transition duration-200 hover:bg-primary text-sm"
+            >
+              Profile
+            </Link>
+            <LogoutButton className="py-1.5 px-2 text-sm" />
+          </div>
           <Link
             href="/dashboard"
             className="block py-2.5 px-4 rounded transition duration-200 hover:bg-primary"
