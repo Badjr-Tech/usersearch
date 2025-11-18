@@ -36,7 +36,7 @@ export default function OptOutForm({ userName, isOptedOut: initialIsOptedOut }: 
     return (
       <div className="p-4 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700">
         <p className="font-bold">You have opted out</p>
-        <p>You will no longer receive business communications, including funding alerts, business resources, notes, and pitch alerts.</p>
+        <p>You will no longer receive business communications, including funding alerts, business resources, notes, and event alerts.</p>
       </div>
     );
   }
@@ -55,7 +55,7 @@ export default function OptOutForm({ userName, isOptedOut: initialIsOptedOut }: 
           <div className="bg-background p-8 rounded-lg shadow-2xl max-w-md w-full">
             <h2 className="text-2xl font-bold mb-4">Confirm Opt-Out</h2>
             <p className="mb-4 text-gray-600">
-              Please confirm that you wish to no longer receive any business communications, including funding alerts, business resources, notes, and pitch alerts.
+              Please confirm that you wish to no longer receive any business communications, including funding alerts, business resources, notes, and event alerts.
             </p>
             <p className="mb-6 text-gray-600">
               To complete this action, please type your full name (<span className="font-mono bg-gray-100 p-1 rounded">{userName}</span>) in the box below.

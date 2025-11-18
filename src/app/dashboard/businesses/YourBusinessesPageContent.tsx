@@ -1,11 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { useFormState } from "react-dom";
+import { useState, useEffect, useActionState } from "react";
 import { createBusinessProfile, getAllUserBusinesses } from "./actions";
 import { SessionPayload, fetchSession } from "@/app/login/actions";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { useWhitelabel } from "@/app/context/WhitelabelContext";
 
 type FormState = {
   message: string;
@@ -34,13 +34,14 @@ interface Business {
 }
 
 export default function YourBusinessesPageContent() {
+  const { settings } = useWhitelabel();
   const router = useRouter();
   const [session, setSession] = useState<SessionPayload | null>(null);
   const [userBusinesses, setUserBusinesses] = useState<Business[]>([]);
   const [showCreateForm, setShowCreateForm] = useState(false);
   const [loadingBusinesses, setLoadingBusinesses] = useState(true);
 
-  const [createState, createFormAction] = useFormState<FormState, FormData>(createBusinessProfile, undefined);
+  const [createState, createFormAction] = useActionState<FormState, FormData>(createBusinessProfile, undefined);
 
   useEffect(() => {
     async function fetchSessionAndBusinesses() {
@@ -74,16 +75,17 @@ export default function YourBusinessesPageContent() {
 
   return (
     <>
-      <h1 className="text-foreground">Your Businesses</h1>
-      <p className="mt-4 text-foreground">Manage all your registered businesses.</p>
-
-      <div className="mt-6">
-        <button
-          onClick={() => setShowCreateForm(!showCreateForm)}
-          className="inline-flex justify-center rounded-md border border-transparent bg-primary py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-primary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
-        >
-          {showCreateForm ? "Cancel" : "Create New Business"}
-        </button>
+      <div className="flex justify-between items-center mb-8">
+        <h1 className="text-3xl font-bold text-foreground">Business Lines</h1>
+        <div className="flex space-x-4">
+          <button
+            onClick={() => setShowCreateForm(!showCreateForm)}
+            className="inline-flex justify-center rounded-md border border-transparent py-2 px-4 text-sm font-medium text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2"
+            style={{ backgroundColor: settings.primaryColor }}
+          >
+            {showCreateForm ? "Cancel" : "Create New Business"}
+          </button>
+        </div>
       </div>
 
       {showCreateForm && (
@@ -300,7 +302,8 @@ className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-p
           <div>
             <button
               type="submit"
-              className="inline-flex justify-center rounded-md border border-transparent bg-primary py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-primary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+              className="inline-flex justify-center rounded-md border border-transparent py-2 px-4 text-sm font-medium text-white shadow-sm"
+              style={{ backgroundColor: settings.primaryColor }}
             >
               Create Business Profile
             </button>

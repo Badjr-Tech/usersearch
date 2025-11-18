@@ -1,20 +1,15 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import QuickActionButton from './QuickActionButton';
+import WelcomeMessage from './WelcomeMessage';
+import DashboardLogo from './DashboardLogo';
 
 export default function DashboardPage() {
   return (
     <div className="min-h-screen bg-background flex flex-col items-center pt-0">
-      <Image
-        src="/green.png"
-        alt="Badjr Logo"
-        width={300}
-        height={300}
-        className=""
-      />
+      <DashboardLogo />
       <div className="max-w-3xl w-full text-center">
-        <h1 className="text-4xl font-extrabold text-foreground">
-          Welcome to Your Dashboard
-        </h1>
+        <WelcomeMessage />
         <p className="text-xl text-foreground mb-8">
           Manage your businesses, classes, and more.
         </p>
@@ -30,18 +25,18 @@ export default function DashboardPage() {
         <div className="mb-10">
           <h2 className="text-3xl font-bold text-foreground mb-4">Quick Actions</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <Link href="/dashboard/businesses" className="flex flex-col items-center justify-center p-4 bg-primary text-white rounded-lg shadow-md hover:bg-primary-dark transition-colors aspect-square">
-              <span className="text-lg font-medium text-center">Create New Business</span>
-            </Link>
-            <Link href="/dashboard/messages" className="flex flex-col items-center justify-center p-4 bg-primary text-white rounded-lg shadow-md hover:bg-primary-dark transition-colors aspect-square">
+            <QuickActionButton href="/dashboard/businesses">
+              <span className="text-lg font-medium text-center">Add a Business Line</span>
+            </QuickActionButton>
+            <QuickActionButton href="/dashboard/messages">
               <span className="text-lg font-medium text-center">View Messages</span>
-            </Link>
-            <Link href="/dashboard/hth-class" className="flex flex-col items-center justify-center p-4 bg-primary text-white rounded-lg shadow-md hover:bg-primary-dark transition-colors aspect-square">
+            </QuickActionButton>
+            <QuickActionButton href="/dashboard/courses">
               <span className="text-lg font-medium text-center">Manage Classes</span>
-            </Link>
-            <Link href="/dashboard/profile" className="flex flex-col items-center justify-center p-4 bg-primary text-white rounded-lg shadow-md hover:bg-primary-dark transition-colors aspect-square">
+            </QuickActionButton>
+            <QuickActionButton href="/dashboard/profile">
               <span className="text-lg font-medium text-center">Manage Profile</span>
-            </Link>
+            </QuickActionButton>
           </div>
         </div>
 

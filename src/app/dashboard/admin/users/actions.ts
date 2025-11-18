@@ -116,6 +116,22 @@ export async function updateUser(prevState: FormState, formData: FormData): Prom
   }
 }
 
+export async function deleteUser(userId: number): Promise<FormState> {
+  const session = await getSession();
+  if (!session || !session.user || session.user.role !== 'admin') {
+    return { message: "", error: "Unauthorized." };
+  }
+
+  try {
+    await db.delete(users).where(eq(users.id, userId));
+    revalidatePath("/dashboard/admin/users");
+    return { message: "User deleted successfully!", error: "" };
+  } catch (error) {
+    console.error("Error deleting user:", error);
+    return { message: "", error: "Failed to delete user." };
+  }
+}
+
 export async function downloadAllData() {
   const session = await getSession();
   if (!session || !session.user || session.user.role !== 'admin') {

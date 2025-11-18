@@ -1,93 +1,20 @@
 import { getSession } from "@/app/login/actions";
-import { getAllInternalUsers, getMassMessages, getAvailableLocations, getAvailableDemographics, getIndividualMessages, getSentCollaborationRequests, getReceivedCollaborationRequests } from "./actions";
+import { getExternalUsers } from "./actions";
 import MessagesClientPage from "./MessagesClientPage";
-
-interface MassMessage {
-  id: number;
-  adminId: number;
-  content: string;
-  targetLocationIds: number[] | null;
-  targetDemographicIds: number[] | null;
-  timestamp: Date;
-}
-
-interface User {
-  id: number;
-  name: string;
-  email: string;
-}
-
-interface Location {
-  id: number;
-  name: string;
-}
-
-interface Demographic {
-  id: number;
-  name: string;
-}
-
-interface IndividualMessage {
-  id: number;
-  senderId: number;
-  recipientId: number;
-  content: string;
-  timestamp: Date;
-  read: boolean;
-  replyToMessageId: number | null;
-  sender: User;
-  recipient: User;
-}
-
-interface MessagesPageProps {
-  isAdmin: boolean;
-  initialInternalUsers: User[];
-  initialMassMessages: MassMessage[];
-  initialLocations: Location[];
-  initialDemographics: Demographic[];
-  initialIndividualMessages: IndividualMessage[];
-  initialSentCollaborationRequests: IndividualMessage[]; // New prop
-  initialReceivedCollaborationRequests: IndividualMessage[]; // New prop
-  currentUserId: number | null;
-}
+import { redirect } from "next/navigation";
 
 export default async function MessagesPage() {
   const session = await getSession();
-  const isAdmin = session?.user?.role === 'admin';
-  const currentUserId = session?.user?.id || null;
-
-  let initialInternalUsers: User[] = [];
-  let initialMassMessages: MassMessage[] = [];
-  let initialLocations: Location[] = [];
-  let initialDemographics: Demographic[] = [];
-  let initialIndividualMessages: IndividualMessage[] = [];
-  let initialSentCollaborationRequests: IndividualMessage[] = []; // Initialize
-  let initialReceivedCollaborationRequests: IndividualMessage[] = []; // Initialize
-
-  if (isAdmin) {
-    initialMassMessages = await getMassMessages();
-    initialLocations = await getAvailableLocations();
-    initialDemographics = await getAvailableDemographics();
+  if (!session || !session.user || session.user.role !== 'admin') {
+    redirect("/dashboard");
   }
 
-  initialInternalUsers = await getAllInternalUsers(); // Moved outside isAdmin check
-
-  if (currentUserId) {
-    initialIndividualMessages = await getIndividualMessages(currentUserId);
-    initialSentCollaborationRequests = await getSentCollaborationRequests(currentUserId); // Fetch sent requests
-    initialReceivedCollaborationRequests = await getReceivedCollaborationRequests(currentUserId); // Fetch received requests
-  }
+  const externalUsers = await getExternalUsers();
+  const currentUserId = session.user.id;
 
   return (
     <MessagesClientPage
-      isAdmin={isAdmin}
-      initialInternalUsers={initialInternalUsers}
-      initialMassMessages={initialMassMessages}
-      initialLocations={initialLocations}
-      initialDemographics={initialDemographics}
-      initialIndividualMessages={initialIndividualMessages}
-      initialSentCollaborationRequests={initialSentCollaborationRequests} // Pass new prop
-      initialReceivedCollaborationRequests={initialReceivedCollaborationRequests} // Pass new prop
+      initialExternalUsers={externalUsers}
       currentUserId={currentUserId}
     />
   );

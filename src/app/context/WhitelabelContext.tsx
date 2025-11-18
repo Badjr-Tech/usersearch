@@ -17,12 +17,12 @@ interface WhitelabelContextType {
   resetSettings: () => void; // Add resetSettings to the interface
 }
 
-const defaultSettings: WhitelabelSettings = {
+export const defaultSettings: WhitelabelSettings = {
   businessName: '',
   ownerName: '',
-  primaryColor: '#1f2937', // Default dark gray for sidebar
-  secondaryColor: '#374151', // Default slightly lighter gray
-  tertiaryColor: '#4b5563', // Default even lighter gray
+  primaryColor: '#476c2e', // Default dark gray for sidebar
+  secondaryColor: '#ffbd5a', // Default slightly lighter gray
+  tertiaryColor: '#0b2d65', // Default even lighter gray
   logoUrl: null,
 };
 

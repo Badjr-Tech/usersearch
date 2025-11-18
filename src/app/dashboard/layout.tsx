@@ -1,129 +1,13 @@
 import { redirect } from "next/navigation";
 import { getSession } from "@/app/login/actions";
-import LogoutButton from "@/app/components/LogoutButton";
-import Link from "next/link";
 import { getAllUserBusinesses } from "./businesses/actions";
-import { WhitelabelProvider, useWhitelabel } from "@/app/context/WhitelabelContext"; // Import useWhitelabel
+import { WhitelabelProvider } from "@/app/context/WhitelabelContext";
+import DashboardContent from "./DashboardContent";
 
-function DashboardContent({ children, businesses, isAdmin }: { children: React.ReactNode; businesses: any[]; isAdmin: boolean }) {
-  const { settings } = useWhitelabel(); // Use the hook to get settings
-
-  return (
-    <div className="flex min-h-screen bg-background">
-      {/* Sidebar */}
-      <aside className="relative w-64 text-white px-4 pt-4 space-y-6" style={{ backgroundColor: settings.primaryColor }}>
-        <nav className="space-y-2 font-semibold text-white">
-          <div className="flex items-center space-x-2 mb-8">
-            <Link
-              href="/dashboard/profile"
-              className="py-1.5 px-2 rounded transition duration-200 hover:bg-primary text-sm"
-            >
-              Profile
-            </Link>
-            <LogoutButton className="py-1.5 px-2 text-sm" />
-          </div>
-          {settings.logoUrl && ( // Display logo if available
-            <div className="mb-4">
-              <img src={settings.logoUrl} alt="Business Logo" className="h-12 object-contain mx-auto" />
-            </div>
-          )}
-          <Link
-            href="/dashboard"
-            className="block py-2.5 px-4 rounded transition duration-200 hover:bg-primary"
-          >
-            Home
-          </Link>
-          <Link
-            href="/dashboard/businesses"
-            className="block py-2.5 px-4 rounded transition duration-200 hover:bg-primary"
-          >
-            Businesses
-          </Link>
-          {businesses.map((business) => (
-            <Link
-              key={business.id}
-              href={`/dashboard/businesses/${business.id}`}
-              className="block py-2 px-6 text-sm rounded transition duration-200 hover:bg-primary"
-            >
-              - {business.businessName}
-            </Link>
-          ))}
-          <Link
-            href="/dashboard/heighten-ai"
-            className="block py-2.5 px-4 rounded transition duration-200 hover:bg-primary"
-          >
-            Page 1
-          </Link>
-          <Link
-            href="/dashboard/messages"
-            className="block py-2.5 px-4 rounded transition duration-200 hover:bg-primary"
-          >
-            Messages
-          </Link>
-          <Link
-            href="/dashboard/resources"
-            className="block py-2.5 px-4 rounded transition duration-200 hover:bg-primary"
-          >
-            Resources
-          </Link>
-          <Link
-            href="/dashboard/admin/businesses/manage"
-            className="block py-2.5 px-4 rounded transition duration-200 hover:bg-primary"
-          >
-            Business search
-          </Link>
-          <Link
-            href="/dashboard/hth-class"
-            className="block py-2.5 px-4 rounded transition duration-200 hover:bg-primary"
-          >
-            Page 2
-          </Link>
-
-          {isAdmin && (
-            <>
-              <h2 className="text-lg font-semibold text-light-gray uppercase mt-6 mb-2">
-                Admin Tools
-              </h2>
-              <Link
-                href="/dashboard/admin/users"
-                className="block py-2.5 px-4 rounded transition duration-200 hover:bg-primary"
-              >
-                Admin Users
-              </Link>
-              <Link
-                href="/dashboard/admin/pitch-competition"
-                className="block py-2.5 px-4 rounded transition duration-200 hover:bg-primary"
-              >
-                Events
-              </Link>
-              <Link
-                href="/dashboard/admin/hth-class"
-                className="block py-2.5 px-4 rounded transition duration-200 hover:bg-primary"
-              >
-                Admin HTH Class
-              </Link>
-              <Link
-                href="/dashboard/whitelabel"
-                className="block py-2.5 px-4 rounded transition duration-200 hover:bg-primary mt-4"
-              >
-                Whitelabel
-              </Link>
-            </>
-          )}
-
-        </nav>
-
-      </aside>
-
-      {/* Main content */}
-      <main className="flex-1 flex flex-col text-foreground p-6">
-        {children}
-        <footer className="mt-auto py-4 text-center text-sm text-foreground">
-          Tech By Badjr
-        </footer>
-      </main>
-    </div>
-  );
+interface Business {
+  id: number;
+  businessName: string;
+  // Add other properties if they are used in the layout
 }
 
 export default async function DashboardLayout({
@@ -140,8 +24,10 @@ export default async function DashboardLayout({
   const isAdmin = session.user.role === 'admin';
 
   return (
-    <WhitelabelProvider> {/* Wrap with WhitelabelProvider */}
-      <DashboardContent children={children} businesses={businesses} isAdmin={isAdmin} />
+    <WhitelabelProvider>
+      <DashboardContent businesses={businesses} isAdmin={isAdmin}>
+        {children}
+      </DashboardContent>
     </WhitelabelProvider>
   );
 }

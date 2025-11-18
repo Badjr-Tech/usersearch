@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { useFormState } from "react-dom";
-import { createUser, getAllUsers, updateUser } from "./actions"; // Import createUser, getAllUsers, and updateUser
+import { useState, useEffect, useActionState } from "react";
+import { createUser, getAllUsers, updateUser, deleteUser } from "./actions"; // Import createUser, getAllUsers, and updateUser
+import { useWhitelabel } from "@/app/context/WhitelabelContext";
 
 type FormState = {
   message: string;
@@ -31,12 +31,13 @@ interface UserManagementClientPageProps {
 }
 
 export default function UserManagementClientPage({ initialUsers, isInternalUserView }: UserManagementClientPageProps) {
+  const { settings } = useWhitelabel();
   const [showCreateForm, setShowCreateForm] = useState(false);
-  const [createState, createFormAction] = useFormState<FormState, FormData>(createUser, undefined);
+  const [createState, createFormAction] = useActionState<FormState, FormData>(createUser, undefined);
   const [allUsers, setAllUsers] = useState<User[]>(initialUsers); // Initialize with server-fetched users
   const [showEditModal, setShowEditModal] = useState(false);
   const [editingUser, setEditingUser] = useState<User | null>(null);
-  const [editState, editFormAction] = useFormState<FormState, FormData>(updateUser, undefined);
+  const [editState, editFormAction] = useActionState<FormState, FormData>(updateUser, undefined);
 
   // Re-fetch users after a new one is created or if initialUsers change (though initialUsers should be stable)
   useEffect(() => {
@@ -75,6 +76,18 @@ export default function UserManagementClientPage({ initialUsers, isInternalUserV
     }
   }, [editState]);
 
+  const handleDelete = async (userId: number) => {
+    if (window.confirm("Are you sure you want to delete this user?")) {
+      const result = await deleteUser(userId);
+      if (result?.error) {
+        alert(result.error);
+      } else {
+        const fetchedUsers = await getAllUsers();
+        setAllUsers(fetchedUsers);
+      }
+    }
+  };
+
 
   return (
     <div className="flex-1 p-6">
@@ -84,7 +97,8 @@ export default function UserManagementClientPage({ initialUsers, isInternalUserV
       <div className="mt-6">
         <button
           onClick={() => setShowCreateForm(!showCreateForm)}
-          className="inline-flex justify-center rounded-md border border-transparent bg-[#910000] py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-[#7a0000] focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+          className="inline-flex justify-center rounded-md border border-transparent py-2 px-4 text-sm font-medium text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+          style={{ backgroundColor: settings.primaryColor }}
         >
           {showCreateForm ? "Cancel" : "Create New User"}
         </button>
@@ -177,7 +191,8 @@ export default function UserManagementClientPage({ initialUsers, isInternalUserV
             <div>
               <button
                 type="submit"
-                className="inline-flex justify-center rounded-md border border-transparent bg-[#910000] py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-[#7a0000] focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                className="inline-flex justify-center rounded-md border border-transparent py-2 px-4 text-sm font-medium text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                style={{ backgroundColor: settings.primaryColor }}
               >
                 Create User
               </button>
@@ -239,7 +254,7 @@ export default function UserManagementClientPage({ initialUsers, isInternalUserV
                     Edit
                   </button>
                   {!isInternalUserView && (
-                    <a href="#" className="ml-4 text-red-600 hover:text-red-900">Delete</a>
+                    <button onClick={() => handleDelete(user.id)} className="ml-4 text-red-600 hover:text-red-900">Delete</button>
                   )}
                 </td>
               </tr>
@@ -324,7 +339,8 @@ export default function UserManagementClientPage({ initialUsers, isInternalUserV
                   </button>
                   <button
                     type="submit"
-                    className="inline-flex justify-center rounded-md border border-transparent bg-[#910000] py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-[#7a0000] focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                    className="inline-flex justify-center rounded-md border border-transparent py-2 px-4 text-sm font-medium text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                    style={{ backgroundColor: settings.primaryColor }}
                   >
                     Save Changes
                   </button>

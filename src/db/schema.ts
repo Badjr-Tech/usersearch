@@ -9,6 +9,8 @@ export const demographicCategoryEnum = pgEnum('demographic_category', ['Race', '
 export const locationCategoryEnum = pgEnum('location_category', ['City', 'Region']);
 export const classTypeEnum = pgEnum('class_type', ['pre-course', 'hth-course']);
 export const enrollmentStatusEnum = pgEnum('enrollment_status', ['enrolled', 'completed', 'dropped', 'pending', 'rejected']);
+export const itemTypeEnum = pgEnum('item_type', ['document', 'video']);
+
 
 // --- Tables ---
 export const users = pgTable('users', {
@@ -93,7 +95,7 @@ export const individualMessages = pgTable('individual_messages', {
   replyToMessageId: integer('reply_to_message_id').references((): AnyPgColumn => individualMessages.id),
 });
 
-export const pitchCompetitionEvents = pgTable('pitch_competition_events', {
+export const events = pgTable('events', {
   id: serial('id').primaryKey(),
   name: text('name').notNull(),
   description: text('description'),
@@ -103,14 +105,14 @@ export const pitchCompetitionEvents = pgTable('pitch_competition_events', {
   createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
 });
 
-export const pitchSubmissions = pgTable('pitch_submissions', {
+export const eventSubmissions = pgTable('event_submissions', {
   id: serial('id').primaryKey(),
   userId: integer('user_id').notNull().references(() => users.id),
-  competitionEventId: integer('competition_event_id').notNull().references(() => pitchCompetitionEvents.id),
+  eventId: integer('event_id').notNull().references(() => events.id),
   projectName: text('project_name').notNull(),
   projectLocation: text('project_location').notNull(),
-  pitchVideoUrl: text('pitch_video_url'),
-  pitchDeckUrl: text('pitch_deck_url'),
+  videoUrl: text('video_url'),
+  deckUrl: text('deck_url'),
   submittedAt: timestamp('submitted_at', { withTimezone: true }).notNull().defaultNow(),
 });
 
@@ -143,6 +145,39 @@ export const enrollments = pgTable('enrollments', {
   enrollmentDate: timestamp('enrollment_date', { withTimezone: true }).notNull().defaultNow(),
 });
 
+export const libraryItems = pgTable('library_items', {
+  id: serial('id').primaryKey(),
+  title: text('title').notNull(),
+  description: text('description'),
+  url: text('url').notNull(),
+  itemType: itemTypeEnum('item_type').notNull(),
+  uploaderId: integer('uploader_id').notNull().references(() => users.id),
+  categoryId: integer('category_id').references(() => categories.id),
+  createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+});
+
+export const categories = pgTable('categories', {
+  id: serial('id').primaryKey(),
+  name: text('name').notNull().unique(),
+});
+
+export const pages = pgTable('pages', {
+  id: serial('id').primaryKey(),
+  name: text('name').notNull().unique(),
+  path: text('path').notNull().unique(),
+});
+
+export const userPagePermissions = pgTable('user_page_permissions', {
+  id: serial('id').primaryKey(),
+  userId: integer('user_id').notNull().references(() => users.id),
+  pageId: integer('page_id').notNull().references(() => pages.id),
+});
+
+
+
+
+
+
 // --- Types for InferSelectModel ---
 export type Demographic = InferSelectModel<typeof demographics>;
 export type Location = InferSelectModel<typeof locations>;
@@ -152,8 +187,8 @@ export type BusinessWithLocation = InferSelectModel<typeof businesses> & { locat
 export type BusinessWithDemographicAndLocation = InferSelectModel<typeof businesses> & { demographic: Demographic | null, location: Location | null };
 export type MassMessage = InferSelectModel<typeof massMessages>;
 export type IndividualMessage = InferSelectModel<typeof individualMessages>;
-export type PitchCompetitionEvent = InferSelectModel<typeof pitchCompetitionEvents>;
-export type PitchSubmission = InferSelectModel<typeof pitchSubmissions>;
+export type Event = InferSelectModel<typeof events>;
+export type EventSubmission = InferSelectModel<typeof eventSubmissions>;
 
 
 // --- Relations ---
@@ -162,8 +197,10 @@ export const usersRelations = relations(users, ({ one, many }) => ({
   sentMessages: many(individualMessages, { relationName: 'sent_messages' }),
   receivedMessages: many(individualMessages, { relationName: 'received_messages' }),
   enrollments: many(enrollments),
-  createdPitchCompetitionEvents: many(pitchCompetitionEvents),
-  pitchSubmissions: many(pitchSubmissions),
+  createdEvents: many(events),
+  eventSubmissions: many(eventSubmissions),
+  libraryItems: many(libraryItems),
+  userPagePermissions: many(userPagePermissions),
 }));
 
 export const businessesRelations = relations(businesses, ({ one }) => ({
@@ -201,22 +238,22 @@ export const individualMessagesRelations = relations(individualMessages, ({ one 
   }),
 }));
 
-export const pitchCompetitionEventsRelations = relations(pitchCompetitionEvents, ({ one, many }) => ({
+export const eventsRelations = relations(events, ({ one, many }) => ({
   createdBy: one(users, {
-    fields: [pitchCompetitionEvents.createdById],
+    fields: [events.createdById],
     references: [users.id],
   }),
-  submissions: many(pitchSubmissions),
+  submissions: many(eventSubmissions),
 }));
 
-export const pitchSubmissionsRelations = relations(pitchSubmissions, ({ one }) => ({
+export const eventSubmissionsRelations = relations(eventSubmissions, ({ one }) => ({
   user: one(users, {
-    fields: [pitchSubmissions.userId],
+    fields: [eventSubmissions.userId],
     references: [users.id],
   }),
-  competitionEvent: one(pitchCompetitionEvents, {
-    fields: [pitchSubmissions.competitionEventId],
-    references: [pitchCompetitionEvents.id],
+  event: one(events, {
+    fields: [eventSubmissions.eventId],
+    references: [events.id],
   }),
 }));
 
@@ -244,5 +281,35 @@ export const enrollmentsRelations = relations(enrollments, ({ one }) => ({
   class: one(classes, {
     fields: [enrollments.classId],
     references: [classes.id],
+  }),
+}));
+
+export const libraryItemsRelations = relations(libraryItems, ({ one }) => ({
+  uploader: one(users, {
+    fields: [libraryItems.uploaderId],
+    references: [users.id],
+  }),
+  category: one(categories, {
+    fields: [libraryItems.categoryId],
+    references: [categories.id],
+  }),
+}));
+
+export const categoriesRelations = relations(categories, ({ many }) => ({
+  libraryItems: many(libraryItems),
+}));
+
+export const pagesRelations = relations(pages, ({ many }) => ({
+  userPagePermissions: many(userPagePermissions),
+}));
+
+export const userPagePermissionsRelations = relations(userPagePermissions, ({ one }) => ({
+  user: one(users, {
+    fields: [userPagePermissions.userId],
+    references: [users.id],
+  }),
+  page: one(pages, {
+    fields: [userPagePermissions.pageId],
+    references: [pages.id],
   }),
 }));

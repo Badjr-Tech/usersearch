@@ -7,6 +7,7 @@ import { headers } from "next/headers"; // New import for searchParams
 import TabLink from "./TabLink"; // New import for TabLink
 import UserDownloadButton from "./UserDownloadButton";
 import BusinessDownloadButton from "./BusinessDownloadButton";
+import ClientServicesClientPage from "./ClientServicesClientPage";
 
 // Define a type for a single user (matching your schema)
 interface User {
@@ -52,7 +53,8 @@ export default async function UserManagementPage({ searchParams }: { searchParam
       <div className="mt-6 border-b border-gray-200">
         <nav className="-mb-px flex space-x-8" aria-label="Tabs">
           <TabLink href="users" activeTab={activeTab}>Users</TabLink>
-          <TabLink href="permissions" activeTab={activeTab}>Permissions</TabLink>
+          <TabLink href="permissions" activeTab={activeTab}>Staff Permissions</TabLink>
+          <TabLink href="client-services" activeTab={activeTab}>Client Services</TabLink>
         </nav>
       </div>
 
@@ -63,6 +65,9 @@ export default async function UserManagementPage({ searchParams }: { searchParam
         )}
         {activeTab === "permissions" && (
           <PermissionsManagementClientPage initialUsers={allUsers} /> // Pass allUsers to permissions page
+        )}
+        {activeTab === "client-services" && (
+          <ClientServicesClientPage />
         )}
       </div>
     </div>

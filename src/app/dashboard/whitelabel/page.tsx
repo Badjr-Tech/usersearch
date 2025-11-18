@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from 'react';
+import Image from "next/image"; // Import Image component
 import { useWhitelabel, defaultSettings } from '@/app/context/WhitelabelContext'; // Import useWhitelabel hook and defaultSettings
 
 export default function WhitelabelPage() {
@@ -17,40 +18,19 @@ export default function WhitelabelPage() {
     if (event.target.files && event.target.files[0]) {
       const file = event.target.files[0];
       setLogoFile(file);
-      setLogoPreviewUrl(URL.createObjectURL(file)); // Set preview URL
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const logoDataUrl = reader.result as string;
+        setLogoPreviewUrl(logoDataUrl);
+        updateSettings({ logoUrl: logoDataUrl });
+      };
+      reader.readAsDataURL(file);
     }
   };
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-
-    let logoDataUrl: string | null = null;
-    if (logoFile) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        logoDataUrl = reader.result as string;
-        updateSettings({
-          businessName,
-          ownerName,
-          primaryColor,
-          secondaryColor,
-          tertiaryColor,
-          logoUrl: logoDataUrl,
-        });
-        alert('Whitelabel settings saved!');
-      };
-      reader.readAsDataURL(logoFile);
-    } else {
-      updateSettings({
-        businessName,
-        ownerName,
-        primaryColor,
-        secondaryColor,
-        tertiaryColor,
-        logoUrl: null, // Clear logo if no file is selected
-      });
-      alert('Whitelabel settings saved!');
-    }
+    alert('Whitelabel settings saved!');
   };
 
   const handleReset = () => {
@@ -79,7 +59,10 @@ export default function WhitelabelPage() {
             id="businessName"
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             value={businessName}
-            onChange={(e) => setBusinessName(e.target.value)}
+            onChange={(e) => {
+              setBusinessName(e.target.value);
+              updateSettings({ businessName: e.target.value });
+            }}
             placeholder="Enter business name"
             required
           />
@@ -94,49 +77,12 @@ export default function WhitelabelPage() {
             id="ownerName"
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             value={ownerName}
-            onChange={(e) => setOwnerName(e.target.value)}
+            onChange={(e) => {
+              setOwnerName(e.target.value);
+              updateSettings({ ownerName: e.target.value });
+            }}
             placeholder="Enter owner name"
             required
-          />
-        </div>
-
-        <div className="mb-5">
-          <label htmlFor="primaryColor" className="block text-gray-700 text-sm font-bold mb-2">
-            Primary Color:
-          </label>
-          <input
-            type="color"
-            id="primaryColor"
-            className="shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline h-10 w-24"
-            value={primaryColor}
-            onChange={(e) => setPrimaryColor(e.target.value)}
-          />
-        </div>
-
-        <div className="mb-5">
-          <label htmlFor="secondaryColor" className="block text-gray-700 text-sm font-bold mb-2">
-            Secondary Color:
-          </label>
-          <input
-            type="color"
-            id="secondaryColor"
-            className="shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline h-10 w-24"
-            value={secondaryColor}
-            onChange={(e) => setSecondaryColor(e.target.value)}
-          />
-        </div>
-
-        {/* New Tertiary Color Input */}
-        <div className="mb-5">
-          <label htmlFor="tertiaryColor" className="block text-gray-700 text-sm font-bold mb-2">
-            Tertiary Color:
-          </label>
-          <input
-            type="color"
-            id="tertiaryColor"
-            className="shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline h-10 w-24"
-            value={tertiaryColor}
-            onChange={(e) => setTertiaryColor(e.target.value)}
           />
         </div>
 
@@ -158,9 +104,11 @@ export default function WhitelabelPage() {
                 hover:file:bg-blue-100"
             />
             {logoPreviewUrl && ( // Use logoPreviewUrl for display
-              <img
+              <Image
                 src={logoPreviewUrl}
                 alt="Logo Preview"
+                width={80} // Set appropriate width
+                height={80} // Set appropriate height
                 className="h-20 w-20 object-contain border rounded-md"
               />
             )}
@@ -168,6 +116,55 @@ export default function WhitelabelPage() {
           {logoFile && (
             <p className="mt-2 text-sm text-gray-600">Selected file: {logoFile.name}</p>
           )}
+        </div>
+
+        <div className="mb-5">
+          <label htmlFor="primaryColor" className="block text-gray-700 text-sm font-bold mb-2">
+            Primary Color:
+          </label>
+          <input
+            type="color"
+            id="primaryColor"
+            className="shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline h-10 w-24"
+            value={primaryColor}
+            onChange={(e) => {
+              setPrimaryColor(e.target.value);
+              updateSettings({ primaryColor: e.target.value });
+            }}
+          />
+        </div>
+
+        <div className="mb-5">
+          <label htmlFor="secondaryColor" className="block text-gray-700 text-sm font-bold mb-2">
+            Secondary Color:
+          </label>
+          <input
+            type="color"
+            id="secondaryColor"
+            className="shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline h-10 w-24"
+            value={secondaryColor}
+            onChange={(e) => {
+              setSecondaryColor(e.target.value);
+              updateSettings({ secondaryColor: e.target.value });
+            }}
+          />
+        </div>
+
+        {/* New Tertiary Color Input */}
+        <div className="mb-5">
+          <label htmlFor="tertiaryColor" className="block text-gray-700 text-sm font-bold mb-2">
+            Tertiary Color:
+          </label>
+          <input
+            type="color"
+            id="tertiaryColor"
+            className="shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline h-10 w-24"
+            value={tertiaryColor}
+            onChange={(e) => {
+              setTertiaryColor(e.target.value);
+              updateSettings({ tertiaryColor: e.target.value });
+            }}
+          />
         </div>
 
         <div className="flex items-center justify-between">

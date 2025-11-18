@@ -1,31 +1,7 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import { sendMessage, sendMassMessage, getIndividualMessages, createCollaborationRequest } from "./actions";
-import { searchBusinesses } from "../businesses/actions";
-import { Business } from "@/db/schema";
-import { useFormState } from "react-dom";
-
-interface Message {
-  id: number;
-  senderId: number;
-  recipientId: number;
-  content: string;
-  timestamp: Date;
-  read: boolean;
-  replyToMessageId: number | null;
-  sender: { id: number; name: string; email: string };
-  recipient: { id: number; name: string; email: string };
-}
-
-interface MassMessage {
-  id: number;
-  adminId: number;
-  content: string;
-  targetLocationIds: number[] | null;
-  targetDemographicIds: number[] | null;
-  timestamp: Date;
-}
+import { useState, useEffect, useRef, useActionState } from "react";
+import { sendMessage, getIndividualMessages } from "./actions";
 
 interface User {
   id: number;
@@ -33,397 +9,126 @@ interface User {
   email: string;
 }
 
-interface Location {
+interface Message {
   id: number;
-  name: string;
+  senderId: number;
+  recipientId: number;
+  content: string;
+  timestamp: Date;
+  sender: User;
+  recipient: User;
 }
 
-interface Demographic {
-  id: number;
-  name: string;
+interface MessagesClientPageProps {
+  initialExternalUsers: User[];
+  currentUserId: number;
 }
 
-interface PendingRequest extends Message {
-  sender: { id: number; name: string; email: string };
-  recipient: { id: number; name: string; email: string };
-}
-
-type FormState = {
-  message: string;
-  error: string;
-} | undefined;
-
-interface MessagesPageProps {
-  isAdmin: boolean;
-  initialInternalUsers: User[];
-  initialMassMessages: MassMessage[];
-  initialLocations: Location[];
-  initialDemographics: Demographic[];
-  initialIndividualMessages: Message[];
-  initialSentCollaborationRequests: Message[]; // New prop
-  initialReceivedCollaborationRequests: Message[]; // New prop
-  currentUserId: number | null;
-}
-
-export default function MessagesPage({
-  isAdmin,
-  initialInternalUsers,
-  initialMassMessages,
-  initialLocations,
-  initialDemographics,
-  initialIndividualMessages,
-  initialSentCollaborationRequests, // Accept new prop
-  initialReceivedCollaborationRequests, // Accept new prop
+export default function MessagesClientPage({
+  initialExternalUsers,
   currentUserId,
-}: MessagesPageProps) {
-    const [massSendState, massSendAction] = useFormState(sendMassMessage, undefined);
-    const [sendState, sendAction] = useFormState(sendMessage, undefined);
-    const [collaborationState, collaborationAction] = useFormState(createCollaborationRequest, undefined); // Added for collaboration requests
-    const [selectedRecipientId, setSelectedRecipientId] = useState<number | null>(null);
-    const [recipient, setRecipient] = useState("admin");
-    const [messageContent, setMessageContent] = useState("");
-    const [activeTab, setActiveTab] = useState(isAdmin ? "mass-messages" : "correspondence");
-    const [individualMessages, setIndividualMessages] = useState<Message[]>(initialIndividualMessages);
-    const [selectedLocations, setSelectedLocations] = useState<number[]>([]);
-    const [selectedDemographics, setSelectedDemographics] = useState<number[]>([]);
-    const [searchQuery, setSearchQuery] = useState("");
-    const [searchResults, setSearchResults] = useState<Business[]>([]);
-    const [excludeOptedOut, setExcludeOptedOut] = useState(true);
-  
-    // Use initial props for data
-    const users = initialInternalUsers;
-    const massMessages = initialMassMessages;
-    const locations = initialLocations;
-    const demographics = initialDemographics;
-    const sentRequests = initialSentCollaborationRequests; // Use prop
-    const receivedRequests = initialReceivedCollaborationRequests; // Use prop
-  
-    // Removed useEffect for search on searchQuery change
-  
-    const handleSearch = () => {
-      if (searchQuery.length > 2) {
-        searchBusinesses(searchQuery).then(setSearchResults);
-      } else {
-        setSearchResults([]); // Clear results if query is too short
-      }
-    };
-  
-    const handleLocationChange = (locationId: number) => {
-      setSelectedLocations(prev =>
-        prev.includes(locationId)
-          ? prev.filter(id => id !== locationId)
-          : [...prev, locationId]
-      );
-    };
-  
-    const handleDemographicChange = (demographicId: number) => {
-      setSelectedDemographics(prev =>
-        prev.includes(demographicId)
-          ? prev.filter(id => id !== demographicId)
-          : [...prev, demographicId]
-      );
-    };
-  
-    const handleCreateCollaborationRequest = async (formData: FormData) => {
-      collaborationAction(formData); // Use the form action
-    };
-  
-    const handleSendMessage = async (formData: FormData) => {
-      // Implement send message logic here
-      console.log("Message sent:", formData);
-      sendAction(formData); // Use the form action
-    };
-  
-    const handleSendMassMessage = async (formData: FormData) => {
-      // Implement send mass message logic here
-      console.log("Mass message sent:", formData);
-      massSendAction(formData); // Use the form action
-    };
-  
-    return (
-      <>
-      <div className="p-4 md:p-8">
-        <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold text-foreground">Messages</h1>
-        </div>
-        <div className="mt-6">
-          <div className="sm:hidden">
-            <label htmlFor="tabs" className="sr-only">Select a tab</label>
-            <select
-              id="tabs"
-              name="tabs"
-              className="block w-full focus:ring-primary focus:border-primary border-light-gray rounded-md"
-              defaultValue={activeTab}
-              onChange={(e) => setActiveTab(e.target.value)}
-            >
-              <option value="mass-messages">Mass Messages</option>
-              <option value="correspondence">Correspondence</option>
-              <option value="collaboration">Collaboration</option>
-              <option value="pending-requests">Pending Requests</option>
-            </select>
-          </div>
-          <div className="hidden sm:block">
-            <nav className="-mb-px flex space-x-8" aria-label="Tabs">
-              <button
-                onClick={() => setActiveTab('mass-messages')}
-                className={`px-4 py-2 rounded-md text-sm font-medium ${activeTab === 'mass-messages' ? 'bg-secondary text-foreground' : 'bg-light-gray text-foreground'}`}
-              >
-                Mass Messages
-              </button>
-              <button
-                onClick={() => setActiveTab('correspondence')}
-                className={`px-4 py-2 rounded-md text-sm font-medium ${activeTab === 'correspondence' ? 'bg-secondary text-foreground' : 'bg-light-gray text-foreground'}`}
-              >
-                Correspondence
-              </button>
-              <button
-                onClick={() => setActiveTab('collaboration')}
-                className={`px-4 py-2 rounded-md text-sm font-medium ${activeTab === 'collaboration' ? 'bg-secondary text-foreground' : 'bg-light-gray text-foreground'}`}
-              >
-                Collaboration
-              </button>
-              <button
-                onClick={() => setActiveTab('pending-requests')}
-                className={`px-4 py-2 rounded-md text-sm font-medium ${activeTab === 'pending-requests' ? 'bg-secondary text-foreground' : 'bg-light-gray text-foreground'}`}
-              >
-                Pending Requests
-              </button>
-            </nav>
-          </div>
-        </div>
-  
-        <div className="mt-8">
-          {activeTab === 'correspondence' && (
-            <div>
-              <h2 className="text-2xl font-bold text-foreground mb-4">New Message</h2>
-              <form action={handleSendMessage} className="space-y-4">
-                <div>
-                  <label htmlFor="recipient" className="block text-sm font-medium text-foreground">Recipient</label>
-                  <select
-                    id="recipient"
-                    name="recipient"
-                    required
-                    className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-light-gray focus:outline-none focus:ring-primary focus:border-primary sm:text-sm rounded-md"
-                  >
-                    {users.map(user => (
-                      <option key={user.id} value={user.id}>{user.name}</option>
-                    ))}
-                  </select>
-                </div>
-                <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-foreground">Message</label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    rows={3}
-                    required
-                    className="shadow-sm focus:ring-primary focus:border-primary mt-1 block w-full sm:text-sm border border-light-gray rounded-md"
-                  ></textarea>
-                </div>
-                {sendState?.message && (
-                  <p className="text-sm text-green-600 mt-2">{sendState.message}</p>
-                )}
-                {sendState?.error && (
-                  <p className="text-sm text-red-600 mt-2">{sendState.error}</p>
-                )}
-                <button
-                  type="submit"
-                  className="inline-flex justify-center rounded-md border border-transparent bg-primary py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-primary focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                >
-                  Send Message
-                </button>
-              </form>
-            </div>
-          )}
+}: MessagesClientPageProps) {
+  const [selectedUser, setSelectedUser] = useState<User | null>(null);
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [sendState, sendAction] = useActionState(sendMessage, undefined);
+  const messagesEndRef = useRef<HTMLDivElement | null>(null);
 
-          {activeTab === 'collaboration' && (
-            <div>
-              <h2 className="text-2xl font-bold text-foreground mb-4">Create Collaboration Request</h2>
-              <form action={handleCreateCollaborationRequest} className="space-y-4">
-                <div className="flex items-center">
+  useEffect(() => {
+    if (selectedUser) {
+      async function fetchMessages() {
+        const fetchedMessages = await getIndividualMessages(currentUserId, selectedUser.id);
+        setMessages(fetchedMessages as Message[]);
+      }
+      fetchMessages();
+    }
+  }, [selectedUser, currentUserId, sendState]);
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
+  return (
+    <div className="flex h-[calc(100vh-4rem)]">
+      {/* User List */}
+      <div className="w-1/3 border-r border-gray-200">
+        <div className="p-4 border-b border-gray-200">
+          <h2 className="text-xl font-bold">External Users</h2>
+        </div>
+        <ul className="overflow-y-auto">
+          {initialExternalUsers.map((user) => (
+            <li
+              key={user.id}
+              onClick={() => setSelectedUser(user)}
+              className={`p-4 cursor-pointer hover:bg-gray-100 ${
+                selectedUser?.id === user.id ? "bg-gray-200" : ""
+              }`}
+            >
+              <p className="font-semibold">{user.name}</p>
+              <p className="text-sm text-gray-500">{user.email}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {/* Chat Window */}
+      <div className="w-2/3 flex flex-col">
+        {selectedUser ? (
+          <>
+            <div className="p-4 border-b border-gray-200">
+              <h2 className="text-xl font-bold">{selectedUser.name}</h2>
+            </div>
+            <div className="flex-1 p-4 overflow-y-auto">
+              {messages.map((message) => (
+                <div
+                  key={message.id}
+                  className={`flex mb-4 ${
+                    message.senderId === currentUserId ? "justify-end" : "justify-start"
+                  }`}
+                >
+                  <div
+                    className={`p-3 rounded-lg max-w-md ${
+                      message.senderId === currentUserId
+                        ? "bg-blue-500 text-white"
+                        : "bg-gray-200"
+                    }`}
+                  >
+                    <p>{message.content}</p>
+                    <p className="text-xs mt-1 text-right">
+                      {new Date(message.timestamp).toLocaleTimeString()}
+                    </p>
+                  </div>
+                </div>
+              ))}
+              <div ref={messagesEndRef} />
+            </div>
+            <div className="p-4 border-t border-gray-200">
+              <form action={sendAction}>
+                <input type="hidden" name="recipientId" value={selectedUser.id} />
+                <div className="flex">
                   <input
-                    type="search"
-                    name="business-search"
-                    placeholder="Search for a business..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="flex-grow rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-foreground"
+                    type="text"
+                    name="content"
+                    placeholder="Type a message..."
+                    className="flex-1 p-2 border border-gray-300 rounded-l-md"
                   />
                   <button
-                    type="button" // Changed to button type
-                    onClick={handleSearch} // Added onClick handler
-                    className="ml-4 inline-flex justify-center rounded-md border border-transparent bg-secondary py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-primary focus:outline-none focus:ring-2 focus:ring-secondary"
+                    type="submit"
+                    className="px-4 py-2 bg-blue-500 text-white rounded-r-md"
                   >
-                    Search
+                    Send
                   </button>
                 </div>
-                {searchResults.length > 0 ? (
-                  <ul className="mt-4 border border-gray-200 rounded-md">
-                    {searchResults.map((business) => (
-                      <li key={business.id} className="p-2 border-b border-gray-200">
-                        <label className="flex items-center">
-                          <input type="radio" name="business-id" value={business.id} className="mr-2" />
-                          {business.businessName}
-                        </label>
-                      </li>
-                    ))}
-                  </ul>
-                ) : (
-                  searchQuery.length > 0 && <p className="mt-4 text-foreground">No businesses found.</p>
-                )}
-                <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-foreground">Message</label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    rows={3}
-                    required
-                    className="shadow-sm focus:ring-primary focus:border-primary mt-1 block w-full sm:text-sm border border-light-gray rounded-md"
-                  ></textarea>
-                </div>
-                {collaborationState?.message && (
-                  <p className="text-sm text-green-600 mt-2">{collaborationState.message}</p>
-                )}
-                {collaborationState?.error && (
-                  <p className="text-sm text-red-600 mt-2">{collaborationState.error}</p>
-                )}
-                <button
-                  type="submit" // This is the Send Request button, moved below message
-                  className="mt-4 inline-flex justify-center rounded-md border border-transparent bg-primary py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-primary focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                >
-                  Send Request
-                </button>
+                {sendState?.message && <p className="text-green-500 text-sm mt-2">{sendState.message}</p>}
+                {sendState?.error && <p className="text-red-500 text-sm mt-2">{sendState.error}</p>}
               </form>
             </div>
-          )}
-  
-          {activeTab === 'mass-messages' && (
-            <div>
-              <h2 className="text-2xl font-bold text-foreground mb-4">Mass Messages</h2>
-              {massMessages.length === 0 ? (
-                <p className="text-foreground">No mass messages sent yet.</p>
-              ) : (
-                <ul className="space-y-4">
-                  {massMessages.map(msg => (
-                    <li key={msg.id} className="bg-light-gray shadow overflow-hidden sm:rounded-lg p-4">
-                      <p className="text-foreground">{msg.content}</p>
-                      <p className="text-xs text-foreground text-right">{msg.timestamp.toLocaleString()}</p>
-                    </li>
-                  ))}
-                </ul>
-              )}
-  
-              <h2 className="text-2xl font-bold text-foreground mb-4 mt-8">Send Mass Message</h2>
-              <form action={handleSendMassMessage} className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-foreground">Target Locations</label>
-                  <div className="mt-2 grid grid-cols-2 gap-2">
-                    {locations.map(location => (
-                      <div key={location.id} className="flex items-center">
-                        <input
-                          id={`location-${location.id}`}
-                          name="targetLocations"
-                          type="checkbox"
-                          value={location.id}
-                          className="focus:ring-primary h-4 w-4 text-primary border-light-gray rounded"
-                        />
-                        <label htmlFor={`location-${location.id}`} className="ml-2 text-sm text-foreground">
-                          {location.name}
-                        </label>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-foreground">Target Demographics</label>
-                  <div className="mt-2 grid grid-cols-2 gap-2">
-                    {demographics.map(demographic => (
-                      <div key={demographic.id} className="flex items-center">
-                        <input
-                          id={`demographic-${demographic.id}`}
-                          name="targetDemographics"
-                          type="checkbox"
-                          value={demographic.id}
-                          className="focus:ring-primary h-4 w-4 text-primary border-light-gray rounded"
-                        />
-                        <label htmlFor={`demographic-${demographic.id}`} className="ml-2 text-sm text-foreground">
-                          {demographic.name}
-                        </label>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-foreground">Message</label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    rows={3}
-                    required
-                    className="shadow-sm focus:ring-primary focus:border-primary mt-1 block w-full sm:text-sm border border-light-gray rounded-md"
-                  ></textarea>
-                </div>
-                <div className="flex items-center">
-                  <input
-                    id="excludeOptedOut"
-                    name="excludeOptedOut"
-                    type="checkbox"
-                    className="focus:ring-primary h-4 w-4 text-primary border-light-gray rounded"
-                  />
-                  <label htmlFor="excludeOptedOut" className="ml-2 text-sm text-foreground">
-                    Exclude users who have opted out of mass messages
-                  </label>
-                </div>
-                            {massSendState?.message && (
-                              <p className="text-sm text-green-600 mt-2">{massSendState.message}</p>
-                            )}
-                            {massSendState?.error && (
-                              <p className="text-sm text-red-600 mt-2">{massSendState.error}</p>
-                            )}                <button
-                  type="submit"
-                  className="inline-flex justify-center rounded-md border border-transparent bg-secondary py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-primary focus:outline-none focus:ring-2 focus:ring-secondary"
-                >
-                  Send Mass Message
-                </button>
-              </form>
-            </div>
-          )}
-  
-          {activeTab === 'pending-requests' && (
-            <div className="mt-8">
-              <h2 className="text-2xl font-bold text-foreground mb-4">Your Sent Requests</h2>
-              {sentRequests.length === 0 ? (
-                <p className="text-foreground">No collaboration requests sent yet.</p>
-              ) : (
-                <ul className="space-y-4">
-                  {sentRequests.map(request => (
-                    <li key={request.id} className="bg-light-gray shadow overflow-hidden sm:rounded-lg p-4">
-                      <p className="text-sm font-semibold">To: {request.recipient.name}</p>
-                      <p className="text-foreground">{request.content}</p>
-                      <p className="text-xs text-foreground text-right">{request.timestamp.toLocaleString()}</p>
-                    </li>
-                  ))}
-                </ul>
-              )}
-
-              <h2 className="text-2xl font-bold text-foreground mb-4 mt-8">Received Collaboration Requests</h2>
-              {receivedRequests.length === 0 ? (
-                <p className="text-foreground">No pending collaboration requests.</p>
-              ) : (
-                <ul className="space-y-4">
-                  {receivedRequests.map(request => (
-                    <li key={request.id} className="bg-light-gray shadow overflow-hidden sm:rounded-lg p-4">
-                      <p className="text-sm font-semibold">From: {request.sender.name}</p>
-                      <p className="text-foreground">{request.content}</p>
-                      <p className="text-xs text-foreground text-right">{request.timestamp.toLocaleString()}</p>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
-          )}
-        </div>
+          </>
+        ) : (
+          <div className="flex-1 flex items-center justify-center">
+            <p className="text-gray-500">Select a user to start a conversation.</p>
+          </div>
+        )}
       </div>
-    </>
+    </div>
   );
 }
