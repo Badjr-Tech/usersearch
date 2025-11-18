@@ -1,7 +1,7 @@
 'use server';
 
 import { db } from "@/db";
-import { businesses, businessTypeEnum, businessTaxStatusEnum, demographics, Business, Demographic, businessesRelations, BusinessWithDemographic, BusinessWithLocation } from "@/db/schema";
+import { businesses, businessTypeEnum, businessTaxStatusEnum, demographics, Business, Demographic, businessesRelations, BusinessWithDemographic, BusinessWithLocation, Location, locations } from "@/db/schema";
 import { eq, like, and, InferSelectModel } from "drizzle-orm";
 import { getSession, SessionPayload } from "@/app/login/actions";
 import { revalidatePath } from "next/cache";
@@ -14,6 +14,9 @@ type FormState = {
 } | undefined;
 
 type NewBusiness = InferInsertModel<typeof businesses>; // Define type for new business
+
+// Explicitly define Location type to ensure consistency
+type LocationType = InferSelectModel<typeof locations>;
 
 // Define a type for Business with its demographic relation using InferResult
 
@@ -401,3 +404,4 @@ export async function searchBusinesses(query: string): Promise<Business[]> {
     return [];
   }
 }
+

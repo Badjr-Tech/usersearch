@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
-import * as businessActions from "@/app/dashboard/businesses/actions";
+import { getBusinessProfile } from "@/app/dashboard/businesses/actions";
+import { getAvailableDemographics, getAvailableLocations } from "@/app/dashboard/businesses/demographics-locations-actions";
 import { BusinessWithLocation } from "@/db/schema"; // Import BusinessWithLocation
 import BusinessDetailClientPage from "./BusinessDetailClientPage"; // New import
 
@@ -12,9 +13,9 @@ export default async function BusinessDetailPage({ params }: { params: { busines
     notFound();
   }
 
-  const business: BusinessWithLocation | null = await businessActions.getBusinessProfile(businessId); // Use the new type
-  const availableDemographics = await businessActions.getAvailableDemographics(); // Fetch available demographics
-  const availableLocations = await businessActions.getAvailableLocations(); // Fetch available locations
+  const business: BusinessWithLocation | null = await getBusinessProfile(businessId); // Use the new type
+  const availableDemographics = await getAvailableDemographics(); // Fetch available demographics
+  const availableLocations = await getAvailableLocations(); // Fetch available locations
 
   if (!business) {
     notFound();
