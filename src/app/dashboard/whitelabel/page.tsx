@@ -87,18 +87,27 @@ export default function WhitelabelPage() {
           <label htmlFor="logoUpload" className="block text-gray-700 text-sm font-bold mb-2">
             Logo Upload:
           </label>
-          <input
-            type="file"
-            id="logoUpload"
-            accept="image/*"
-            onChange={handleLogoUpload}
-            className="block w-full text-sm text-gray-500
-              file:mr-4 file:py-2 file:px-4
-              file:rounded-full file:border-0
-              file:text-sm file:font-semibold
-              file:bg-blue-50 file:text-blue-700
-              hover:file:bg-blue-100"
-          />
+          <div className="flex items-center space-x-4">
+            <input
+              type="file"
+              id="logoUpload"
+              accept="image/*"
+              onChange={handleLogoUpload}
+              className="block w-full text-sm text-gray-500
+                file:mr-4 file:py-2 file:px-4
+                file:rounded-full file:border-0
+                file:text-sm file:font-semibold
+                file:bg-blue-50 file:text-blue-700
+                hover:file:bg-blue-100"
+            />
+            {logoFile && (
+              <img
+                src={URL.createObjectURL(logoFile)}
+                alt="Logo Preview"
+                className="h-20 w-20 object-contain border rounded-md"
+              />
+            )}
+          </div>
           {logoFile && (
             <p className="mt-2 text-sm text-gray-600">Selected file: {logoFile.name}</p>
           )}
